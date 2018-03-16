@@ -52,13 +52,16 @@ public class NewAccountServlet extends HttpServlet {
 			
 			if (!(user.equals("")) && !(pass.equals("")) && !(pass2.equals("")) && (pass.equals(pass2))) {
 				//System.out.println("Sucess!");
+				
 				account.setUsername(user);
 				account.setPassword(pass);
 				Player player = new Player(0, 0, 0, 0, null, null);
 				Location[][][] map = new Location[25][25][25];
 				account.setPlayer(player);
 				account.setMap(map);
+				req.setAttribute("account", account);	// Passes the account to the next servlet
 				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
+				//req.getRequestDispatcher("/index").forward(req, resp);
 				System.out.println(account.getUsername() + " is now playing");
 			}else{
 				if (pass != pass2){
@@ -73,6 +76,7 @@ public class NewAccountServlet extends HttpServlet {
 		} catch (Exception e) {
 			errorMessage = e.toString();
 		}
+		
 		
 
 		req.setAttribute("errorMessage", errorMessage); //In case of error message
