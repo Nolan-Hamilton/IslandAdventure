@@ -40,4 +40,10 @@ public class InventoryTest
 	{
 		assertTrue(inventory.getItemCount("Steel") == 7);
 	}
+	
+	@Test
+	public void testGetInventoryMap()
+	{
+		assertTrue(inventory.getInventoryMap().equals(inventoryMap));
+	}
 }

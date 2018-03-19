@@ -19,7 +19,7 @@ public class AccountTest {
 	@Before
 	public void setUp(){
 		location = new Location(10,10,10);
-		player = new Player(0, 0, 0, 0, inventory, location);
+		player = new Player(0, 0, 0, 0, inventory, location, null);
 		map = new Location[25][25][25];
 		account = new Account("MyName", "SomePassword", player, map);
 	}
@@ -57,7 +57,7 @@ public class AccountTest {
 	
 	@Test
 	public void testSetPlayer() {
-		Player player2 = new Player(0, 0, 0, 0, inventory, location);
+		Player player2 = new Player(0, 0, 0, 0, inventory, location, null);
 		account.setPlayer(player2);
 		assertTrue(account.getPlayer().equals(player2));
 		assertTrue(account.getPlayer() == player2);

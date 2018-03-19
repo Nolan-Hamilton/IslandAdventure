@@ -30,6 +30,11 @@ public class Inventory
 		return inventory.get(item);
 	}
 	
+	public Map<String, Integer> getInventoryMap()
+	{
+		return inventory;
+	}
+	
 	public Integer getWoodCount()	// Temporary method for testing
 	{
 		return inventory.get("Wood");

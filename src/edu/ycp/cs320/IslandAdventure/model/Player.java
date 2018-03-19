@@ -8,8 +8,9 @@ public class Player
 	private int time;
 	private Inventory inventory;
 	private Location location;
+	private Skills skills;
 	
-	public Player(int score, int health, int stamina, int time, Inventory inventory, Location location)
+	public Player(int score, int health, int stamina, int time, Inventory inventory, Location location, Skills skills)
 	{
 		this.score = score;
 		this.health = health;
@@ -17,6 +18,7 @@ public class Player
 		this.time = time;
 		this.inventory = inventory;
 		this.location = location;
+		this.skills = skills;
 	}
 	
 	public int getScore()
@@ -78,7 +80,11 @@ public class Player
 	{
 		return inventory.getItemCount(item);
 	}
-	
+	public Inventory getInventory()
+	{
+		return inventory;
+	}
+
 	public Location getLocation()
 	{
 		return location;
@@ -86,5 +92,10 @@ public class Player
 	public void changeLocation(Location location)
 	{
 		this.location = location;
+	}
+	
+	public Skills getSkills()
+	{
+		return skills;
 	}
 }

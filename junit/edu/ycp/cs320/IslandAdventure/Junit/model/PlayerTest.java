@@ -12,6 +12,7 @@ import org.junit.Test;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
+import edu.ycp.cs320.IslandAdventure.model.Skills;
 
 public class PlayerTest 
 {
@@ -19,6 +20,7 @@ public class PlayerTest
 	
 	private Inventory inventory;
 	private Location location;
+	private Skills skills;
 	
 	@Before
 	public void setUp()
@@ -26,7 +28,8 @@ public class PlayerTest
 		location = new Location(10, 10, 0);
 		Map<String, Integer> inventoryMap = new HashMap<String, Integer>();
 		inventory = new Inventory(inventoryMap);
-		player = new Player(5, 50, 50, 10, inventory, location);
+		skills = new Skills(0,10,100,35);
+		player = new Player(5, 50, 50, 10, inventory, location, skills);
 	}
 	
 	@Test
@@ -97,6 +100,12 @@ public class PlayerTest
 	}
 	
 	@Test
+	public void testGetInventory()
+	{
+		assertTrue(player.getInventory().equals(inventory));
+	}
+	
+	@Test
 	public void testGetLocation()
 	{
 		assertTrue(player.getLocation().equals(location));
@@ -108,5 +117,11 @@ public class PlayerTest
 		Location location2 = new Location(12, 16, 0);
 		player.changeLocation(location2);
 		assertTrue(player.getLocation().equals(location2));
+	}
+	
+	@Test
+	public void testGetSkills()
+	{
+		assertTrue(player.getSkills().equals(skills));
 	}
 }
