@@ -13,6 +13,15 @@
 			<h1>Island Adventure</h1>
 		</div>
 		
+		<c:if test="${! empty account.username}">
+			<h2>${account.username} is now playing</h2>
+		</c:if>
+		<c:if test="${ empty account.username}">
+			<h2>You are playing with a temporary Account.</h2>
+		</c:if>
+		
+		
+		
 		<div id= "outputBox">
 			Welcome to Island Adventure!
 			<br />

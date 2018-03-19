@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.IslandAdventure.model.*;
+import edu.ycp.cs320.IslandAdventure.persist.*;
+
 
 public class NewAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +37,7 @@ public class NewAccountServlet extends HttpServlet {
 		
 		// Create new account with null values
 		String errorMessage = null;
+		FakeDatabase fakeData = new FakeDatabase();
 		Account account = new Account(null, null, null, null);
 		
 		try {
@@ -54,7 +57,11 @@ public class NewAccountServlet extends HttpServlet {
 				Location[][][] map = new Location[25][25][25];
 				account.setPlayer(player);
 				account.setMap(map);
+				fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
+				req.setAttribute("accountsList", fakeData); //Set attribute for fakeAccount
+				req.setAttribute("account", account);	// Passes the account to the next servlet
 				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
+				//req.getRequestDispatcher("/index").forward(req, resp);
 				System.out.println(account.getUsername() + " is now playing");
 			}else{
 				if (pass != pass2){
@@ -69,6 +76,7 @@ public class NewAccountServlet extends HttpServlet {
 		} catch (Exception e) {
 			errorMessage = e.toString();
 		}
+		
 		
 
 		req.setAttribute("errorMessage", errorMessage); //In case of error message
