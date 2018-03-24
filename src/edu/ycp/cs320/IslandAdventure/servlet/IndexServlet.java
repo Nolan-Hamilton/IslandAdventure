@@ -13,11 +13,21 @@ import edu.ycp.cs320.IslandAdventure.controller.ActionController;
 import edu.ycp.cs320.IslandAdventure.controller.InventoryController;
 import edu.ycp.cs320.IslandAdventure.model.*;
 import edu.ycp.cs320.IslandAdventure.controller.PlayerController;
-import edu.ycp.cs320.IslandAdventure.model.Inventory;
-import edu.ycp.cs320.IslandAdventure.model.Player;
+import edu.ycp.cs320.IslandAdventure.persist.*;
 
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	// Here are the model and controllers so that they do not ger recreated with each POST
+	private FakeDatabase fakeData = null;
+	private Account account = null;
+	Player player = null;
+	PlayerController playerController = null;
+	Inventory inventoryModel = null;
+	InventoryController inventoryController = null;
+	ActionController controller = null;
+	String action = "";
+	
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -36,9 +46,27 @@ public class IndexServlet extends HttpServlet {
 		
 		System.out.println("Index Servlet: doPost");
 
-		//Account account = (Account) req.getAttribute("account");
-		//System.out.println("Servlet accessing: " + req.getParameter("account"));
-
+		// Create a fake data base if it is not already created
+		if (fakeData == null || account == null){
+			fakeData = new FakeDatabase();
+			account = new Account(null, null, null, null);
+			account.setUsername("Temp User");
+			account.setPassword("Temp Pass");
+			//player = new Player(0, 0, 0, 0, null, null, null);
+			playerController = new PlayerController();
+			player = playerController.createNewPlayer();
+			Location[][][] map = new Location[25][25][25];
+			account.setPlayer(player);
+			account.setMap(map);
+			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
+			controller = new ActionController(player);
+			
+			inventoryController = new InventoryController(player.getInventory());
+			System.out.println(account.getUsername() + "'s account is now created");
+		}
+		inventoryController.setModel(inventoryModel);
+		
+		/*// This keeps getting recreated
 		// create Inventory model - model does not persist between requests
 		// must recreate it each time a Post comes in
 		String action = "";
@@ -52,17 +80,21 @@ public class IndexServlet extends HttpServlet {
 		// assign model reference to controller so that controller can access
 		// model
 		inventoryController.setModel(inventoryModel);
+		
+		*/
 
 		// Initialize variables in the Inventory model		
 		req.setAttribute("inventory", inventoryModel);
-
+		
 		req.setAttribute("action", req.getParameter("action"));
-
+		
 		action = req.getParameter("action");
+		
 
 		req.setAttribute("lastAction", action);
-
+		
 		controller.interpretAction(action);
+		System.out.println("Player X position: " + player.getLocation().getX());
 		
 		req.setAttribute("woodCount", player.getInventory().getWoodCount());
 		

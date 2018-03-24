@@ -24,8 +24,13 @@ public class ActionController
 		if (action.equals("Move East") || action.equals("move east")) 
 		{
 			Location location = player.getLocation();
+				System.out.println("Location X: " + location.getX());
 			int x = location.getX() + 1;
-			player.getLocation().setX(x);
+				System.out.println("X value: " + x);
+			//player.getLocation().setX(x);
+			location.setX(x);
+			player.changeLocation(location);
+			System.out.println("Location X is now: " + player.getLocation().getX());
 		}
 		if (action.equals("Move West") || action.equals("move east")) 
 		{
