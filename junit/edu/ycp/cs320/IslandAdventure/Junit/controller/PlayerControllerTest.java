@@ -17,7 +17,7 @@ import edu.ycp.cs320.IslandAdventure.model.Skills;
 public class PlayerControllerTest 
 {
 	InventoryController inventoryController = new InventoryController(null);
-	LocationController locationController = new LocationController();
+	LocationController locationController = new LocationController(null);
 	SkillsController skillsController = new SkillsController();
 	
 	private Player player;

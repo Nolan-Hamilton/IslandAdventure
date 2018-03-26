@@ -15,26 +15,26 @@ public class ActionController
 		inventoryController = new InventoryController(player.getInventory());
 	}
 	
-	public void interpretAction(String action)
+	public String interpretAction(String action)
 	{
+		String response = "";
+		response += ">> " + action + "<br><br>"; // Add action command to response
 		if (action.equals("Chop Wood") || action.equals("chop wood")) 
 		{
 			inventoryController.changeWoodAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}
+		if (action.equals("Drop Wood") || action.equals("drop wood")){
+			inventoryController.changeWoodAmount(-10);
+		}
 		if (action.equals("Move East") || action.equals("move east")) 
 		{
 			Location location = player.getLocation();
-				System.out.println("Location X: " + location.getX());
 			int x = location.getX() + 1;
-				System.out.println("X value: " + x);
-			//player.getLocation().setX(x);
-			location.setX(x);
-			player.changeLocation(location);
-			System.out.println("Location X is now: " + player.getLocation().getX());
+			player.getLocation().setX(x);
 		}
-		if (action.equals("Move West") || action.equals("move east")) 
+		if (action.equals("Move West") || action.equals("move west")) 
 		{
 			Location location = player.getLocation();
 			int x = location.getX() - 1;
@@ -52,5 +52,7 @@ public class ActionController
 //			int y = location.getY() - 1;
 			player.getLocation().setY(location.getY()-1);
 		}
+		response += " what next?";
+		return response;
 	}
 }
