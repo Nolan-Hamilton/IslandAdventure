@@ -60,6 +60,8 @@ public class NewAccountServlet extends HttpServlet {
 				fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 				req.setAttribute("accountsList", fakeData); //Set attribute for fakeAccount
 				req.setAttribute("account", account);	// Passes the account to the next servlet
+				req.setAttribute("user", req.getParameter("user")); //Set Attributes
+				req.setAttribute("pass", req.getParameter("pass"));
 				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
 				//req.getRequestDispatcher("/index").forward(req, resp);
 				System.out.println(account.getUsername() + " is now playing");

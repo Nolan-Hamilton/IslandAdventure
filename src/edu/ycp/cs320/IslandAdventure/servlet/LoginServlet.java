@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("LoginServlet: doPost");
+		System.out.println("Login Servlet: doPost");
 		
 		// Navigating to new page by pressing button
 		if (req.getParameter("justPlay") != null) {
