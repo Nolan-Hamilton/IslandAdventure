@@ -18,7 +18,7 @@ import edu.ycp.cs320.IslandAdventure.persist.*;
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	// Here are the model and controllers so that they do not ger recreated with each POST
+	// Here are the model and controllers so that they do not get recreated with each POST
 	private FakeDatabase fakeData = null;
 	private Account account = null;
 	Player player = null;
@@ -46,7 +46,7 @@ public class IndexServlet extends HttpServlet {
 		
 		System.out.println("Index Servlet: doPost");
 
-		// Create a fake data base if it is not already created
+		// Create a fake database if it is not already created
 		if (fakeData == null || account == null){
 			fakeData = new FakeDatabase();
 			account = new Account(null, null, null, null);
@@ -95,6 +95,11 @@ public class IndexServlet extends HttpServlet {
 		
 		controller.interpretAction(action);
 		System.out.println("Player X position: " + player.getLocation().getX());
+		
+		req.setAttribute("score", player.getScore());
+		req.setAttribute("health", player.getHealth());
+		req.setAttribute("stamina", player.getStamina());
+		req.setAttribute("time", player.getTime());
 		
 		req.setAttribute("woodCount", player.getInventory().getWoodCount());
 		

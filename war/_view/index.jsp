@@ -29,7 +29,10 @@
 		</div>
 		
 		<div id= "variablesBox">
-			Score: <br />
+			Score: ${score} <br />
+			Health: ${health} <br />
+			Stamina: ${stamina} <br />
+			Time: ${time} <br />
 			Location Coordinates: [${locationX}, ${locationY}, ${locationZ}] <br />
 			Inventory:
 			<ul>

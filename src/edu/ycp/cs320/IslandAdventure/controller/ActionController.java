@@ -20,6 +20,8 @@ public class ActionController
 		if (action.equals("Chop Wood") || action.equals("chop wood")) 
 		{
 			inventoryController.changeWoodAmount(10);
+			player.changeTime(1);	// Takes 1 hour to chop wood
+			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}
 		if (action.equals("Move East") || action.equals("move east")) 
 		{
