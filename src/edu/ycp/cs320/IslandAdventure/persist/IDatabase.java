@@ -12,4 +12,8 @@ public interface IDatabase {
 	// Retrieve an account with data if given a username
 	public Account retrieveAccount(String username);
 	
+	public void addPlayer(Integer score, Integer health, Integer stamina,
+			Integer time, Integer x, Integer y, Integer z);
+	
+	public Player getPlayer(Integer playerID);
 }

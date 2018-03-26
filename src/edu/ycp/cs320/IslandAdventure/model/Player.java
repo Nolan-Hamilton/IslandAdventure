@@ -25,6 +25,10 @@ public class Player
 	{
 		return score;
 	}
+	public void setScore(int score)
+	{
+		this.score = score;
+	}
 	public void addScore(int scoreToAdd)
 	{
 		score = score + scoreToAdd;	// Returns current score plus score to add
@@ -33,6 +37,10 @@ public class Player
 	public int getHealth()
 	{
 		return health;
+	}
+	public void setHealth(int health)
+	{
+		this.health = health;
 	}
 	public void modifyHealth(int healthChange)
 	{
@@ -43,6 +51,10 @@ public class Player
 	{
 		return stamina;
 	}
+	public void setStamina(int stamina)
+	{
+		this.stamina = stamina;
+	}
 	public void modifyStamina(int staminaChange)
 	{
 		stamina = stamina + staminaChange;	// Stamina change can be positive or negative
@@ -51,6 +63,10 @@ public class Player
 	public int getTime()
 	{
 		return time;
+	}
+	public void setTime(int time)
+	{
+		this.time = time;
 	}
 	public void changeTime(int timeChange)
 	{
@@ -92,6 +108,18 @@ public class Player
 	public void changeLocation(Location location)
 	{
 		this.location = location;
+	}
+	public void setX(int x)
+	{
+		location.setX(x);
+	}
+	public void setY(int y)
+	{
+		location.setX(y);
+	}
+	public void setZ(int z)
+	{
+		location.setX(z);
 	}
 	
 	public Skills getSkills()
