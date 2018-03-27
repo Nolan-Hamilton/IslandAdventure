@@ -6,9 +6,9 @@ public class Actor extends GameObject
 	Integer health;
 		
 	// CONSTRUCTOR
-	public Actor(String name, String description, Integer x, Integer y, Integer z, Integer health)
+	public Actor(String name, String description, Integer x, Integer y, Integer z, Integer health, Location location)
 	{
-		super(name, description,x, y, z);	// This passes arguments to superclass for construction.
+		super(name, description,x, y, z, location);	// This passes arguments to superclass for construction.
 		this.health = health;
 	}
 	
