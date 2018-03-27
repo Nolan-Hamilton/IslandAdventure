@@ -4,6 +4,8 @@ package edu.ycp.cs320.IslandAdventure.Junit.model;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +17,9 @@ public class AccountTest {
 	private Location[][][] map;
 	private Location location;
 	private Inventory inventory;
+	private ArrayList<GameObject> objects;
+	Item knife;
+	Item hammer;
 	
 	@Before
 	public void setUp(){
@@ -22,6 +27,11 @@ public class AccountTest {
 		player = new Player(0, 0, 0, 0, inventory, location, null);
 		map = new Location[25][25][25];
 		account = new Account("MyName", "SomePassword", player, map);
+		objects = new ArrayList<GameObject>();
+		knife = new Item();
+		hammer = new Item();
+		objects.add(knife);
+		account.getObjectList().add(hammer);
 	}
 	
 	// Name Tests
@@ -78,6 +88,17 @@ public class AccountTest {
 		assertTrue(account.getMap().equals(map2));
 		assertTrue(account.getMap() == map2);
 		assertTrue(account.getMap().length == map2.length);
+	}
+	
+	@Test
+	public void testGetObjectList() {
+		assertTrue(account.getObjectList().get(0).equals(hammer));
+	}
+	
+	@Test
+	public void testSetObjectList() {
+		account.setObjectList(objects);
+		assertTrue(account.getObjectList().get(0).equals(knife));
 	}
 	
 }
