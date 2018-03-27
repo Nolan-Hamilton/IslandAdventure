@@ -14,7 +14,7 @@ public class EnemyTest
 	@Before
 	public void setUp()
 	{
-		enemy = new Enemy("Giant Spider", "Spider but larger", 1,2,3, 50, 10);
+		enemy = new Enemy("Giant Spider", "Spider but larger", 1,2,3, 50, null, 10);
 	}
 	
 	// Name Tests

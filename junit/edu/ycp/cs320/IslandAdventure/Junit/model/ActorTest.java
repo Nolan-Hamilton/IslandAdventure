@@ -14,7 +14,7 @@ public class ActorTest
 	@Before
 	public void setUp()
 	{
-		actor = new Actor("Some Actor", "Some Description", 1,2,3, 50);
+		actor = new Actor("Some Actor", "Some Description", 1,2,3, 50, null);
 	}
 	
 	// Name Tests
