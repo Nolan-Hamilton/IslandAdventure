@@ -115,11 +115,11 @@ public class Player
 	}
 	public void setY(int y)
 	{
-		location.setX(y);
+		location.setY(y);
 	}
 	public void setZ(int z)
 	{
-		location.setX(z);
+		location.setZ(z);
 	}
 	
 	public Skills getSkills()

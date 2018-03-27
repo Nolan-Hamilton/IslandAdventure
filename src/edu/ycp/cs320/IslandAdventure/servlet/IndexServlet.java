@@ -13,6 +13,7 @@ import edu.ycp.cs320.IslandAdventure.controller.ActionController;
 import edu.ycp.cs320.IslandAdventure.controller.InventoryController;
 import edu.ycp.cs320.IslandAdventure.model.*;
 import edu.ycp.cs320.IslandAdventure.controller.PlayerController;
+import edu.ycp.cs320.IslandAdventure.controller.*;
 import edu.ycp.cs320.IslandAdventure.persist.*;
 
 public class IndexServlet extends HttpServlet {
@@ -24,9 +25,12 @@ public class IndexServlet extends HttpServlet {
 	Player player = null;
 	PlayerController playerController = null;
 	Inventory inventoryModel = null;
+	Location locationModel = null;
 	InventoryController inventoryController = null;
+	LocationController locationController = null;
 	ActionController controller = null;
 	String action = "";
+	String response = "";
 	
 
 	@Override
@@ -62,9 +66,11 @@ public class IndexServlet extends HttpServlet {
 			controller = new ActionController(player);
 			
 			inventoryController = new InventoryController(player.getInventory());
+			locationController = new LocationController(player.getLocation());
 			System.out.println(account.getUsername() + "'s account is now created");
 		}
-		inventoryController.setModel(inventoryModel);
+		//inventoryController.setModel(inventoryModel);
+		//locationController.setModel(locationModel);
 		
 		/*// This keeps getting recreated
 		// create Inventory model - model does not persist between requests
@@ -91,11 +97,12 @@ public class IndexServlet extends HttpServlet {
 		action = req.getParameter("action");
 		
 
-		req.setAttribute("lastAction", action);
+		//req.setAttribute("lastAction", action);
 		
-		controller.interpretAction(action);
-		System.out.println("Player X position: " + player.getLocation().getX());
+		response = controller.interpretAction(action);
+		//System.out.println("Player X position: " + player.getLocation().getX());
 		
+		req.setAttribute("response", response);
 		req.setAttribute("score", player.getScore());
 		req.setAttribute("health", player.getHealth());
 		req.setAttribute("stamina", player.getStamina());

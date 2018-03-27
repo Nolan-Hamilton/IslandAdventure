@@ -5,6 +5,7 @@ public class Location {
 	private int x;
 	private int y;
 	private int z;
+	private String description;
 
 	
 	public Location(int a, int b, int c)
@@ -12,6 +13,13 @@ public class Location {
 		x = a;
 		y = b;
 		z = c;
+	}
+	
+	public Location(int a, int b, int c, String description){
+		this.x = a;
+		this.y = b;
+		this.z = c;
+		this.description = description;
 	}
 	
 	public int getX()

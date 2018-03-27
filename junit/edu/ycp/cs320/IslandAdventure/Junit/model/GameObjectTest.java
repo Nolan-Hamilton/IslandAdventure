@@ -16,13 +16,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ycp.cs320.IslandAdventure.model.GameObject;
+import edu.ycp.cs320.IslandAdventure.model.*;
 
 public class GameObjectTest {
 	private GameObject gameObject;
+	private Location location = new Location(1,2,3);
 	
 	@Before
 	public void setUp() {
-		gameObject = new GameObject("Sample Object", "This is an arbitrary object.", 1,2,3);
+		gameObject = new GameObject("Sample Object", "This is an arbitrary object.", 1,2,3, location);
 	}
 	
 	// Name Tests
@@ -81,6 +83,18 @@ public class GameObjectTest {
 	public void testSetZ() {
 		gameObject.setZ(6);
 		assertTrue(gameObject.getZ().equals(6));
+	}
+	
+	@Test
+	public void testGetLocation(){
+		assertTrue(gameObject.getLocation().equals(location));
+	}
+	
+	@Test
+	public void testSetLocation(){
+		Location location2 = new Location(2,2,2);
+		gameObject.setLocation(location2);
+		assertTrue(gameObject.getLocation().equals(location2));
 	}
 	
 }

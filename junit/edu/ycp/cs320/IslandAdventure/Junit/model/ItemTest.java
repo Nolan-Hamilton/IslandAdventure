@@ -7,14 +7,15 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ycp.cs320.IslandAdventure.model.Item;
+import edu.ycp.cs320.IslandAdventure.model.*;
 
 public class ItemTest {
 	private Item item;
+	private Location location = new Location(1,2,3);
 	
 	@Before
 	public void setUp(){
-		item = new Item("Some Item", "Some Description", 1,2,3, 10);
+		item = new Item("Some Item", "Some Description", 1,2,3, location, 10);
 	}
 	
 	// Name Tests
@@ -73,6 +74,18 @@ public class ItemTest {
 	public void testSetZ() {
 		item.setZ(6);
 		assertTrue(item.getZ().equals(6));
+	}
+	
+	@Test
+	public void testGetLocation(){
+		assertTrue(item.getLocation().equals(location));
+	}
+	
+	@Test
+	public void testSetLocation(){
+		Location location2 = new Location(2,2,2);
+		item.setLocation(location2);
+		assertTrue(item.getLocation().equals(location2));
 	}
 	
 	// New Tests that are not inherited from GameObject

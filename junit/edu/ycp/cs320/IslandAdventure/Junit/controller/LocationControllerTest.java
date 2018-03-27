@@ -11,12 +11,13 @@ import edu.ycp.cs320.IslandAdventure.model.Location;
 public class LocationControllerTest 
 {
 	private Location location;
-	private LocationController locationController = new LocationController();
+	private LocationController locationController;
 	
 	@Before
 	public void setUp()
 	{
 		location = new Location(10,10,0);
+		locationController = new LocationController(location);
 	}
 	
 	@Test

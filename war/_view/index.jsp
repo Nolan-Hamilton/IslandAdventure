@@ -25,7 +25,9 @@
 		<div id= "outputBox">
 			Welcome to Island Adventure!
 			<br />
-			${lastAction}
+			<p>
+			${response}
+			</p>
 		</div>
 		
 		<div id= "variablesBox">
