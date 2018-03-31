@@ -73,6 +73,14 @@ public class Location {
 		else
 			return false;
 	}
+	
+	public void setDescription(String descript) {
+		this.description = descript;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
 }
 	
 	/*
