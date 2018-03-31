@@ -20,6 +20,9 @@ public class AccountTest {
 	private ArrayList<GameObject> objects;
 	Item knife;
 	Item hammer;
+	ArrayList<Location> locationList;
+	Location location2;
+	
 	
 	@Before
 	public void setUp(){
@@ -32,6 +35,10 @@ public class AccountTest {
 		hammer = new Item();
 		objects.add(knife);
 		account.getObjectList().add(hammer);
+		locationList = new ArrayList<Location>();
+		location2 = new Location(5,5,5);
+		locationList.add(location2);
+		account.getLocations().add(location);
 	}
 	
 	// Name Tests
@@ -99,6 +106,34 @@ public class AccountTest {
 	public void testSetObjectList() {
 		account.setObjectList(objects);
 		assertTrue(account.getObjectList().get(0).equals(knife));
+	}
+	
+	@Test
+	public void testGetLocations() {
+		assertTrue(account.getLocations().get(0).equals(location));
+	}
+	
+	
+	
+	@Test
+	public void testSetLocationsList() {
+		account.setLocationsList(locationList);
+		assertTrue(account.getLocations().get(0).equals(location2));
+	}
+	
+	@Test
+	public void testGetLocationByXYZ() {
+		assertTrue(account.getLocationByXYZ(10, 10, 10).equals(location));
+	}
+	
+	@Test
+	public void testGetObjectsByXYZ() {
+		//knife.setLocation(location);
+		account.getObjectList().get(0).setX(10);
+		account.getObjectList().get(0).setY(10);
+		account.getObjectList().get(0).setZ(10);
+		//assertTrue(account.getObjectList().size() == 2);
+		assertTrue(account.getObjectsByXYZ(10,10,10).get(0).equals(account.getObjectList().get(0)));
 	}
 	
 }

@@ -62,12 +62,14 @@ public class IndexServlet extends HttpServlet {
 			Location[][][] map = new Location[25][25][25];
 			account.setPlayer(player);
 			account.setMap(map);
+			account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
-			controller = new ActionController(player);
+			controller = new ActionController(player, account);
 			
 			inventoryController = new InventoryController(player.getInventory());
 			locationController = new LocationController(player.getLocation());
 			System.out.println(account.getUsername() + "'s account is now created");
+			System.out.println("Player X location: " + account.getPlayer().getLocation().getX());
 		}
 		//inventoryController.setModel(inventoryModel);
 		//locationController.setModel(locationModel);
