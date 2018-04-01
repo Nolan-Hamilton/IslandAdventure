@@ -36,7 +36,28 @@ public class IndexServlet extends HttpServlet {
 	{
 		
 		System.out.println("Index Servlet: doGet");
-
+		
+		if (req.getSession().getAttribute("username") != null) {
+			
+			fakeData = new FakeDatabase();
+			account = new Account(null, null, null, null);
+			account.setUsername(req.getSession().getAttribute("username").toString());
+			account.setPassword(req.getSession().getAttribute("password").toString());
+			//player = new Player(0, 0, 0, 0, null, null, null);
+			playerController = new PlayerController();
+			player = playerController.createNewPlayer();
+			Location[][][] map = new Location[25][25][25];
+			account.setPlayer(player);
+			account.setMap(map);
+			account.initialize();
+			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
+			controller = new ActionController(player, account);
+			
+			inventoryController = new InventoryController(player.getInventory());
+			locationController = new LocationController(player.getLocation());
+			System.out.println(account.getUsername() + "'s account is now created");
+			req.setAttribute("user", account.getUsername());
+		}
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 	}
 
@@ -59,12 +80,14 @@ public class IndexServlet extends HttpServlet {
 			Location[][][] map = new Location[25][25][25];
 			account.setPlayer(player);
 			account.setMap(map);
+			account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
-			controller = new ActionController(player);
+			controller = new ActionController(player, account);
 			
 			inventoryController = new InventoryController(player.getInventory());
 			locationController = new LocationController(player.getLocation());
 			System.out.println(account.getUsername() + "'s account is now created");
+			System.out.println("Player X location: " + account.getPlayer().getLocation().getX());
 		}
 
 		// Initialize variables in the Inventory model		
@@ -91,6 +114,8 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("locationX", player.getLocation().getX());
 		req.setAttribute("locationY", player.getLocation().getY());
 		req.setAttribute("locationZ", player.getLocation().getZ());
+		
+		req.setAttribute("user", account.getUsername());
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);

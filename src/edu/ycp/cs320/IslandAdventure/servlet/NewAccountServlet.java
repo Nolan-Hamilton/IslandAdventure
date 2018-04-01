@@ -32,7 +32,8 @@ public class NewAccountServlet extends HttpServlet {
 		// Navigating to new page by pressing button
 		if (req.getParameter("back2Login") != null){
 			System.out.println("back2Login has been clicked");
-			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp); //Go to this page
+			//req.getRequestDispatcher("/_view/login.jsp").forward(req, resp); //Go to this page
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 		
 		// Create new account with null values
@@ -62,7 +63,10 @@ public class NewAccountServlet extends HttpServlet {
 				req.setAttribute("account", account);	// Passes the account to the next servlet
 				req.setAttribute("user", req.getParameter("user")); //Set Attributes
 				req.setAttribute("pass", req.getParameter("pass"));
-				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
+				req.getSession().setAttribute("username", req.getParameter("user"));
+				req.getSession().setAttribute("password", req.getParameter("pass"));
+				//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this pag
+				resp.sendRedirect(req.getContextPath() + "/index");
 				//req.getRequestDispatcher("/index").forward(req, resp);
 				System.out.println(account.getUsername() + " is now playing");
 			}else{

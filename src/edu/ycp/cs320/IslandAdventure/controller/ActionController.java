@@ -4,16 +4,23 @@ import edu.ycp.cs320.IslandAdventure.model.Enemy;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 
+import java.util.ArrayList;
+
+import edu.ycp.cs320.IslandAdventure.model.*;
+
 public class ActionController 
 {
 	private Player player;
 	
 	private InventoryController inventoryController;
 	
-	public ActionController(Player player) 
+	private Account account;
+	
+	public ActionController(Player player, Account account) 
 	{
 		this.player = player;
 		inventoryController = new InventoryController(player.getInventory());
+		this.account = account;
 	}
 	
 	public String interpretAction(String action)
@@ -51,14 +58,26 @@ public class ActionController
 			FightController fightController = new FightController();
 			response += fightController.Fight(player, enemy);
 		}
+		
 		if (action.equals("Move South") || action.equals("move south")) 
 		{
 			Location location = player.getLocation();
-//			int y = location.getY() - 1;
+			int y = location.getY() - 1;
 			player.getLocation().setY(location.getY()-1);
 		}
 
-
+		if (action.equals("Look") || action.equals("look")) {
+			Location location = player.getLocation();
+			response += account.getLocationByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			ArrayList<GameObject> objects = account.getObjectsByXYZ(location.getX(), location.getY(), location.getZ());
+			if (objects.size() != 0) {
+				response += "The following item(s) are also present: <br>";
+				for (GameObject object : objects) {
+					response += object.getName() + "<br>";
+				}
+			}
+			response += "<br>";
+		}
 		response += " what next?";
 		return response;
 	}
