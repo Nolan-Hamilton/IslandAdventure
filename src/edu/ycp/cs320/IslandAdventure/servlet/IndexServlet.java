@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.ycp.cs320.IslandAdventure.controller.ActionController;
-import edu.ycp.cs320.IslandAdventure.controller.InventoryController;
 import edu.ycp.cs320.IslandAdventure.model.*;
-import edu.ycp.cs320.IslandAdventure.controller.PlayerController;
 import edu.ycp.cs320.IslandAdventure.controller.*;
 import edu.ycp.cs320.IslandAdventure.persist.*;
 
@@ -69,25 +66,6 @@ public class IndexServlet extends HttpServlet {
 			locationController = new LocationController(player.getLocation());
 			System.out.println(account.getUsername() + "'s account is now created");
 		}
-		//inventoryController.setModel(inventoryModel);
-		//locationController.setModel(locationModel);
-		
-		/*// This keeps getting recreated
-		// create Inventory model - model does not persist between requests
-		// must recreate it each time a Post comes in
-		String action = "";
-		PlayerController playerController = new PlayerController();
-		Player player = playerController.createNewPlayer();
-
-		Inventory inventoryModel = new Inventory(player.getInventory().getInventoryMap());
-		InventoryController inventoryController = new InventoryController(player.getInventory());
-		ActionController controller = new ActionController(player);
-
-		// assign model reference to controller so that controller can access
-		// model
-		inventoryController.setModel(inventoryModel);
-		
-		*/
 
 		// Initialize variables in the Inventory model		
 		req.setAttribute("inventory", inventoryModel);

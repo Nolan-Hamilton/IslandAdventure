@@ -1,5 +1,6 @@
 package edu.ycp.cs320.IslandAdventure.controller;
 
+import edu.ycp.cs320.IslandAdventure.model.Enemy;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 
@@ -45,6 +46,10 @@ public class ActionController
 			Location location = player.getLocation();
 			int y = location.getY() + 1;
 			player.getLocation().setY(y);
+			EventController eventController = new EventController();
+			Enemy enemy = eventController.createEnemy(player);
+			FightController fightController = new FightController();
+			response += fightController.Fight(player, enemy);
 		}
 		if (action.equals("Move South") || action.equals("move south")) 
 		{
@@ -52,6 +57,8 @@ public class ActionController
 //			int y = location.getY() - 1;
 			player.getLocation().setY(location.getY()-1);
 		}
+
+
 		response += " what next?";
 		return response;
 	}

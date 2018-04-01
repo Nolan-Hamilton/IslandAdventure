@@ -32,42 +32,71 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public void addPlayer(Integer score, Integer health, Integer stamina, Integer time, Integer x, Integer y, Integer z) 
+	public Integer addPlayer(String user, Integer score, Integer health, Integer stamina, Integer time, Integer x, Integer y, Integer z) 
 	{
-		executeTransaction(new Transaction<Boolean>() 
+		return executeTransaction(new Transaction<Integer>() 
 		{
 			@Override
-			public Boolean execute(Connection conn) throws SQLException 
+			public Integer execute(Connection conn) throws SQLException 
 			{
 				PreparedStatement insertPlayer   = null;
+				ResultSet resultSet = null;
+				PreparedStatement stmt   = null;
 
 				try 
 				{
-					insertPlayer = conn.prepareStatement("insert into players (score, health, stamina,"
-							+ " time, x, y, z) values (?, ?, ?, ?, ?, ?, ?)");
+					insertPlayer = conn.prepareStatement("insert into players (user, score, health, stamina,"
+							+ " time, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?)");
 					{
-						insertPlayer.setString(1, score.toString());
-						insertPlayer.setString(2, health.toString());
-						insertPlayer.setString(3, stamina.toString());
-						insertPlayer.setString(4, time.toString());
-						insertPlayer.setString(5, x.toString());
-						insertPlayer.setString(6, y.toString());
-						insertPlayer.setString(7, z.toString());
+						insertPlayer.setString(1, user);
+						insertPlayer.setString(2, score.toString());
+						insertPlayer.setString(3, health.toString());
+						insertPlayer.setString(4, stamina.toString());
+						insertPlayer.setString(5, time.toString());
+						insertPlayer.setString(6, x.toString());
+						insertPlayer.setString(7, y.toString());
+						insertPlayer.setString(8, z.toString());
 					}
 					insertPlayer.executeUpdate();
 					
-					return true;
+					System.out.println("New player <" + user + "> inserted in Players table");						
+					
+					// try to retrieve player_id for new Player - DB auto-generates player_id
+					stmt = conn.prepareStatement(
+							"select player_id from players " +
+							"  where user = ? "
+					);
+					stmt.setString(1, user);
+					
+					// execute the query							
+					resultSet = stmt.executeQuery();
+					
+					Integer player_id = -1;
+					
+					// get the result - there had better be one							
+					if (resultSet.next())
+					{
+						player_id = resultSet.getInt(1);
+						System.out.println("New player <" + user + "> ID: " + player_id);						
+					}
+					else
+					{
+						System.out.println("Problem! New player should have been added");
+					}
+					return player_id;
 				} 
 				finally 
 				{
 					DBUtil.closeQuietly(insertPlayer);
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
 				}
 			}
 		});
 	}
 	
 	@Override
-	public Player getPlayer(Integer playerID) 
+	public Player getPlayer(String user) 
 	{
 		return executeTransaction(new Transaction<Player>() 
 		{
@@ -81,9 +110,9 @@ public class DerbyDatabase implements IDatabase {
 					// Retrieve all attributes from both Books and Authors tables
 					stmt = conn.prepareStatement(
 							"select player.* " +
-							" where players.player_id = ? "
+							" where players.user = ? "
 					);
-					stmt.setString(1, playerID.toString());
+					stmt.setString(1, user);
 					
 					Player player = new Player(0, 0, 0, 0, null, null, null);
 					
@@ -103,7 +132,7 @@ public class DerbyDatabase implements IDatabase {
 					// check if the title was found
 					if (!found) 
 					{
-						System.out.println("<" + playerID + "> was not found in the players table");
+						System.out.println("<" + user + "> was not found in the players table");
 					}
 					
 					return player;
@@ -189,7 +218,8 @@ public class DerbyDatabase implements IDatabase {
 					stmt1 = conn.prepareStatement(
 						"create table players (" +
 						"	player_id integer primary key " +
-						"		generated always as identity (start with 1, increment by 1), " +									
+						"		generated always as identity (start with 1, increment by 1), " +
+						"	user string," +
 						"	score integer," +
 						"	health integer" +
 						"	stamina integer" +

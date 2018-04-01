@@ -41,14 +41,14 @@ public class FakeDatabase implements IDatabase
 	}
 	
 	@Override
-	public void addPlayer(Integer score, Integer health, Integer stamina, Integer time,
+	public Integer addPlayer(String user, Integer score, Integer health, Integer stamina, Integer time,
 			Integer x, Integer y, Integer z)
 	{
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public Player getPlayer(Integer playerID)
+	public Player getPlayer(String user)
 	{
 		throw new UnsupportedOperationException();
 	}
