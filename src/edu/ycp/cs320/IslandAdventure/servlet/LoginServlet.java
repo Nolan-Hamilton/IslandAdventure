@@ -28,12 +28,15 @@ public class LoginServlet extends HttpServlet {
 		// Navigating to new page by pressing button
 		if (req.getParameter("justPlay") != null) {
 			System.out.println("justPlay has been clicked!");
-			req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
+			req.getSession().setAttribute("username", null);
+			//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
+			resp.sendRedirect(req.getContextPath() + "/index");
 		}else{
 			// if create new account was selected, then go to account page
 			if (req.getParameter("newAcc") != null){
 				System.out.println("newAcc has been clicked");
-				req.getRequestDispatcher("/_view/newAccount.jsp").forward(req, resp); //Go to this page
+				//req.getRequestDispatcher("/_view/newAccount.jsp").forward(req, resp); //Go to this page
+				resp.sendRedirect(req.getContextPath() + "/newAccount");
 			}
 		}
 	}
