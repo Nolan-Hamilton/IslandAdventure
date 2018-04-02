@@ -57,4 +57,16 @@ public class FakeDatabase implements IDatabase
 	{
 		return this.accounts;
 	}
+
+	@Override
+	public Integer insertAccountIntoAccountTable(Account account) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Player getPlayer(Integer playerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

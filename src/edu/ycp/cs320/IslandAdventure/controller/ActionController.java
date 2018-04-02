@@ -3,6 +3,10 @@ package edu.ycp.cs320.IslandAdventure.controller;
 import edu.ycp.cs320.IslandAdventure.model.Enemy;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
+import edu.ycp.cs320.IslandAdventure.persist.DatabaseProvider;
+import edu.ycp.cs320.IslandAdventure.persist.DerbyDatabase;
+import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
+import edu.ycp.cs320.IslandAdventure.persist.IDatabase;
 
 import java.util.ArrayList;
 
@@ -15,12 +19,18 @@ public class ActionController
 	private InventoryController inventoryController;
 	
 	private Account account;
+	// Database implementation is borrowed from Library Example Project By Prof. Hake
+	private IDatabase db    = null;
 	
 	public ActionController(Player player, Account account) 
 	{
 		this.player = player;
 		inventoryController = new InventoryController(player.getInventory());
 		this.account = account;
+		
+		// creating DB instance here
+		//DatabaseProvider.setInstance(new DerbyDatabase());
+		//db = DatabaseProvider.getInstance();
 	}
 	
 	public String interpretAction(String action)
@@ -35,6 +45,7 @@ public class ActionController
 		}
 		if (action.equals("Drop Wood") || action.equals("drop wood")){
 			inventoryController.changeWoodAmount(-10);
+			// Add item to location
 		}
 		if (action.equals("Move East") || action.equals("move east")) 
 		{
@@ -66,9 +77,12 @@ public class ActionController
 			player.getLocation().setY(location.getY()-1);
 		}
 
+		// Displays the description of the current room as well as any items located in that room
 		if (action.equals("Look") || action.equals("look")) {
 			Location location = player.getLocation();
+			// Display description
 			response += account.getLocationByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			// Display list of items.
 			ArrayList<GameObject> objects = account.getObjectsByXYZ(location.getX(), location.getY(), location.getZ());
 			if (objects.size() != 0) {
 				response += "The following item(s) are also present: <br>";
