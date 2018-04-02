@@ -26,8 +26,9 @@ public class InsertNewPlayer
 //			db.addAuthorWithAuthorName(firstName, lastName);
 //			author_id = db.findAuthorIDByAuthorName(firstName, lastName);
 //		}
+		int author_id = 0;
 		
-		db.addPlayer(player.getScore(), player.getHealth(), player.getStamina(), player.getTime(),
+		db.addPlayer(author_id, player.getScore(), player.getHealth(), player.getStamina(), player.getTime(),
 				player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
 	}
 }

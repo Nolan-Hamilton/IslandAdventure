@@ -41,7 +41,7 @@ public class FakeDatabase implements IDatabase
 	}
 	
 	@Override
-	public void addPlayer(Integer score, Integer health, Integer stamina, Integer time,
+	public void addPlayer(int accountID, Integer score, Integer health, Integer stamina, Integer time,
 			Integer x, Integer y, Integer z)
 	{
 		throw new UnsupportedOperationException();
@@ -56,5 +56,11 @@ public class FakeDatabase implements IDatabase
 	public List<Account> getAccountList()
 	{
 		return this.accounts;
+	}
+
+	@Override
+	public Integer insertAccountIntoAccountTable(Account account) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
