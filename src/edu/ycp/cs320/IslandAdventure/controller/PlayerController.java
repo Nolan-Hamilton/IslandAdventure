@@ -10,12 +10,13 @@ public class PlayerController
 	InventoryController inventoryController = new InventoryController(null);
 	LocationController locationController = new LocationController(null);
 	SkillsController skillsController = new SkillsController();
+	
 	public Player createNewPlayer()
 	{
 		Inventory inventory = inventoryController.createNewInventory();
 		Location location = locationController.setStartingLocation();
 		Skills skills = skillsController.createNewSkills();
-		Player player = new Player(0, 100, 100, 6, inventory, location, skills);
+		Player player = new Player(0, 100, 100, 6, inventory, location, skills, null, null);
 		return player;
 	}
 }

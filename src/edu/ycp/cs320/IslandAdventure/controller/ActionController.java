@@ -19,6 +19,7 @@ public class ActionController
 	private InventoryController inventoryController;
 	
 	private Account account;
+	
 	// Database implementation is borrowed from Library Example Project By Prof. Hake
 	private IDatabase db    = null;
 	
@@ -40,6 +41,12 @@ public class ActionController
 		if (action.equals("Chop Wood") || action.equals("chop wood")) 
 		{
 			inventoryController.changeWoodAmount(10);
+			player.changeTime(1);	// Takes 1 hour to chop wood
+			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
+		}
+		if (action.equals("Fish") || action.equals("fish")) 
+		{
+			inventoryController.changeFishAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}

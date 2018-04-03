@@ -9,11 +9,6 @@ public class Item extends GameObject {
 	// FIELDS (Fields that are not found in GameObject)
 	Integer uses;
 	
-	// CONSTRUCTORS
-	public Item(){
-					//Empty Constructor
-	}
-	
 	public Item(String name, String description, Integer x, Integer y, Integer z, Location location, Integer uses){
 		super(name, description,x, y, z, location);	// This passes arguments to superclass for construction.
 		this.uses = uses;

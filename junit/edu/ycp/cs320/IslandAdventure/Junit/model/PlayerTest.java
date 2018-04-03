@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
+import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Skills;
@@ -29,7 +30,7 @@ public class PlayerTest
 		Map<String, Integer> inventoryMap = new HashMap<String, Integer>();
 		inventory = new Inventory(inventoryMap);
 		skills = new Skills(0,10,100,35);
-		player = new Player(5, 50, 50, 10, inventory, location, skills);
+		player = new Player(5, 50, 50, 10, inventory, location, skills, null, null);
 	}
 	
 	@Test
@@ -123,5 +124,51 @@ public class PlayerTest
 	public void testGetSkills()
 	{
 		assertTrue(player.getSkills().equals(skills));
+	}
+	
+	@Test
+	public void testEquipArmor() 
+	{
+		Item armor1 = new Item("Wood Armor", "Weak Armor", null, null, null, location, null);
+		Item armor2 = new Item("Steel Armor", "Strong Armor", null, null, null, location, null);
+		player.equipArmor(armor1);
+		assertTrue(player.getArmor() == null); // No such item in inventory
+		
+		player.getInventory().addItem(armor1.getName(), 1);
+		player.getInventory().addItem(armor2.getName(), 1);
+		
+		player.equipArmor(armor1);
+		assertTrue(player.getArmor().equals(armor1));
+		
+		player.equipArmor(armor2);
+		assertTrue(player.getArmor().equals(armor1)); // Needs to unequip current armor first
+		
+		player.unequipArmor();
+		
+		player.equipArmor(armor2);
+		assertTrue(player.getArmor().equals(armor2));
+	}
+	
+	@Test
+	public void testEquipWeapon() 
+	{
+		Item weapon1 = new Item("Wood Sword", "Weak Sword", null, null, null, location, null);
+		Item weapon2 = new Item("Steel Sword", "Strong Sword", null, null, null, location, null);
+		player.equipWeapon(weapon1);
+		assertTrue(player.getWeapon() == null); // No such item in inventory
+		
+		player.getInventory().addItem(weapon1.getName(), 1);
+		player.getInventory().addItem(weapon2.getName(), 1);
+		
+		player.equipWeapon(weapon1);
+		assertTrue(player.getWeapon().equals(weapon1));
+		
+		player.equipWeapon(weapon2);
+		assertTrue(player.getWeapon().equals(weapon1)); // Needs to unequip current weapon first
+		
+		player.unequipWeapon();
+		
+		player.equipWeapon(weapon2);
+		assertTrue(player.getWeapon().equals(weapon2));
 	}
 }

@@ -38,8 +38,9 @@
 			Location Coordinates: [${locationX}, ${locationY}, ${locationZ}] <br />
 			Inventory:
 			<ul>
-				<li>Wood: ${woodCount}</li>
-				<li>Item 2</li>
+    			<c:forEach items="${map}" var="itemName">
+        			<li>${itemName} </li>
+    			</c:forEach>
 			</ul>
 		</div>
 		

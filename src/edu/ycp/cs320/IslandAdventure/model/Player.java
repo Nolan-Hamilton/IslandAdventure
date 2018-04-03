@@ -9,8 +9,11 @@ public class Player
 	private Inventory inventory;
 	private Location location;
 	private Skills skills;
+	private Item armor;
+	private Item weapon;
 	
-	public Player(int score, int health, int stamina, int time, Inventory inventory, Location location, Skills skills)
+	public Player(int score, int health, int stamina, int time, Inventory inventory, 
+			Location location, Skills skills, Item armor, Item weapon)
 	{
 		this.score = score;
 		this.health = health;
@@ -19,6 +22,8 @@ public class Player
 		this.inventory = inventory;
 		this.location = location;
 		this.skills = skills;
+		this.armor = armor;
+		this.weapon = weapon;
 	}
 	
 	public int getScore()
@@ -125,5 +130,82 @@ public class Player
 	public Skills getSkills()
 	{
 		return skills;
+	}
+	
+	public void equipArmor(Item armor) 
+	{
+	    if (this.armor == null) 
+	    {
+	        if (inventory.getInventoryMap().containsKey(armor.getName()))
+	        {
+		        if (inventory.getItemCount(armor.getName()) > 0)
+		        {
+		        	this.armor = armor;
+		        }
+		        else
+		        {
+		        	System.out.println("You don't have that armor");
+		        }
+	        }
+	        else
+	        {
+	        	System.out.println("You don't have that armor");
+	        }
+	    } 
+	    else 
+	    {
+	    	System.out.println("You already have armor equipped. Remove it to add a different armor piece.");
+	    }
+	}
+	public void unequipArmor()
+	{
+		this.armor = null;
+	}
+	public Item getArmor()
+	{
+		return this.armor;
+	}
+	public void setArmor(Item armor)
+	{
+		this.armor = armor;
+	}
+	
+	public void equipWeapon(Item weapon) 
+	{
+	    if (this.weapon == null) 
+	    {
+	    	
+	        if (inventory.getInventoryMap().containsKey(weapon.getName()))
+	        {
+	        	if (inventory.getItemCount(weapon.getName()) > 0) 
+	        	{
+		        	this.weapon = weapon;
+	        	}
+		        else
+		        {
+		        	System.out.println("You don't have that weapon.");
+		        }
+	        }
+	        else
+	        {
+	        	System.out.println("You don't have that weapon.");
+	        }
+	    } 
+	    else 
+	    {
+	    	System.out.println("You already have a weapon equipped. Remove it to add a different weapon.");
+	    }
+	}
+	public void unequipWeapon()
+	{
+		this.weapon = null;
+	}
+	public Item getWeapon()
+	{
+		return this.weapon;
+	}
+	public void setWeapon(Item weapon)
+	{
+		this.weapon = weapon;
 	}
 }

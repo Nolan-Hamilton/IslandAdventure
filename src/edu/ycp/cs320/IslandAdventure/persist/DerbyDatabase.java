@@ -295,7 +295,7 @@ public class DerbyDatabase implements IDatabase {
 					);
 					stmt.setString(1, user);
 					
-					Player player = new Player(0, 0, 0, 0, null, null, null);
+					Player player = new Player(0, 0, 0, 0, null, null, null, null, null);
 					
 					resultSet = stmt.executeQuery();
 					

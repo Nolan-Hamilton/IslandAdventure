@@ -31,4 +31,8 @@ public class InventoryController
 	{
 		inventory.addItem("Wood", amount);
 	}
+	public void changeFishAmount(int amount)
+	{
+		inventory.addItem("Fish", amount);
+	}
 }

@@ -29,7 +29,7 @@ public class PlayerControllerTest
 		Inventory inventory = inventoryController.createNewInventory();
 		Location location = locationController.setStartingLocation();
 		Skills skills = skillsController.createNewSkills();
-		player = new Player(0, 100, 100, 6, inventory, location, skills);
+		player = new Player(0, 100, 100, 6, inventory, location, skills, null, null);
 	}
 	
 	@Test

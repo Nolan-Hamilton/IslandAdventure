@@ -27,14 +27,20 @@ public class Inventory
 	
 	public Integer getItemCount(String item)
 	{
-		return inventory.get(item);
+		if (inventory.containsKey(item))
+		{
+			return inventory.get(item);
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	public Map<String, Integer> getInventoryMap()
 	{
 		return inventory;
 	}
-	
 	public Integer getWoodCount()	// Temporary method for testing
 	{
 		return inventory.get("Wood");
