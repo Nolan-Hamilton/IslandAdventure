@@ -24,7 +24,7 @@ public class GameObjectTest {
 	
 	@Before
 	public void setUp() {
-		gameObject = new GameObject("Sample Object", "This is an arbitrary object.", 1,2,3, location);
+		gameObject = new GameObject("Sample Object", "This is an arbitrary object.", location);
 	}
 	
 	// Name Tests

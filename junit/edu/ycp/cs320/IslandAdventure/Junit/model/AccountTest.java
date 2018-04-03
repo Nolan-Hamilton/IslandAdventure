@@ -31,8 +31,8 @@ public class AccountTest {
 		map = new Location[25][25][25];
 		account = new Account("MyName", "SomePassword", player, map);
 		objects = new ArrayList<GameObject>();
-		knife = new Item();
-		hammer = new Item();
+		knife = new Item(null, null, null, null, null, location, null);
+		hammer = new Item(null, null, null, null, null, location, null);
 		objects.add(knife);
 		account.getObjectList().add(hammer);
 		locationList = new ArrayList<Location>();

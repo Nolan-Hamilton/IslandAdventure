@@ -10,7 +10,7 @@ public class Item extends GameObject {
 	Integer uses;
 	
 	public Item(String name, String description, Integer x, Integer y, Integer z, Location location, Integer uses){
-		super(name, description,x, y, z, location);	// This passes arguments to superclass for construction.
+		super(name, description, location);	// This passes arguments to superclass for construction.
 		this.uses = uses;
 	}
 	

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ycp.cs320.IslandAdventure.model.Enemy;
+import edu.ycp.cs320.IslandAdventure.model.Location;
 
 public class EnemyTest 
 {
@@ -14,7 +15,8 @@ public class EnemyTest
 	@Before
 	public void setUp()
 	{
-		enemy = new Enemy("Giant Spider", "Spider but larger", 1,2,3, 50, null, 10);
+		Location location = new Location(1,2,3);
+		enemy = new Enemy("Giant Spider", "Spider but larger", 50, location, 10);
 	}
 	
 	// Name Tests

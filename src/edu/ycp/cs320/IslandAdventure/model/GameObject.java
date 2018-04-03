@@ -15,20 +15,11 @@ public class GameObject {
 	// Fields
 	private String name; 			// Name which object is refered to.
 	private String description;		// Description of Object for user.
-	private Integer x, y, z;		// Coordinates for Location
 	private Location location;
 	
-	// Constructors
-	public GameObject() {			// Empty Constructor
-		
-	}
-	
-	public GameObject(String name, String description, Integer x, Integer y, Integer z, Location location){
+	public GameObject(String name, String description, Location location){
 		this.name = name;			// Complete Constructor
 		this.description = description;
-		this.x = x;
-		this.y = y;
-		this.z = z;
 		this.location = location;
 	}
 	
@@ -54,27 +45,27 @@ public class GameObject {
 	
 	// XYZ methods (get and set)
 	public Integer getX() {
-		return this.x;
+		return location.getX();
 	}
 	
 	public void setX(Integer x) {
-		this.x = x;
+		location.setX(x);
 	}
 	
 	public Integer getY() {
-		return this.y;
+		return location.getY();
 	}
 	
 	public void setY(Integer y) {
-		this.y = y;
+		location.setY(y);
 	}
 	
 	public Integer getZ() {
-		return this.z;
+		return location.getZ();
 	}
 	
 	public void setZ(Integer z) {
-		this.z = z;
+		location.setZ(z);
 	}
 	
 	public Location getLocation(){

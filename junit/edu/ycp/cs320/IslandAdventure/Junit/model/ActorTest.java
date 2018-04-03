@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ycp.cs320.IslandAdventure.model.Actor;
+import edu.ycp.cs320.IslandAdventure.model.Location;
 
 public class ActorTest 
 {
@@ -14,7 +15,8 @@ public class ActorTest
 	@Before
 	public void setUp()
 	{
-		actor = new Actor("Some Actor", "Some Description", 1,2,3, 50, null);
+		Location location = new Location(1,2,3);
+		actor = new Actor("Some Actor", "Some Description", 50, location);
 	}
 	
 	// Name Tests
