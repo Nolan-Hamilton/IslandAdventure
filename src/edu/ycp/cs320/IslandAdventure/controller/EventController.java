@@ -19,7 +19,6 @@ public class EventController
 		if (n > 0)
 		{
 			Enemy spider = new Enemy("Giant Spider", "A Deadly Spider as Large as a Human", 
-					player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(),
 					100, player.getLocation(), 20);
 			return spider;
 		}
