@@ -15,7 +15,7 @@ public class ItemTest {
 	
 	@Before
 	public void setUp(){
-		item = new Item("Some Item", "Some Description", 1,2,3, location, 10);
+		item = new Item("Some Item", "Some Description", location, 10);
 	}
 	
 	// Name Tests

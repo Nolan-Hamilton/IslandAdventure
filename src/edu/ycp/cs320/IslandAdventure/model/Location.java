@@ -1,7 +1,12 @@
 package edu.ycp.cs320.IslandAdventure.model;
 
-public class Location {
-	
+/* This is the Location class which is used by all GameObjects and the Player class.
+ * This class represents the coordinates of objects on the map.
+ * 
+ * */
+
+public class Location 
+{
 	private int x;
 	private int y;
 	private int z;

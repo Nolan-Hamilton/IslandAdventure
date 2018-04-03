@@ -129,8 +129,8 @@ public class PlayerTest
 	@Test
 	public void testEquipArmor() 
 	{
-		Item armor1 = new Item("Wood Armor", "Weak Armor", null, null, null, location, null);
-		Item armor2 = new Item("Steel Armor", "Strong Armor", null, null, null, location, null);
+		Item armor1 = new Item("Wood Armor", "Weak Armor", location, null);
+		Item armor2 = new Item("Steel Armor", "Strong Armor", location, null);
 		player.equipArmor(armor1);
 		assertTrue(player.getArmor() == null); // No such item in inventory
 		
@@ -152,8 +152,8 @@ public class PlayerTest
 	@Test
 	public void testEquipWeapon() 
 	{
-		Item weapon1 = new Item("Wood Sword", "Weak Sword", null, null, null, location, null);
-		Item weapon2 = new Item("Steel Sword", "Strong Sword", null, null, null, location, null);
+		Item weapon1 = new Item("Wood Sword", "Weak Sword", location, null);
+		Item weapon2 = new Item("Steel Sword", "Strong Sword", location, null);
 		player.equipWeapon(weapon1);
 		assertTrue(player.getWeapon() == null); // No such item in inventory
 		

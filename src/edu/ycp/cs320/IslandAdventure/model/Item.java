@@ -7,9 +7,9 @@ package edu.ycp.cs320.IslandAdventure.model;
 
 public class Item extends GameObject {
 	// FIELDS (Fields that are not found in GameObject)
-	Integer uses;
+	private Integer uses;
 	
-	public Item(String name, String description, Integer x, Integer y, Integer z, Location location, Integer uses){
+	public Item(String name, String description, Location location, Integer uses){
 		super(name, description, location);	// This passes arguments to superclass for construction.
 		this.uses = uses;
 	}

@@ -48,10 +48,10 @@ public class Account
 			}
 		}
 		Location location = new Location(10,10,0, "This is the starting room.");
-		Item knife = new Item("Knife", "A small kife with a dull single sided blade.", 10,10,0, location, 10);
+		Item knife = new Item("Knife", "A small kife with a dull single sided blade.", location, 10);
 		objectList.add(knife);
 		Location location2 = new Location(10,9,0, "This is the secondary room.");
-		Item hammer = new Item("Hammer", "A rock tied to a stick.", 10,9,0, location2, 10);
+		Item hammer = new Item("Hammer", "A rock tied to a stick.", location2, 10);
 		objectList.add(hammer);
 	}
 	
