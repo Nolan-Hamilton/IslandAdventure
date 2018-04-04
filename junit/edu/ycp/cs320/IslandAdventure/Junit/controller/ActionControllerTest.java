@@ -14,7 +14,7 @@ public class ActionControllerTest
 {
 	private PlayerController playerController = new PlayerController();
 	private Player player;
-	private Account account = new Account("Username", "Password", player, null);
+	private Account account = new Account("Username", "Password", player);
 	private ActionController actionController;
 	
 	@Before

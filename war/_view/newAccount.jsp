@@ -23,9 +23,9 @@
 			<form action="${pageContext.servletContext.contextPath}/newAccount" method="post">
 				Username:<input type="text" name="user" size="20" value="${user}" />
 				<br><br>
-				Password:<input type="text" name="pass" size="20" value="${pass}" />
+				Password:<input type="password" name="pass" size="20" value="${pass}" />
 				<br><br>
-				Confirm Password:<input type="text" name="pass2" size="20" value="${pass2}" />
+				Confirm Password:<input type="password" name="pass2" size="20" value="${pass2}" />
 				<br><br>
 				<input type="Submit" name="submit" value="Create Account!">
 			</form>

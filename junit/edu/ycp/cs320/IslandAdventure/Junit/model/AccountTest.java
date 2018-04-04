@@ -14,7 +14,6 @@ import edu.ycp.cs320.IslandAdventure.model.*;
 public class AccountTest {
 	private Account account;
 	private Player	player;
-	private Location[][][] map;
 	private Location location;
 	private Inventory inventory;
 	private ArrayList<GameObject> objects;
@@ -28,8 +27,7 @@ public class AccountTest {
 	public void setUp(){
 		location = new Location(10,10,10);
 		player = new Player(0, 0, 0, 0, inventory, location, null, null, null);
-		map = new Location[25][25][25];
-		account = new Account("MyName", "SomePassword", player, map);
+		account = new Account("MyName", "SomePassword", player);
 		objects = new ArrayList<GameObject>();
 		knife = new Item(null, null, location, null);
 		hammer = new Item(null, null, location, null);
@@ -78,23 +76,6 @@ public class AccountTest {
 		account.setPlayer(player2);
 		assertTrue(account.getPlayer().equals(player2));
 		assertTrue(account.getPlayer() == player2);
-	}
-	
-	// Map tests
-	@Test
-	public void testGetMap() {
-		assertTrue(account.getMap().equals(map));
-		assertTrue(account.getMap() == map);
-		assertTrue(account.getMap().length == map.length);
-	}
-	
-	@Test
-	public void testSetMap() {
-		Location[][][] map2 = new Location[15][15][15];
-		account.setMap(map2);
-		assertTrue(account.getMap().equals(map2));
-		assertTrue(account.getMap() == map2);
-		assertTrue(account.getMap().length == map2.length);
 	}
 	
 	@Test

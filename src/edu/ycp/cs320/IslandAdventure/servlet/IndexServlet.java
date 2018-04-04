@@ -40,15 +40,13 @@ public class IndexServlet extends HttpServlet {
 		if (req.getSession().getAttribute("username") != null) {
 			
 			fakeData = new FakeDatabase();
-			account = new Account(null, null, null, null);
+			account = new Account(null, null, null);
 			account.setUsername(req.getSession().getAttribute("username").toString());
 			account.setPassword(req.getSession().getAttribute("password").toString());
 			//player = new Player(0, 0, 0, 0, null, null, null);
 			playerController = new PlayerController();
 			player = playerController.createNewPlayer();
-			Location[][][] map = new Location[25][25][25];
 			account.setPlayer(player);
-			account.setMap(map);
 			account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 			controller = new ActionController(player, account);
@@ -71,7 +69,7 @@ public class IndexServlet extends HttpServlet {
 		// Create a fake database if it is not already created
 		if (fakeData == null || account == null){
 			fakeData = new FakeDatabase();
-			account = new Account(null, null, null, null);
+			account = new Account(null, null, null);
 			account.setUsername("Temp User");
 			account.setPassword("Temp Pass");
 			//player = new Player(0, 0, 0, 0, null, null, null);
@@ -79,7 +77,6 @@ public class IndexServlet extends HttpServlet {
 			player = playerController.createNewPlayer();
 			Location[][][] map = new Location[25][25][25];
 			account.setPlayer(player);
-			account.setMap(map);
 			account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 			controller = new ActionController(player, account);

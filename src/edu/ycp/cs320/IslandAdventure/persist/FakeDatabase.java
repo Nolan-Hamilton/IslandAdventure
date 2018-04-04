@@ -22,13 +22,13 @@ public class FakeDatabase implements IDatabase
 		// Add initial data (not yet implemented
 		//readInitialData();
 		
-		System.out.println(accounts.size() + " accounts");
+		//System.out.println(accounts.size() + " accounts");
 	}
 	
 	@Override
 	public Account retrieveAccount(String username) 
 	{
-		Account result = new Account(null, null, null, null);
+		Account result = new Account(null, null, null);
 		// Look for account and load its data
 		for (Account account : accounts) 
 		{

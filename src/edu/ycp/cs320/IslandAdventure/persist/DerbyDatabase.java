@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Player;
@@ -27,8 +30,89 @@ public class DerbyDatabase implements IDatabase {
 	
 	@Override
 	public Account retrieveAccount(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<Account>() {
+			@Override
+			public Account execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
+				PreparedStatement stmt5 = null;
+				PreparedStatement stmt6 = null;				
+				
+				ResultSet resultSet1 = null;
+				ResultSet resultSet2 = null;
+				ResultSet resultSet5 = null;				
+				
+				// for saving the account
+				Account account = null;
+
+				// **try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
+				// Try to retrieve existing account to see if one is already made
+				try {
+					stmt1 = conn.prepareStatement(
+							"select accounts.username, accounts.password from accounts "
+							+ "  where accounts.username = ? "
+					);
+					stmt1.setString(1, username);
+					//stmt1.setString(2, account.getPassword());
+					//stmt1.setInt(3, playerID);
+					//stmt1.setInt(4, mapID);
+					
+					// execute the update
+					resultSet1 = stmt1.executeQuery(); 
+					
+					// get the precise schema of the tuples returned as the result of the query
+					ResultSetMetaData resultSchema = stmt1.getMetaData();
+					
+					// iterate through the returned tuples, printing each one
+					// count # of rows returned
+					int rowsReturned = 0;
+					
+					ArrayList<String> resultList = new ArrayList<String>();
+					
+					// collect data
+					while (resultSet1.next()) {
+						for (int i = 1; i <= resultSchema.getColumnCount(); i++) {
+							String obj = resultSet1.getObject(i).toString();
+							resultList.add(obj);
+							//System.out.println("account_id: " + account_id);
+							if (i > 1) {
+								//System.out.print(",");
+							}
+							//System.out.print(obj2.toString());
+						}
+						//System.out.println();
+						
+						// count # of rows returned
+						rowsReturned++;	
+					}
+					
+					// indicate if the query returned nothing
+					if (rowsReturned == 0) {
+						System.out.println("No rows returned that matched the query");
+					}else{
+						account = new Account(null, null, null);
+						account.setUsername(resultList.get(0));
+						account.setPassword(resultList.get(1));
+						System.out.println("Username retrieved: " + account.getUsername());
+						System.out.println("Password retrieved: " + account.getPassword());
+					}
+					/////////////////////////////////////////////////////////////////////////////////////////////////
+				} finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);					
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt3);					
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(resultSet5);
+					DBUtil.closeQuietly(stmt5);
+					DBUtil.closeQuietly(stmt6);
+				}
+				return account;
+			}
+		});
 	}
 	
 	@Override
@@ -54,8 +138,8 @@ public class DerbyDatabase implements IDatabase {
 				// Try to retrieve existing account to see if one is already made
 				try {
 					stmt1 = conn.prepareStatement(
-							"insert into accounts (username, password) " +
-							"  values(?, ?) "
+							"INSERT INTO accounts (username, password) "
+							+ "  VALUES (?, ?) "
 					);
 					stmt1.setString(1, account.getUsername());
 					stmt1.setString(2, account.getPassword());
@@ -63,139 +147,51 @@ public class DerbyDatabase implements IDatabase {
 					//stmt1.setInt(4, mapID);
 					
 					// execute the update
-					stmt1.executeQuery();
+					stmt1.executeUpdate(); // IF MANIPULATING DATABASE, MUST USE EXECUTE UPDATE!!!!!!!!!!!!!
+					account_id = 1;
 					
 					stmt2 = conn.prepareStatement(
-							"select account.acount_id from accounts" +
-							"  where account.username = ? "
+							"select accounts.account_id from accounts" +
+							"  where accounts.username = ? "
 					);
 					stmt2.setString(1, account.getUsername());
 					
 					// execute the update
 					resultSet2 = stmt2.executeQuery();
 					
-					if (resultSet2.next())
-					{
-						account_id = resultSet2.getInt(1);
-						System.out.println("New account #<" + account_id + "> inserted in accounts table");			
+					
+					// get the precise schema of the tuples returned as the result of the query
+					ResultSetMetaData resultSchema2 = stmt2.getMetaData();
+
+					// iterate through the returned tuples, printing each one
+					// count # of rows returned
+					int rowsReturned = 0;
+					
+					// THis should only iterate once since only account_id is being retrieved.
+					while (resultSet2.next()) {
+						for (int i = 1; i <= resultSchema2.getColumnCount(); i++) {
+							Integer obj2 = (Integer) resultSet2.getObject(i);
+							account_id = obj2;
+							//System.out.println("account_id: " + account_id);
+							if (i > 1) {
+								System.out.print(",");
+							}
+							//System.out.print(obj2.toString());
+						}
+						System.out.println();
+						
+						// count # of rows returned
+						rowsReturned++;
+						System.out.println("New account #<" + account_id + "> inserted in accounts table");	
 					}
-					else
-					{
+					
+					// indicate if the query returned nothing
+					if (rowsReturned == 0) {
+						System.out.println("No rows returned that matched the query");
 						System.out.println("account #<" + account_id + "> not found");
 					}
 					
-					
-
-					/*
-					// if Author was found then save author_id					
-					if (resultSet1.next())
-					{
-						author_id = resultSet1.getInt(1);
-						System.out.println("Author <" + lastName + ", " + firstName + "> found with ID: " + author_id);						
-					}
-					else
-					{
-						System.out.println("Author <" + lastName + ", " + firstName + "> not found");
-				
-						// if the Author is new, insert new Author into Authors table
-						if (author_id <= 0) {
-							// prepare SQL insert statement to add Author to Authors table
-							stmt2 = conn.prepareStatement(
-									"insert into authors (lastname, firstname) " +
-									"  values(?, ?) "
-							);
-							stmt2.setString(1, lastName);
-							stmt2.setString(2, firstName);
-							
-							// execute the update
-							stmt2.executeUpdate();
-							
-							System.out.println("New author <" + lastName + ", " + firstName + "> inserted in Authors table");						
-						
-							// try to retrieve author_id for new Author - DB auto-generates author_id
-							stmt3 = conn.prepareStatement(
-									"select author_id from authors " +
-									"  where lastname = ? and firstname = ? "
-							);
-							stmt3.setString(1, lastName);
-							stmt3.setString(2, firstName);
-							
-							// execute the query							
-							resultSet3 = stmt3.executeQuery();
-							
-							// get the result - there had better be one							
-							if (resultSet3.next())
-							{
-								author_id = resultSet3.getInt(1);
-								System.out.println("New author <" + lastName + ", " + firstName + "> ID: " + author_id);						
-							}
-							else	// really should throw an exception here - the new author should have been inserted, but we didn't find them
-							{
-								System.out.println("New author <" + lastName + ", " + firstName + "> not found in Authors table (ID: " + author_id);
-							}
-						}
-					}
-					
-					// now insert new Book into Books table
-					// prepare SQL insert statement to add new Book to Books table
-					stmt4 = conn.prepareStatement(
-							"insert into books (title, isbn, published) " +
-							"  values(?, ?, ?) "
-					);
-					stmt4.setString(1, title);
-					stmt4.setString(2, isbn);
-					stmt4.setInt(3, published);
-					
-					// execute the update
-					stmt4.executeUpdate();
-					
-					System.out.println("New book <" + title + "> inserted into Books table");					
-
-					// now retrieve book_id for new Book, so that we can set up BookAuthor entry
-					// and return the book_id, which the DB auto-generates
-					// prepare SQL statement to retrieve book_id for new Book
-					stmt5 = conn.prepareStatement(
-							"select book_id from books " +
-							"  where title = ? and isbn = ? and published = ? "
-									
-					);
-					stmt5.setString(1, title);
-					stmt5.setString(2, isbn);
-					stmt5.setInt(3, published);
-
-					// execute the query
-					resultSet5 = stmt5.executeQuery();
-					
-					// get the result - there had better be one
-					if (resultSet5.next())
-					{
-						book_id = resultSet5.getInt(1);
-						System.out.println("New book <" + title + "> ID: " + book_id);						
-					}
-					else	// really should throw an exception here - the new book should have been inserted, but we didn't find it
-					{
-						System.out.println("New book <" + title + "> not found in Books table (ID: " + book_id);
-					}
-					
-					// now that we have all the information, insert entry into BookAuthors table
-					// which is the junction table for Books and Authors
-					// prepare SQL insert statement to add new Book to Books table
-					stmt6 = conn.prepareStatement(
-							"insert into bookAuthors (book_id, author_id) " +
-							"  values(?, ?) "
-					);
-					stmt6.setInt(1, book_id);
-					stmt6.setInt(2, author_id);
-					
-					// execute the update
-					stmt6.executeUpdate();
-					
-					System.out.println("New entry for book ID <" + book_id + "> and author ID <" + author_id + "> inserted into BookAuthors junction table");						
-					
-					System.out.println("New book <" + title + "> inserted into Books table");					
-					
-					return book_id;
-					*/
+					/////////////////////////////////////////////////////////////////////////////////////////////////
 				} finally {
 					DBUtil.closeQuietly(resultSet1);
 					DBUtil.closeQuietly(stmt1);
@@ -409,7 +405,7 @@ public class DerbyDatabase implements IDatabase {
 						"create table players (" +
 						"	player_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +
-						"	user string," +
+						"	username varchar(40)," +
 						"	score integer," +
 						"	health integer," +
 						"	stamina integer," +
