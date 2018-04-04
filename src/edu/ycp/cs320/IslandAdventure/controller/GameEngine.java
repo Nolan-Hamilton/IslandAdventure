@@ -53,4 +53,21 @@ public class GameEngine
 			return false;
 		}
 	}
+	
+	public boolean verifyAccountInDatabase(Account account) {
+		Account found = null;
+		found = db.retrieveAccount(account.getUsername());
+		if (found != null){
+			if (found.getUsername().equals(account.getUsername()) && found.getPassword().equals(account.getPassword())) {
+				System.out.println("Account varified for " + account.getUsername());
+				return true;
+			}else{
+				System.out.println("Invalid username and/or password.");
+				return false;
+			}
+		}else{
+			System.out.println("Account not found for " + account.getUsername());
+			return false;
+		}
+	}
 }
