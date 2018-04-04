@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ycp.cs320.IslandAdventure.controller.*;
 import edu.ycp.cs320.IslandAdventure.model.*;
 import edu.ycp.cs320.IslandAdventure.persist.*;
 
@@ -14,12 +15,15 @@ import edu.ycp.cs320.IslandAdventure.persist.*;
 public class NewAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	// Fields needed
+	GameEngine engine = null;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
 		System.out.println("New Account Servlet: doGet");
-		
+		engine = new GameEngine();
 		req.getRequestDispatcher("/_view/newAccount.jsp").forward(req, resp);
 	}
 	
@@ -59,16 +63,23 @@ public class NewAccountServlet extends HttpServlet {
 				account.setPlayer(player);
 				account.setMap(map);
 				fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
-				req.setAttribute("accountsList", fakeData); //Set attribute for fakeAccount
-				req.setAttribute("account", account);	// Passes the account to the next servlet
-				req.setAttribute("user", req.getParameter("user")); //Set Attributes
-				req.setAttribute("pass", req.getParameter("pass"));
-				req.getSession().setAttribute("username", req.getParameter("user"));
-				req.getSession().setAttribute("password", req.getParameter("pass"));
-				//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this pag
-				resp.sendRedirect(req.getContextPath() + "/index");
-				//req.getRequestDispatcher("/index").forward(req, resp);
-				System.out.println(account.getUsername() + " is now playing");
+				
+				Boolean newAcc = engine.insertNewAccountIntoDatabase(account); // account data is added to database
+				if (newAcc == true){
+					req.setAttribute("accountsList", fakeData); //Set attribute for fakeAccount
+					req.setAttribute("account", account);	// Passes the account to the next servlet
+					req.setAttribute("user", req.getParameter("user")); //Set Attributes
+					req.setAttribute("pass", req.getParameter("pass"));
+					req.getSession().setAttribute("username", req.getParameter("user"));
+					req.getSession().setAttribute("password", req.getParameter("pass"));
+					//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this pag
+					resp.sendRedirect(req.getContextPath() + "/index");
+					//req.getRequestDispatcher("/index").forward(req, resp);
+					System.out.println(account.getUsername() + " is now playing");
+				}else{
+					errorMessage = "Username already taken. Please choose a different username.";
+				}
+				
 			}else{
 				if (pass != pass2){
 					errorMessage = "Please make sure your password is entered correctly in both boxes!";

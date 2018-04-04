@@ -35,18 +35,20 @@ public class GameEngine
 		Integer account_id = db.insertAccountIntoAccountTable(account);
 		if (account_id > 0)
 		{
-			System.out.println("New book (ID: " + account_id + ") successfully added to accounts table: <" + account.getUsername() + ">");
+			System.out.println("New account (ID: " + account_id + ") successfully added to accounts table: <" + account.getUsername() + ">");
+			/*
 			// Create Player using account_id
 			db.addPlayer(account.getUsername(), account.getPlayer().getScore(), account.getPlayer().getHealth(), account.getPlayer().getStamina(), 
 					account.getPlayer().getTime(), account.getPlayer().getLocation().getX(), account.getPlayer().getLocation().getY(), 
 					account.getPlayer().getLocation().getZ());
+			*/
 			// Create Objects using account_id
 			// Create Locations using accountID
 			return true;
 		}
 		else
 		{
-			System.out.println("Failed to insert new book (ID: " + account_id + ") into Books table: <" + account.getUsername() + ">");
+			System.out.println("Failed to insert new account (ID: " + account_id + ") into accounts table: <" + account.getUsername() + ">");
 			
 			return false;
 		}

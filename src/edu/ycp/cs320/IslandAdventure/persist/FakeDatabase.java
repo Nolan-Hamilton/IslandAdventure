@@ -22,7 +22,7 @@ public class FakeDatabase implements IDatabase
 		// Add initial data (not yet implemented
 		//readInitialData();
 		
-		System.out.println(accounts.size() + " accounts");
+		//System.out.println(accounts.size() + " accounts");
 	}
 	
 	@Override
