@@ -23,7 +23,7 @@
 			<form action="${pageContext.servletContext.contextPath}/login" method="post">
 				Username:<input type="text" name="user" size="20" value="${user}" />
 				<br><br>
-				Password:<input type="text" name="pass" size="20" value="${pass}" />
+				Password:<input type="password" name="pass" size="20" value="${pass}" />
 				<br><br>
 				<input type="Submit" name="submit" value="Login!">
 			</form>

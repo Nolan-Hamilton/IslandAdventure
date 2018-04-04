@@ -43,7 +43,7 @@ public class NewAccountServlet extends HttpServlet {
 		// Create new account with null values
 		String errorMessage = null;
 		FakeDatabase fakeData = new FakeDatabase();
-		Account account = new Account(null, null, null, null);
+		Account account = new Account(null, null, null);
 		
 		try {
 			String user = (req.getParameter("user").toString());
@@ -61,7 +61,6 @@ public class NewAccountServlet extends HttpServlet {
 				Player player = new Player(0, 0, 0, 0, null, null, null, null, null);
 				Location[][][] map = new Location[25][25][25];
 				account.setPlayer(player);
-				account.setMap(map);
 				fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 				
 				Boolean newAcc = engine.insertNewAccountIntoDatabase(account); // account data is added to database

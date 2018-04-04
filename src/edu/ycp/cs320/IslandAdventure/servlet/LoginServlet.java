@@ -49,24 +49,25 @@ public class LoginServlet extends HttpServlet {
 		
 		String errorMessage = null;
 		//FakeDatabase fakeData = new FakeDatabase();
-		Account account = new Account(null, null, null, null);
+		Account account = new Account(null, null, null);
 		
 		try{
 			//Get input from JSP
 			String user = (req.getParameter("user").toString());
-			System.out.println(user);
+			//System.out.println(user);
 			String pass = (req.getParameter("pass").toString());
-			System.out.println(pass);
+			//System.out.println(pass);
 			// Put username and pw into account
 			account.setUsername(user);
 			account.setPassword(pass);
-			System.out.println("1");
+			//System.out.println("1");
 			//Verify that account with username and pw
 			Boolean found = engine.verifyAccountInDatabase(account);
 			if (found == true){
 				//If account is found, then the password is valid
-				System.out.println("2");
+				//System.out.println("2");
 				req.getSession().setAttribute("username", account.getUsername());
+				req.getSession().setAttribute("password", account.getPassword());
 				resp.sendRedirect(req.getContextPath() + "/index");
 			}else{
 				errorMessage = "Invalid username and/or password.";

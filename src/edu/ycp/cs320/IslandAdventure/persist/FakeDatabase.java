@@ -28,7 +28,7 @@ public class FakeDatabase implements IDatabase
 	@Override
 	public Account retrieveAccount(String username) 
 	{
-		Account result = new Account(null, null, null, null);
+		Account result = new Account(null, null, null);
 		// Look for account and load its data
 		for (Account account : accounts) 
 		{

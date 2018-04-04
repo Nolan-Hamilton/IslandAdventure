@@ -92,7 +92,7 @@ public class DerbyDatabase implements IDatabase {
 					if (rowsReturned == 0) {
 						System.out.println("No rows returned that matched the query");
 					}else{
-						account = new Account(null, null, null, null);
+						account = new Account(null, null, null);
 						account.setUsername(resultList.get(0));
 						account.setPassword(resultList.get(1));
 						System.out.println("Username retrieved: " + account.getUsername());

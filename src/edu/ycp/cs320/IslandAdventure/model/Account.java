@@ -9,18 +9,16 @@ public class Account
 	private String username;
 	private String password;
 	private Player player;
-	private Location map[][][];
 	private ArrayList<GameObject> objectList;
 	private ArrayList<Location> mapLocations;
 	
 	//Constructors
 
 	
-	public Account(String username, String password, Player player, Location[][][] map){
+	public Account(String username, String password, Player player){
 		this.username = username;
 		this.password = password;
 		this.player = player;
-		this.map = map;
 		objectList = new ArrayList<GameObject>();
 		mapLocations = new ArrayList<Location>();
 	}
@@ -69,14 +67,6 @@ public class Account
 	
 	public void setPlayer(Player player){
 		this.player = player;
-	}
-	
-	public Location[][][] getMap(){
-		return this.map;
-	}
-	
-	public void setMap(Location[][][] map){
-		this.map = map;
 	}
 	
 	public ArrayList<GameObject> getObjectList() {
