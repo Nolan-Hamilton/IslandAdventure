@@ -30,20 +30,12 @@ public class Account
 	
 	public void initialize(){
 		// Set a knife at 10,10,0 and a hammer at 10,9,0.
-		//System.out.println("x coordinate of 0,0,0: " + map[0][0][0].getX());
 		for (int z = 0; z < 25; z++) {
 			for (int y = 0; y < 25; y++) {
 				for (int x = 0; x < 25; x++) {
-					String descript = "Description: Corrdinates of this room are " + x + ", " + y + ", " + z;
+					String descript = "Description: Coordinates of this room are " + x + ", " + y + ", " + z;
 					Location local = new Location(x,y,z, descript);
 					mapLocations.add(local);
-					/*
-					map[x][y][z].setX(x);
-					map[x][y][z].setY(y);
-					map[x][y][z].setZ(z);
-					String descript = "Description: Corrdinates of this room are " + x + ", " + y + ", " + z;
-					map[x][y][z].setDescription(descript);
-					*/
 				}
 			}
 		}

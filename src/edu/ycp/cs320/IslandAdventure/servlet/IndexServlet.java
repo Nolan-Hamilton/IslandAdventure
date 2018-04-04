@@ -2,12 +2,6 @@
 package edu.ycp.cs320.IslandAdventure.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -114,8 +108,6 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("health", player.getHealth());
 		req.setAttribute("stamina", player.getStamina());
 		req.setAttribute("time", player.getTime());
-		
-		req.setAttribute("woodCount", player.getInventory().getWoodCount());
 		
 		req.setAttribute("map", player.getInventory().getInventoryMap());
 		

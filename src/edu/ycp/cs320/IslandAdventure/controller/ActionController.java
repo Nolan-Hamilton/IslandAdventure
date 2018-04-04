@@ -56,21 +56,16 @@ public class ActionController
 		}
 		if (action.equals("Move East") || action.equals("move east")) 
 		{
-			Location location = player.getLocation();
-			int x = location.getX() + 1;
-			player.getLocation().setX(x);
+			player.getLocation().setX(player.getLocation().getX()+1);
 		}
 		if (action.equals("Move West") || action.equals("move west")) 
 		{
-			Location location = player.getLocation();
-			int x = location.getX() - 1;
-			player.getLocation().setX(x);
+			player.getLocation().setX(player.getLocation().getX()-1);
 		}
 		if (action.equals("Move North") || action.equals("move north")) 
 		{
-			Location location = player.getLocation();
-			int y = location.getY() + 1;
-			player.getLocation().setY(y);
+			player.getLocation().setY(player.getLocation().getY()+1);
+			
 			EventController eventController = new EventController();
 			Enemy enemy = eventController.createEnemy(player);
 			FightController fightController = new FightController();
@@ -79,9 +74,7 @@ public class ActionController
 		
 		if (action.equals("Move South") || action.equals("move south")) 
 		{
-			Location location = player.getLocation();
-			int y = location.getY() - 1;
-			player.getLocation().setY(location.getY()-1);
+			player.getLocation().setY(player.getLocation().getY()-1);
 		}
 
 		// Displays the description of the current room as well as any items located in that room
