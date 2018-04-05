@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.IslandAdventure.model.Account;
+import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 
 public class DerbyDatabase implements IDatabase {
@@ -220,9 +221,10 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				PreparedStatement stmt   = null;
 
+				Integer player_id = -1;
 				try 
 				{
-					insertPlayer = conn.prepareStatement("insert into players (user, score, health, stamina,"
+					insertPlayer = conn.prepareStatement("insert into players (username, score, health, stamina,"
 							+ " time, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?)");
 					{
 						insertPlayer.setString(1, user);
@@ -240,15 +242,13 @@ public class DerbyDatabase implements IDatabase {
 					
 					// try to retrieve player_id for new Player - DB auto-generates player_id
 					stmt = conn.prepareStatement(
-							"select player_id from players " +
-							"  where user = ? "
+							"select players.player_id from players " +
+							"  where players.username = ? "
 					);
 					stmt.setString(1, user);
 					
 					// execute the query							
 					resultSet = stmt.executeQuery();
-					
-					Integer player_id = -1;
 					
 					// get the result - there had better be one							
 					if (resultSet.next())
@@ -260,7 +260,6 @@ public class DerbyDatabase implements IDatabase {
 					{
 						System.out.println("Problem! New player should have been added");
 					}
-					return player_id;
 				} 
 				finally 
 				{
@@ -268,6 +267,7 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
+				return player_id;
 			}
 		});
 	}
@@ -283,21 +283,21 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
+				Location location = new Location(10,10,0);
+				Player player = new Player(0, 0, 0, 0, null, location, null, null, null);
 				try {
-					// Retrieve all attributes from both Books and Authors tables
+					// Retrieve all attributes from players tables
 					stmt = conn.prepareStatement(
-							"select player.* " +
-							" where players.user = ? "
+							"select score, health, stamina, time, x, y, z from players" +
+							" where players.username = ? "
 					);
 					stmt.setString(1, user);
-					
-					Player player = new Player(0, 0, 0, 0, null, null, null, null, null);
 					
 					resultSet = stmt.executeQuery();
 					
 					// for testing that a result was returned
 					Boolean found = false;
-					
+
 					while (resultSet.next()) 
 					{
 						found = true;
@@ -305,18 +305,17 @@ public class DerbyDatabase implements IDatabase {
 						// retrieve attributes from resultSet starting with index 1
 						loadPlayer(player, resultSet, 1);
 					}
-					
-					// check if the title was found
+
+					// check if the player was found
 					if (!found) 
 					{
 						System.out.println("<" + user + "> was not found in the players table");
 					}
-					
-					return player;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
+				return player;
 			}
 		});
 	}

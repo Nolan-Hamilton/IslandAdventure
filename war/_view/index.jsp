@@ -39,7 +39,7 @@
 			Inventory:
 			<ul>
     			<c:forEach items="${map}" var="itemName">
-        			<li>${itemName} </li>
+        			<li> ${itemName} </li>
     			</c:forEach>
 			</ul>
 		</div>

@@ -36,6 +36,7 @@ public class ActionController
 	
 	public String interpretAction(String action)
 	{
+		Location location = player.getLocation();
 		String response = "";
 		response += ">> " + action + "<br><br>"; // Add action command to response
 		if (action.equals("Chop Wood") || action.equals("chop wood")) 
@@ -56,15 +57,15 @@ public class ActionController
 		}
 		if (action.equals("Move East") || action.equals("move east")) 
 		{
-			player.getLocation().setX(player.getLocation().getX()+1);
+			location.setX(player.getLocation().getX()+1);
 		}
 		if (action.equals("Move West") || action.equals("move west")) 
 		{
-			player.getLocation().setX(player.getLocation().getX()-1);
+			location.setX(player.getLocation().getX()-1);
 		}
 		if (action.equals("Move North") || action.equals("move north")) 
 		{
-			player.getLocation().setY(player.getLocation().getY()+1);
+			location.setY(player.getLocation().getY()+1);
 			
 			EventController eventController = new EventController();
 			Enemy enemy = eventController.createEnemy(player);
@@ -74,23 +75,40 @@ public class ActionController
 		
 		if (action.equals("Move South") || action.equals("move south")) 
 		{
-			player.getLocation().setY(player.getLocation().getY()-1);
+			location.setY(player.getLocation().getY()-1);
 		}
 
 		// Displays the description of the current room as well as any items located in that room
-		if (action.equals("Look") || action.equals("look")) {
-			Location location = player.getLocation();
+		if (action.equals("Look") || action.equals("look")) 
+		{
 			// Display description
 			response += account.getLocationByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
 			// Display list of items.
 			ArrayList<GameObject> objects = account.getObjectsByXYZ(location.getX(), location.getY(), location.getZ());
-			if (objects.size() != 0) {
+			if (objects.size() != 0) 
+			{
 				response += "The following item(s) are also present: <br>";
-				for (GameObject object : objects) {
+				for (GameObject object : objects) 
+				{
 					response += object.getName() + "<br>";
 				}
 			}
 			response += "<br>";
+		}
+		
+		if (action.equals("pick up")) // Picks up all items in the room
+		{
+			ArrayList<GameObject> objects = account.getObjectsByXYZ(location.getX(), location.getY(), location.getZ());
+			if (objects.size() != 0) 
+			{
+				response += "You acquired the following item(s): <br>";
+				for (GameObject object : objects) 
+				{
+					response += object.getName() + "<br>";
+					player.getInventory().addItem(object.getName(), 1);
+					object = null;
+				}
+			}
 		}
 		response += " what next?";
 		return response;
