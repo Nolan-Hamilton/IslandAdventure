@@ -27,7 +27,7 @@ public class PlayerTest
 	public void setUp()
 	{
 		location = new Location(10, 10, 0);
-		Map<String, Integer> inventoryMap = new HashMap<String, Integer>();
+		Map<Item, Integer> inventoryMap = new HashMap<Item, Integer>();
 		inventory = new Inventory(inventoryMap);
 		skills = new Skills(0,10,100,35);
 		player = new Player(5, 50, 50, 10, inventory, location, skills, null, null);
@@ -88,16 +88,19 @@ public class PlayerTest
 	@Test
 	public void testHasItem()
 	{
-		inventory.addItem("Wood", 5);
-		assertTrue(player.hasItem("Wood"));
-		assertFalse(player.hasItem("Stone"));
+		Item wood = new Item("Wood", "Wood", null, 0);
+		inventory.addItem(wood, 5);
+		assertTrue(player.hasItem(wood));
+		Item stone = new Item("Stone", "Stone", null, 0);
+		assertFalse(player.hasItem(stone));
 	}
 	
 	@Test
 	public void testGetItemCount()
 	{
-		inventory.addItem("Steel", 42);
-		assertTrue(player.getItemCount("Steel") == 42);
+		Item steel = new Item("Steel", "Steel", null, 0);
+		inventory.addItem(steel, 42);
+		assertTrue(player.getItemCount(steel) == 42);
 	}
 	
 	@Test
@@ -134,8 +137,8 @@ public class PlayerTest
 		player.equipArmor(armor1);
 		assertTrue(player.getArmor() == null); // No such item in inventory
 		
-		player.getInventory().addItem(armor1.getName(), 1);
-		player.getInventory().addItem(armor2.getName(), 1);
+		player.getInventory().addItem(armor1, 1);
+		player.getInventory().addItem(armor2, 1);
 		
 		player.equipArmor(armor1);
 		assertTrue(player.getArmor().equals(armor1));
@@ -157,8 +160,8 @@ public class PlayerTest
 		player.equipWeapon(weapon1);
 		assertTrue(player.getWeapon() == null); // No such item in inventory
 		
-		player.getInventory().addItem(weapon1.getName(), 1);
-		player.getInventory().addItem(weapon2.getName(), 1);
+		player.getInventory().addItem(weapon1, 1);
+		player.getInventory().addItem(weapon2, 1);
 		
 		player.equipWeapon(weapon1);
 		assertTrue(player.getWeapon().equals(weapon1));

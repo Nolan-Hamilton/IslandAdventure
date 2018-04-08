@@ -8,6 +8,7 @@ import org.junit.Test;
 import edu.ycp.cs320.IslandAdventure.controller.ActionController;
 import edu.ycp.cs320.IslandAdventure.controller.PlayerController;
 import edu.ycp.cs320.IslandAdventure.model.Account;
+import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 
 public class ActionControllerTest 
@@ -29,7 +30,7 @@ public class ActionControllerTest
 	{
 		actionController.interpretAction("Chop Wood");	//Adds 10 wood to player inventory.
 		actionController.interpretAction("Chop Wood");
-		assertTrue(player.getInventory().getWoodCount() == 20);
+		assertTrue(player.getInventory().getItemCountFromString("Wood") == 20);
 		
 		actionController.interpretAction("Move North");
 		assertTrue(player.getLocation().getY() == 11);

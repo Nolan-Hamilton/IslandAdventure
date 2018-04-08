@@ -39,9 +39,11 @@
 			Inventory:
 			<ul>
     			<c:forEach items="${map}" var="itemName">
-        			<li> ${itemName} </li>
+        			<li> ${itemName.key.name} = ${itemName.value}</li>
     			</c:forEach>
 			</ul>
+			Armor: ${armor} <br />
+			Weapon: ${weapon} <br />
 		</div>
 		
 		<div id= "inputBox">

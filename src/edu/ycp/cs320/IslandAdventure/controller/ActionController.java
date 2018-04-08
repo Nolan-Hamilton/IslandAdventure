@@ -1,14 +1,13 @@
 package edu.ycp.cs320.IslandAdventure.controller;
 
-import edu.ycp.cs320.IslandAdventure.model.Enemy;
-import edu.ycp.cs320.IslandAdventure.model.Location;
-import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.persist.DatabaseProvider;
 import edu.ycp.cs320.IslandAdventure.persist.DerbyDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.IDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 import edu.ycp.cs320.IslandAdventure.model.*;
 
@@ -84,13 +83,13 @@ public class ActionController
 			// Display description
 			response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
 			// Display list of items.
-			ArrayList<GameObject> objects = account.getObjectsByXYZ(location.getX(), location.getY(), location.getZ());
-			if (objects.size() != 0) 
+			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
+			if (items.size() != 0) 
 			{
 				response += "The following item(s) are also present: <br>";
-				for (GameObject object : objects) 
+				for (Item item : items) 
 				{
-					response += object.getName() + "<br>";
+					response += item.getName() + "<br>";
 				}
 			}
 			response += "<br>";
@@ -98,15 +97,29 @@ public class ActionController
 		
 		if (action.equals("pick up")) // Picks up all items in the room
 		{
-			ArrayList<GameObject> objects = account.getObjectsByXYZ(location.getX(), location.getY(), location.getZ());
-			if (objects.size() != 0) 
+			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
+			if (items.size() != 0) 
 			{
 				response += "You acquired the following item(s): <br>";
-				for (GameObject object : objects) 
+				for (Item item : items) 
 				{
-					response += object.getName() + "<br>";
-					player.getInventory().addItem(object.getName(), 1);
-					object = null;
+					response += item.getName() + "<br>";
+					player.getInventory().addItem(item, 1);
+				}
+			}
+		}
+		if (action.contains("equip"))
+		{
+			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
+			Iterator<Item> iterator = keyset.iterator();
+			
+			while(iterator.hasNext())
+			{
+				Item item = (Item) iterator.next();
+				if (action.contains(item.getName()))
+				{
+					player.equipWeapon(item);
+					response += "You equipped a " + item.getName() + "!";
 				}
 			}
 		}
