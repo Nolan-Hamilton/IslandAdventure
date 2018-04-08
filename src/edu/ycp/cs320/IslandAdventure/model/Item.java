@@ -27,5 +27,4 @@ public class Item extends GameObject {
 	public void use(){
 		this.uses--;	// Decrease # of uses by 1.
 	}
-	
 }

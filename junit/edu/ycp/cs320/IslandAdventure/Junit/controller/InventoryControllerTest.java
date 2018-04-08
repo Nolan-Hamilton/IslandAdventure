@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import edu.ycp.cs320.IslandAdventure.controller.InventoryController;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
+import edu.ycp.cs320.IslandAdventure.model.Item;
 
 public class InventoryControllerTest 
 {
@@ -19,7 +20,7 @@ public class InventoryControllerTest
 	@Before
 	public void setUp()
 	{
-		Map<String, Integer> inventoryMap = new HashMap<String, Integer>();
+		Map<Item, Integer> inventoryMap = new HashMap<Item, Integer>();
 		inventory = new Inventory(inventoryMap);
 		inventoryController = new InventoryController(inventory);
 	}

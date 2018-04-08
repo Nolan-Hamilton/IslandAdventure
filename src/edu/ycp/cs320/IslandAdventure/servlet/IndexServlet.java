@@ -106,7 +106,17 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("stamina", player.getStamina());
 		req.setAttribute("time", player.getTime());
 		
+		if (player.getArmor() != null)
+		{
+			req.setAttribute("armor", player.getArmor().getName());
+		}
+		if (player.getWeapon() != null)
+		{
+			req.setAttribute("weapon", player.getWeapon().getName());
+		}
+		
 		req.setAttribute("map", player.getInventory().getInventoryMap());
+		req.setAttribute("", player.getInventory().getInventoryMap());
 		
 		req.setAttribute("locationX", player.getLocation().getX());
 		req.setAttribute("locationY", player.getLocation().getY());

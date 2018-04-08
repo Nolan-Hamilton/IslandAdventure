@@ -10,6 +10,7 @@ public class Account
 	private String password;
 	private Player player;
 	private ArrayList<GameObject> objectList;
+	private ArrayList<Item> itemList;
 	private ArrayList<Location> mapLocations;
 	
 	//Constructors
@@ -20,6 +21,7 @@ public class Account
 		this.password = password;
 		this.player = player;
 		objectList = new ArrayList<GameObject>();
+		itemList = new ArrayList<Item>();
 		mapLocations = new ArrayList<Location>();
 	}
 	
@@ -39,10 +41,10 @@ public class Account
 		}
 		Location location = new Location(10,10,0, "This is the starting room.");
 		Item knife = new Item("Knife", "A small kife with a dull single sided blade.", location, 10);
-		objectList.add(knife);
+		itemList.add(knife);
 		Location location2 = new Location(10,9,0, "This is the secondary room.");
 		Item hammer = new Item("Hammer", "A rock tied to a stick.", location2, 10);
-		objectList.add(hammer);
+		itemList.add(hammer);
 	}
 	
 	public String getUsername(){
@@ -77,6 +79,14 @@ public class Account
 		this.objectList = list;
 	}
 	
+	public ArrayList<Item> getItemList() {
+		return this.itemList;
+	}
+	
+	public void setItemList(ArrayList<Item> list){
+		this.itemList = list;
+	}
+	
 	public ArrayList<Location> getLocations() {
 		return this.mapLocations;
 	}
@@ -100,6 +110,16 @@ public class Account
 		for (GameObject object : objectList) {
 			if (object.getX() == x && object.getY() == y && object.getZ() == z) {
 				results.add(object);
+			}
+		}
+		return results;
+	}
+	
+	public ArrayList<Item> getItemsByXYZ(int x, int y, int z){
+		ArrayList<Item> results = new ArrayList<Item>();
+		for (Item item : itemList) {
+			if (item.getX() == x && item.getY() == y && item.getZ() == z) {
+				results.add(item);
 			}
 		}
 		return results;

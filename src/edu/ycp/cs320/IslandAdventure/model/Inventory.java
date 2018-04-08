@@ -1,18 +1,20 @@
 package edu.ycp.cs320.IslandAdventure.model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class Inventory 
 {
-	private Map<String, Integer> inventory = new HashMap<String, Integer>();
+	private Map<Item, Integer> inventory = new HashMap<Item, Integer>();
 	
-	public Inventory(Map<String, Integer> inventory)
+	public Inventory(Map<Item, Integer> inventory)
 	{
 		this.inventory = inventory;
 	}
 	
-	public void addItem(String item, int amount) 
+	public void addItem(Item item, int amount) 
 	{
 	    Integer count = inventory.get(item);
 	    if (count == null) 
@@ -25,7 +27,7 @@ public class Inventory
 	    }
 	}
 	
-	public Integer getItemCount(String item)
+	public Integer getItemCount(Item item)
 	{
 		if (inventory.containsKey(item))
 		{
@@ -37,12 +39,23 @@ public class Inventory
 		}
 	}
 	
-	public Map<String, Integer> getInventoryMap()
+	public Integer getItemCountFromString(String itemName)
+	{
+		Set<Item> keyset = inventory.keySet();
+		Iterator<Item> iterator = keyset.iterator();
+		while(iterator.hasNext())
+		{
+			Item item = iterator.next();
+			if (itemName.equals(item.getName()))
+			{
+				return inventory.get(item);
+			}
+		}
+		return null;
+	}
+	
+	public Map<Item, Integer> getInventoryMap()
 	{
 		return inventory;
-	}
-	public Integer getWoodCount()	// Temporary method for testing
-	{
-		return inventory.get("Wood");
 	}
 }

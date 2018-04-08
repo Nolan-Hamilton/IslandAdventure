@@ -78,7 +78,7 @@ public class Player
 		time = time + timeChange;	// Time can be from 0 to 24. Each activity takes a # of hours
 	}
 	
-	public Boolean hasItem(String item)
+	public Boolean hasItem(Item item)
 	{
 		Integer count = inventory.getItemCount(item);
 		if (count != null)
@@ -97,7 +97,7 @@ public class Player
 			return false;
 		}
 	}
-	public int getItemCount(String item)
+	public int getItemCount(Item item)
 	{
 		return inventory.getItemCount(item);
 	}
@@ -136,9 +136,9 @@ public class Player
 	{
 	    if (this.armor == null) 
 	    {
-	        if (inventory.getInventoryMap().containsKey(armor.getName()))
+	        if (inventory.getInventoryMap().containsKey(armor))
 	        {
-		        if (inventory.getItemCount(armor.getName()) > 0)
+		        if (inventory.getItemCount(armor) > 0)
 		        {
 		        	this.armor = armor;
 		        }
@@ -175,9 +175,9 @@ public class Player
 	    if (this.weapon == null) 
 	    {
 	    	
-	        if (inventory.getInventoryMap().containsKey(weapon.getName()))
+	        if (inventory.getInventoryMap().containsKey(weapon))
 	        {
-	        	if (inventory.getItemCount(weapon.getName()) > 0) 
+	        	if (inventory.getItemCount(weapon) > 0) 
 	        	{
 		        	this.weapon = weapon;
 	        	}
