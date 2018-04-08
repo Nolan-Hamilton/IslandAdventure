@@ -13,7 +13,7 @@ public interface IDatabase {
 	public Account retrieveAccount(String username);
 
 	public Integer addPlayer(String user, Integer score, Integer health, Integer stamina,
-			Integer time, Integer x, Integer y, Integer z);
+			Integer time, Integer x, Integer y, Integer z, int account_id);
 	
 	public Player getPlayer(String user);
 

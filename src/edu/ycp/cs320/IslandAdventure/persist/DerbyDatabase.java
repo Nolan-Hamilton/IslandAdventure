@@ -210,7 +210,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public Integer addPlayer(String user, Integer score, Integer health, Integer stamina, Integer time, Integer x, Integer y, Integer z) 
+	public Integer addPlayer(String user, Integer score, Integer health, Integer stamina, Integer time, Integer x, Integer y, Integer z, int account_id) 
 	{
 		return executeTransaction(new Transaction<Integer>() 
 		{
@@ -225,16 +225,17 @@ public class DerbyDatabase implements IDatabase {
 				try 
 				{
 					insertPlayer = conn.prepareStatement("insert into players (username, score, health, stamina,"
-							+ " time, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?)");
+							+ " time, x, y, z, account_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					{
 						insertPlayer.setString(1, user);
-						insertPlayer.setString(2, score.toString());
-						insertPlayer.setString(3, health.toString());
-						insertPlayer.setString(4, stamina.toString());
-						insertPlayer.setString(5, time.toString());
-						insertPlayer.setString(6, x.toString());
-						insertPlayer.setString(7, y.toString());
-						insertPlayer.setString(8, z.toString());
+						insertPlayer.setInt(2, score);
+						insertPlayer.setInt(3, health);
+						insertPlayer.setInt(4, stamina);
+						insertPlayer.setInt(5, time);
+						insertPlayer.setInt(6, x);
+						insertPlayer.setInt(7, y);
+						insertPlayer.setInt(8, z);
+						insertPlayer.setInt(9, account_id);
 					}
 					insertPlayer.executeUpdate();
 					

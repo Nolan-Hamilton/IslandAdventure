@@ -36,12 +36,13 @@ public class GameEngine
 		if (account_id > 0)
 		{
 			System.out.println("New account (ID: " + account_id + ") successfully added to accounts table: <" + account.getUsername() + ">");
-			/*
+			
 			// Create Player using account_id
-			db.addPlayer(account.getUsername(), account.getPlayer().getScore(), account.getPlayer().getHealth(), account.getPlayer().getStamina(), 
+			int player_id = db.addPlayer(account.getUsername(), account.getPlayer().getScore(), account.getPlayer().getHealth(), account.getPlayer().getStamina(), 
 					account.getPlayer().getTime(), account.getPlayer().getLocation().getX(), account.getPlayer().getLocation().getY(), 
-					account.getPlayer().getLocation().getZ());
-			*/
+					account.getPlayer().getLocation().getZ(), account_id);
+			
+			System.out.println("New Player added, Player_id: <" + player_id + ">");
 			// Create Objects using account_id
 			// Create Locations using accountID
 			return true;
