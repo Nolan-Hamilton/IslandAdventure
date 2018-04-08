@@ -20,7 +20,6 @@ public class LocationTest {
 	@Before
 	public void setUp() {
 		 loc = new Location(1,2,3);
-		 loc.setDescription("This is the location description.");
 	}
 	
 	@Test
@@ -58,16 +57,5 @@ public class LocationTest {
 		loc1.setLocation(loc2);
 		assertTrue(loc.equals(loc1));
 		
-	}
-
-	@Test
-	public void testGetDescription() {
-		assertTrue(loc.getDescription().equals("This is the location description."));
-	}
-	
-	@Test
-	public void testSetDescription() {
-		loc.setDescription("This is the new Description.");
-		assertTrue(loc.getDescription().equals("This is the new Description."));
 	}
 }

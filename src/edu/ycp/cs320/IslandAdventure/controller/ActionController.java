@@ -82,7 +82,7 @@ public class ActionController
 		if (action.equals("Look") || action.equals("look")) 
 		{
 			// Display description
-			response += account.getLocationByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
 			// Display list of items.
 			ArrayList<GameObject> objects = account.getObjectsByXYZ(location.getX(), location.getY(), location.getZ());
 			if (objects.size() != 0) 
