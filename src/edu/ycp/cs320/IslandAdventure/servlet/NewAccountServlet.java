@@ -59,7 +59,8 @@ public class NewAccountServlet extends HttpServlet {
 				account.setUsername(user);
 				account.setPassword(pass);
 				Player player = new Player(0, 0, 0, 0, null, null, null, null, null);
-				Location[][][] map = new Location[25][25][25];
+				Location playerLocation = new Location(10,10,10);
+				player.changeLocation(playerLocation);
 				account.setPlayer(player);
 				fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 				

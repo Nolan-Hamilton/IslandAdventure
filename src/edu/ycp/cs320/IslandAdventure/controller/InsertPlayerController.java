@@ -19,7 +19,7 @@ public class InsertPlayerController
 			Integer x, Integer y, Integer z) 
 	{
 		// insert new player into DB
-		Integer player_id = db.addPlayer(user, score, health, stamina, time, x, y, z);
+		Integer player_id = db.addPlayer(user, score, health, stamina, time, x, y, z, 0);
 
 		// check if the insertion succeeded
 		if (player_id > 0)
