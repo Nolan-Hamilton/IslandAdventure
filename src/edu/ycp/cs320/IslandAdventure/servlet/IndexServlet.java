@@ -146,6 +146,8 @@ public class IndexServlet extends HttpServlet {
 		
 		engine.updatePlayerInDatabase(account_id, player);
 		
+		req.setAttribute("action", "");
+		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 	}
