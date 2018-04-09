@@ -320,6 +320,66 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	@Override
+	public Integer getAccountIdFromDatabase(String username) {
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;			
+				ResultSet resultSet1 = null;				
+				
+				// for saving author ID and book ID
+				Integer account_id = -1;
+
+				// **try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
+				// Try to retrieve existing account to see if one is already made
+				try {
+					stmt1 = conn.prepareStatement(
+							"select accounts.account_id from accounts" +
+							"  where accounts.username = ? "
+					);
+					stmt1.setString(1, username);
+					
+					// execute the update
+					resultSet1 = stmt1.executeQuery();
+					
+					// get the precise schema of the tuples returned as the result of the query
+					ResultSetMetaData resultSchema1 = stmt1.getMetaData();
+
+					// iterate through the returned tuples, printing each one
+					// count # of rows returned
+					int rowsReturned = 0;
+					
+					// THis should only iterate once since only account_id is being retrieved.
+					while (resultSet1.next()) {
+						for (int i = 1; i <= resultSchema1.getColumnCount(); i++) {
+							Integer obj = (Integer) resultSet1.getObject(i);
+							account_id = obj;
+							//System.out.println("account_id: " + account_id);
+							if (i > 1) {
+								System.out.print(",");
+							}
+							//System.out.print(obj2.toString());
+						}
+						System.out.println();
+						// count # of rows returned
+						rowsReturned++;
+						System.out.println("DerbyDatabase >> Account ID#<" + account_id + "> has ben retireved for username: <" + username + ">");	
+					}
+					// indicate if the query returned nothing
+					if (rowsReturned == 0) {
+						System.out.println("No rows returned that matched the query");
+						System.out.println("account #<" + account_id + "> not found");
+					}
+				} finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);
+				}
+				return account_id;
+			}
+		});
+	}
 		
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {

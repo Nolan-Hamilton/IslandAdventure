@@ -20,4 +20,6 @@ public interface IDatabase {
 	public Player getPlayer(Integer playerID);
 
 	public Integer insertAccountIntoAccountTable(Account account);
+
+	public Integer getAccountIdFromDatabase(String username);
 }

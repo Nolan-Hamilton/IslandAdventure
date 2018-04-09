@@ -71,4 +71,19 @@ public class GameEngine
 			return false;
 		}
 	}
+	
+	// Method for getting account_id
+	public Integer getAccountID(String username){
+		Integer account_id = null;
+		
+		account_id = db.getAccountIdFromDatabase(username);
+		System.out.println("GameEngine >> Account_id # <" + account_id + "> found from <" + username + ">");
+		
+		return account_id;
+	}
+	
+	// Method for saving player information to database
+	public void updatePlayerInDatabase(int account_id, Player player) {
+		
+	}
 }

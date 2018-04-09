@@ -69,4 +69,10 @@ public class FakeDatabase implements IDatabase
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Integer getAccountIdFromDatabase(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
