@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Mon Apr 09 14:36:58 EDT 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0162-abb2-24c3-0000055421b0 
-on database directory H:\git\IslandAdventure\test.db with class loader sun.misc.Launcher$AppClassLoader@c387f44 
+Mon Apr 09 19:15:06 EDT 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0162-acb1-0a07-0000067ffb48 
+on database directory H:\git\IslandAdventure\test.db with class loader sun.misc.Launcher$AppClassLoader@2c7b84de 
 Loaded from file:/H:/workspace/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_51-b16

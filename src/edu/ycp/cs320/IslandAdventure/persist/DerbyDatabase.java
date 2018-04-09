@@ -380,6 +380,142 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	//Update Account information
+	@Override
+	public Boolean updatePlayerInDatabase(int account_id, Player player) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;				
+				
+				ResultSet resultSet2 = null;				
+				
+				// for saving author ID and book ID
+				Boolean bool = new Boolean(false);
+				int stamina = -1;
+
+				//Modify the values of the attributes of the players table
+				try {
+					stmt1 = conn.prepareStatement(
+							"UPDATE players" +
+								" SET players.score = ?," +
+									" players.health = ?," +
+									" players.stamina = ?," +
+									" players.time = ?," +
+									" players.x = ?," +
+									" players.y = ?," +
+									" players.z = ?" +
+								" WHERE players.account_id = ? "
+					);
+					stmt1.setInt(1, player.getScore());
+					stmt1.setInt(2, player.getHealth());
+					stmt1.setInt(3, player.getStamina());
+					stmt1.setInt(4, player.getTime());
+					stmt1.setInt(5, player.getLocation().getX());
+					stmt1.setInt(6, player.getLocation().getY());
+					stmt1.setInt(7, player.getLocation().getZ());
+					stmt1.setInt(8, account_id);
+					
+					// execute the update
+					stmt1.executeUpdate(); // IF MANIPULATING DATABASE, MUST USE EXECUTE UPDATE!!!!!!!!!!!!!
+					
+					stmt2 = conn.prepareStatement(
+							"select players.stamina from players " +
+							"  where players.account_id = ? "
+					);
+					stmt2.setInt(1, account_id);
+					
+					// execute the update
+					resultSet2 = stmt2.executeQuery();
+					
+					// get the precise schema of the tuples returned as the result of the query
+					ResultSetMetaData resultSchema2 = stmt2.getMetaData();
+
+					// iterate through the returned tuples, printing each one
+					// count # of rows returned
+					int rowsReturned = 0;
+					
+					// THis should only iterate once since only score is being retrieved.
+					while (resultSet2.next()) {
+						for (int i = 1; i <= resultSchema2.getColumnCount(); i++) {
+							Integer obj2 = (Integer) resultSet2.getObject(i);
+							stamina = obj2;
+							//System.out.println("account_id: " + account_id);
+							if (i > 1) {
+								System.out.print(",");
+							}
+							//System.out.print(obj2.toString());
+						}
+						System.out.println();
+						// count # of rows returned
+						rowsReturned++;
+						System.out.println("DerbyDatabase >> stamina retireved: <" + stamina + "> from account_id: <" + account_id + ">");	
+					}
+					// indicate if the query returned nothing
+					if (rowsReturned == 0) {
+						System.out.println("No rows returned that matched the query");
+					}else{
+						bool = true;
+					}
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);					
+					DBUtil.closeQuietly(resultSet2);
+				}
+				return bool;
+			}
+		});
+	}
+	
+	@Override
+	public Player getPlayer(int account_id) {
+		return executeTransaction(new Transaction<Player>() {
+			@Override
+			public Player execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				Location location = new Location(10,10,0);
+				Player player = new Player(0, 0, 0, 0, null, location, null, null, null);
+				try {
+					// Retrieve all attributes from players tables
+					stmt = conn.prepareStatement(
+							"select players.score, players.health, players.stamina, " + 
+									" players.time, players.x, players.y, players.z from players" +
+							" where players.account_id = ? "
+					);
+					stmt.setInt(1, account_id);
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+
+					while (resultSet.next()) 
+					{
+						found = true;
+				
+						// retrieve attributes from resultSet starting with index 1
+						loadPlayer(player, resultSet, 1);
+					}
+
+					// check if the player was found
+					if (!found) 
+					{
+						System.out.println("DerbyDatabase >> account_id: <" + account_id + "> was not found in the players table");
+					}else{
+						System.out.println("DerbyDatabase >> loaded health of account_id: <" + account_id + "> is <" + player.getHealth() + ">");
+					}
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return player;
+			}
+		});
+	}
 		
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
@@ -560,12 +696,6 @@ public class DerbyDatabase implements IDatabase {
 //		db.loadInitialData();
 		
 		System.out.println("Success!");
-	}
-
-	@Override
-	public Player getPlayer(Integer playerID) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

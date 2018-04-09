@@ -83,7 +83,12 @@ public class GameEngine
 	}
 	
 	// Method for saving player information to database
-	public void updatePlayerInDatabase(int account_id, Player player) {
-		
+	public boolean updatePlayerInDatabase(int account_id, Player player) {
+		return db.updatePlayerInDatabase(account_id, player);
+	}
+	
+	// Method to load a player when re-entering the game
+	public Player loadPlayer(int account_id){
+		return db.getPlayer(account_id);
 	}
 }

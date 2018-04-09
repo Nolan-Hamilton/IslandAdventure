@@ -28,6 +28,8 @@ public class IndexServlet extends HttpServlet {
 	ActionController controller = null;
 	String action = "";
 	String response = "";
+	GameEngine engine = null;
+	int account_id = -1;
 	
 
 	@Override
@@ -50,6 +52,22 @@ public class IndexServlet extends HttpServlet {
 			account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 			controller = new ActionController(player, account);
+			engine = new GameEngine();
+			account_id = engine.getAccountID(account.getUsername());
+			
+			/*
+			// Load the player data from database (This is how to make player persist
+			Player playerLoader = engine.loadPlayer(account_id);
+			player.setScore(playerLoader.getScore());
+			player.setHealth(playerLoader.getHealth());
+			player.setStamina(playerLoader.getStamina());
+			player.setTime(playerLoader.getTime());
+			player.setX(playerLoader.getLocation().getX());
+			player.setY(playerLoader.getLocation().getY());
+			player.setZ(playerLoader.getLocation().getZ());
+			//account.setPlayer(player);
+			*/
+			 
 			
 			inventoryController = new InventoryController(player.getInventory());
 			locationController = new LocationController(player.getLocation());
@@ -123,6 +141,10 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("locationZ", player.getLocation().getZ());
 		
 		req.setAttribute("user", account.getUsername());
+		
+		// Update the Database with changes
+		
+		engine.updatePlayerInDatabase(account_id, player);
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
