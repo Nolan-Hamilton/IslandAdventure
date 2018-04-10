@@ -72,6 +72,7 @@ public class NewAccountServlet extends HttpServlet {
 					req.setAttribute("pass", req.getParameter("pass"));
 					req.getSession().setAttribute("username", req.getParameter("user"));
 					req.getSession().setAttribute("password", req.getParameter("pass"));
+					req.getSession().setAttribute("existingPlayer", false); // This shows that a new player has been added so as to not load player from database
 					//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this pag
 					resp.sendRedirect(req.getContextPath() + "/index");
 					//req.getRequestDispatcher("/index").forward(req, resp);
