@@ -68,6 +68,9 @@ public class LoginServlet extends HttpServlet {
 				//System.out.println("2");
 				req.getSession().setAttribute("username", account.getUsername());
 				req.getSession().setAttribute("password", account.getPassword());
+				req.getSession().setAttribute("existingPlayer", true); // This shows that the player already exists and should be loaded from data base
+				int account_id = engine.getAccountID(account.getUsername());
+				System.out.println("LoginServlet >> Account ID #<" + account_id + "> is set for <" + account.getUsername() + ">");
 				resp.sendRedirect(req.getContextPath() + "/index");
 			}else{
 				errorMessage = "Invalid username and/or password.";

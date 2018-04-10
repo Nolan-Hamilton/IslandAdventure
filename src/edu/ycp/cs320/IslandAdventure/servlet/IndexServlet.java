@@ -28,6 +28,8 @@ public class IndexServlet extends HttpServlet {
 	ActionController controller = null;
 	String action = "";
 	String response = "";
+	GameEngine engine = null;
+	int account_id = -1;
 	
 
 	@Override
@@ -50,6 +52,28 @@ public class IndexServlet extends HttpServlet {
 			account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 			controller = new ActionController(player, account);
+			engine = new GameEngine();
+			account_id = engine.getAccountID(account.getUsername());
+			
+			if (req.getSession().getAttribute("existingPlayer").equals(true)){
+				System.out.println("IndexServlet >> existingPlayer == true");
+				
+				
+				// Load the player data from database (This is how to make player persist
+				// Only execute this code player already exists.
+				Player playerLoader = engine.loadPlayer(account_id);
+				player.setScore(playerLoader.getScore());
+				player.setHealth(playerLoader.getHealth());
+				player.setStamina(playerLoader.getStamina());
+				player.setTime(playerLoader.getTime());
+				player.setX(playerLoader.getLocation().getX());
+				player.setY(playerLoader.getLocation().getY());
+				player.setZ(playerLoader.getLocation().getZ());
+				//account.setPlayer(player);
+				
+			}else{
+				System.out.println("IndexServlet >> existingPlayer == false");
+			}
 			
 			inventoryController = new InventoryController(player.getInventory());
 			locationController = new LocationController(player.getLocation());
@@ -123,6 +147,12 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("locationZ", player.getLocation().getZ());
 		
 		req.setAttribute("user", account.getUsername());
+		
+		// Update the Database with changes (This does not occur if 'Just Play!' is clicked)
+		if (req.getSession().getAttribute("username") != null) {
+			engine.updatePlayerInDatabase(account_id, player);
+		}
+		req.setAttribute("action", "");
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);

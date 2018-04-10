@@ -17,7 +17,11 @@ public interface IDatabase {
 	
 	public Player getPlayer(String user);
 
-	public Player getPlayer(Integer playerID);
+	public Player getPlayer(int playerID);
 
 	public Integer insertAccountIntoAccountTable(Account account);
+
+	public Integer getAccountIdFromDatabase(String username);
+
+	public Boolean updatePlayerInDatabase(int account_id, Player player);
 }
