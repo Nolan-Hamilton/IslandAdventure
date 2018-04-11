@@ -44,6 +44,10 @@
 			</ul>
 			Armor: ${armor} <br />
 			Weapon: ${weapon} <br />
+			<br /> <br /> <br />
+			<form action="${pageContext.servletContext.contextPath}/index" method="post">
+				<input type="Submit" name="expandabilityMenu" value="Open Expandability Menu">
+			</form>
 		</div>
 		
 		<div id= "inputBox">

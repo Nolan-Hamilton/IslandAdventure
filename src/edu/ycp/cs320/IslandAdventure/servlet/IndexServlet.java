@@ -111,6 +111,12 @@ public class IndexServlet extends HttpServlet {
 			System.out.println("Player X location: " + account.getPlayer().getLocation().getX());
 		}
 
+		if (req.getParameter("expandabilityMenu") != null) 
+		{
+			System.out.println("expandabilityMenu has been clicked!");
+			resp.sendRedirect(req.getContextPath() + "/expandabilityMenu");
+		}
+		
 		// Initialize variables in the Inventory model		
 		req.setAttribute("inventory", player.getInventory());
 		

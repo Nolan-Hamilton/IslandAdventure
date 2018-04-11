@@ -21,8 +21,22 @@
     <servlet-name>NewAccountServlet</servlet-name><!-- New Account Servlet -->
     <servlet-class>edu.ycp.cs320.IslandAdventure.servlet.NewAccountServlet</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>ExpandabilityMenuServlet</servlet-name><!-- Expandability Menu Servlet -->
+    <servlet-class>edu.ycp.cs320.IslandAdventure.servlet.ExpandabilityMenuServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>NewItemServlet</servlet-name><!-- New Item Servlet -->
+    <servlet-class>edu.ycp.cs320.IslandAdventure.servlet.NewItemServlet</servlet-class>
+  </servlet>
 
-
+  <servlet>
+    <servlet-name>NewEnemyServlet</servlet-name><!-- New Enemy Servlet -->
+    <servlet-class>edu.ycp.cs320.IslandAdventure.servlet.NewEnemyServlet</servlet-class>
+  </servlet>
+  
   <!-- Servlet mappings -->
   <servlet-mapping>
     <servlet-name>IndexServlet</servlet-name>
@@ -41,7 +55,21 @@
     <url-pattern>/newAccount</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>ExpandabilityMenuServlet</servlet-name><!-- Expandability Menu -->
+    <url-pattern>/expandabilityMenu</url-pattern>
+  </servlet-mapping>
+
+ 
+  <servlet-mapping>
+    <servlet-name>NewItemServlet</servlet-name><!-- New Item Page -->
+    <url-pattern>/newItem</url-pattern>
+  </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>NewEnemyServlet</servlet-name><!-- New Enemy Page -->
+    <url-pattern>/newEnemy</url-pattern>
+  </servlet-mapping>  
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
