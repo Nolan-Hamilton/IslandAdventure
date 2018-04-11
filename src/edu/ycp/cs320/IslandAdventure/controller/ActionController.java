@@ -105,7 +105,7 @@ public class ActionController
 		else if (action.equals("Look") || action.equals("look")) 
 		{
 			// Display description
-			response += account.getLocationByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
 			// Display list of items.
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
 			if (items.size() != 0) 

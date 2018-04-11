@@ -65,7 +65,19 @@ public class FakeDatabase implements IDatabase
 	}
 
 	@Override
-	public Player getPlayer(Integer playerID) {
+	public Player getPlayer(int playerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getAccountIdFromDatabase(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean updatePlayerInDatabase(int account_id, Player player) {
 		// TODO Auto-generated method stub
 		return null;
 	}

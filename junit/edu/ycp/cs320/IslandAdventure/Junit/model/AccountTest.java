@@ -19,7 +19,7 @@ public class AccountTest {
 	private ArrayList<GameObject> objects;
 	Item knife;
 	Item hammer;
-	ArrayList<Location> locationList;
+	ArrayList<Room> roomList;
 	Location location2;
 	
 	
@@ -33,10 +33,12 @@ public class AccountTest {
 		hammer = new Item(null, null, location, null);
 		objects.add(knife);
 		account.getObjectList().add(hammer);
-		locationList = new ArrayList<Location>();
+		roomList = new ArrayList<Room>();
 		location2 = new Location(5,5,5);
-		locationList.add(location2);
-		account.getLocations().add(location);
+		Room room2 = new Room(location2, "Descript2", false, false, false, false, false, false, false);
+		roomList.add(room2);
+		Room room = new Room(location, "Descript", false, false, false, false, false, false, false);
+		account.getRooms().add(room);
 	}
 	
 	// Name Tests
@@ -58,7 +60,7 @@ public class AccountTest {
 	}
 	
 	@Test
-	public void testSetDescription() {
+	public void testSetPassword() {
 		account.setPassword("NewPassword");
 		assertTrue(account.getPassword().equals("NewPassword"));
 	}
@@ -90,21 +92,21 @@ public class AccountTest {
 	}
 	
 	@Test
-	public void testGetLocations() {
-		assertTrue(account.getLocations().get(0).equals(location));
+	public void testGetRooms() {
+		assertTrue(account.getRooms().get(0).getLocation().equals(location));
 	}
 	
 	
 	
 	@Test
-	public void testSetLocationsList() {
-		account.setLocationsList(locationList);
-		assertTrue(account.getLocations().get(0).equals(location2));
+	public void testSetRoomsList() {
+		account.setRoomsList(roomList);
+		assertTrue(account.getRooms().get(0).getLocation().equals(location2));
 	}
 	
 	@Test
-	public void testGetLocationByXYZ() {
-		assertTrue(account.getLocationByXYZ(10, 10, 10).equals(location));
+	public void testGetRoombyXYZ() {
+		assertTrue(account.getRoomByXYZ(10, 10, 10).getLocation().equals(location));
 	}
 	
 	@Test

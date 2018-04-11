@@ -49,7 +49,7 @@
 		<div id= "inputBox">
 			What Next?
 			<form action="${pageContext.servletContext.contextPath}/index" method="post">
-				<input type="text" name="action" size="12" value="${action}" />
+				<input type="text" name="action" size="12" value="${action}" autofocus="autofocus" />
 			</form>
 		</div>
 	</body>

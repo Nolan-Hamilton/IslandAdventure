@@ -10,8 +10,8 @@ public class Account
 	private String password;
 	private Player player;
 	private ArrayList<GameObject> objectList;
+	private ArrayList<Room> mapRooms;
 	private ArrayList<Item> itemList;
-	private ArrayList<Location> mapLocations;
 	
 	//Constructors
 
@@ -21,8 +21,8 @@ public class Account
 		this.password = password;
 		this.player = player;
 		objectList = new ArrayList<GameObject>();
+		mapRooms = new ArrayList<Room>();
 		itemList = new ArrayList<Item>();
-		mapLocations = new ArrayList<Location>();
 	}
 	
 	
@@ -34,15 +34,16 @@ public class Account
 			for (int y = 0; y < 25; y++) {
 				for (int x = 0; x < 25; x++) {
 					String descript = "Description: Coordinates of this room are " + x + ", " + y + ", " + z;
-					Location local = new Location(x,y,z, descript);
-					mapLocations.add(local);
+					Location local = new Location(x,y,z);
+					Room room = new Room(local, descript, false, false, false, false, false, false, false);
+					mapRooms.add(room);
 				}
 			}
 		}
-		Location location = new Location(10,10,0, "This is the starting room.");
+		Location location = new Location(10,10,0);
 		Item knife = new Item("Knife", "A small kife with a dull single sided blade.", location, 10);
 		itemList.add(knife);
-		Location location2 = new Location(10,9,0, "This is the secondary room.");
+		Location location2 = new Location(10,9,0);
 		Item hammer = new Item("Hammer", "A rock tied to a stick.", location2, 10);
 		itemList.add(hammer);
 	}
@@ -79,6 +80,14 @@ public class Account
 		this.objectList = list;
 	}
 	
+	public ArrayList<Room> getRooms() {
+		return this.mapRooms;
+	}
+	
+	public void setRoomsList(ArrayList<Room> list) {
+		this.mapRooms = list;
+	}
+
 	public ArrayList<Item> getItemList() {
 		return this.itemList;
 	}
@@ -87,25 +96,18 @@ public class Account
 		this.itemList = list;
 	}
 	
-	public ArrayList<Location> getLocations() {
-		return this.mapLocations;
-	}
-	
-	public void setLocationsList(ArrayList<Location> list) {
-		this.mapLocations = list;
-	}
-	
-	public Location getLocationByXYZ(int x, int y, int z) {
-		Location found = null;
-		for (Location location : mapLocations){
-			if (location.getX() == x && location.getY() == y && location.getZ() == z) {
-				found = location;
+	public Room getRoomByXYZ(int x, int y, int z) {
+		Room found = null;
+		Location target = new Location(x,y,z);
+		for (Room room : mapRooms){
+			if (room.getLocation().equals(target)) {
+				found = room;
 			}
 		}
 		return found;
 	}
 	
-	public ArrayList<GameObject> getObjectsByXYZ(int x, int y, int z){
+	public ArrayList<GameObject> getObjectsByXYZ(int x, int y, int z){ //This can be changed to use location comparison
 		ArrayList<GameObject> results = new ArrayList<GameObject>();
 		for (GameObject object : objectList) {
 			if (object.getX() == x && object.getY() == y && object.getZ() == z) {
