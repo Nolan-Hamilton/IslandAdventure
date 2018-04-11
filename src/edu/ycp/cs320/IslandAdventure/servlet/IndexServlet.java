@@ -2,6 +2,7 @@
 package edu.ycp.cs320.IslandAdventure.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -70,6 +71,15 @@ public class IndexServlet extends HttpServlet {
 				player.setY(playerLoader.getLocation().getY());
 				player.setZ(playerLoader.getLocation().getZ());
 				//account.setPlayer(player);
+				/*
+				ArrayList<Room> rooms = engine.loadMap(account_id);
+				for (Room room : rooms){
+					System.out.println(room.getDescription());
+				}
+				*/
+				account.setRoomsList(engine.loadMap(account_id));
+				System.out.println(account.getRoomByXYZ(11, 11, 0).getVisible());
+				//System.out.println(account.getRooms().get(350).getVisible());
 				
 			}else{
 				System.out.println("IndexServlet >> existingPlayer == false");
@@ -154,11 +164,15 @@ public class IndexServlet extends HttpServlet {
 		
 		req.setAttribute("user", account.getUsername());
 		
+		// Set visible to true for current room since player is here
+		account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).setVisible(true);
+		
 		// Update the Database with changes (This does not occur if 'Just Play!' is clicked)
 		if (req.getSession().getAttribute("username") != null) {
 			engine.updatePlayerInDatabase(account_id, player);
+			engine.updateMapInDatabase(account_id, account);
 		}
-		req.setAttribute("action", "");
+		req.setAttribute("action", ""); // Empty the input box for next command
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);

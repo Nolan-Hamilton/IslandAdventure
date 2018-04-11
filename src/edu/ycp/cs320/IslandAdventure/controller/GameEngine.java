@@ -4,6 +4,9 @@ import edu.ycp.cs320.IslandAdventure.persist.DatabaseProvider;
 import edu.ycp.cs320.IslandAdventure.persist.DerbyDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.IDatabase;
+
+import java.util.ArrayList;
+
 import edu.ycp.cs320.IslandAdventure.model.*;
 
 public class GameEngine 
@@ -43,8 +46,9 @@ public class GameEngine
 					account.getPlayer().getLocation().getZ(), account_id);
 			
 			System.out.println("New Player added, Player_id: <" + player_id + ">");
+			// Create Rooms using accountID
+			db.insertRoomsIntoDatabase(account_id, account.getUsername(), account.getRooms());
 			// Create Objects using account_id
-			// Create Locations using accountID
 			return true;
 		}
 		else
@@ -90,5 +94,13 @@ public class GameEngine
 	// Method to load a player when re-entering the game
 	public Player loadPlayer(int account_id){
 		return db.getPlayer(account_id);
+	}
+	
+	public boolean updateMapInDatabase(int account_id, Account account){
+		return db.updateMapInDatabase(account_id, account);
+	}
+	
+	public ArrayList<Room> loadMap(int account_id){
+		return db.loadMapFromDatabase(account_id);
 	}
 }

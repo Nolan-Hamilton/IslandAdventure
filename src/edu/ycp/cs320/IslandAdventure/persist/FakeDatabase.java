@@ -8,6 +8,7 @@ import java.util.List;
 import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Player;
+import edu.ycp.cs320.IslandAdventure.model.Room;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.GameObject;
 
@@ -78,6 +79,24 @@ public class FakeDatabase implements IDatabase
 
 	@Override
 	public Boolean updatePlayerInDatabase(int account_id, Player player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean insertRoomsIntoDatabase(int account_id, String username, ArrayList<Room> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateMapInDatabase(int account_id, Account account) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ArrayList<Room> loadMapFromDatabase(int account_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
