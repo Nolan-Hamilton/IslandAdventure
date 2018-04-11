@@ -94,4 +94,10 @@ public class FakeDatabase implements IDatabase
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public ArrayList<Room> loadMapFromDatabase(int account_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

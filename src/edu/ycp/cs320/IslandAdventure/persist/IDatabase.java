@@ -30,4 +30,6 @@ public interface IDatabase {
 	public Boolean insertRoomsIntoDatabase(int account_id, String username, ArrayList<Room> list);
 
 	public boolean updateMapInDatabase(int account_id, Account account);
+
+	public ArrayList<Room> loadMapFromDatabase(int account_id);
 }

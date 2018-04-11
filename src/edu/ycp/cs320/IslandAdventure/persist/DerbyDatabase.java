@@ -658,6 +658,60 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	@Override
+	public ArrayList<Room> loadMapFromDatabase(int account_id) {
+		return executeTransaction(new Transaction<ArrayList<Room>>() {
+			@Override
+			public ArrayList<Room> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				ArrayList<Room> map = new ArrayList<Room>();
+				
+				try {
+					
+					// Retrieve all attributes from players tables
+					stmt = conn.prepareStatement(
+							"select rooms.x, rooms.y, rooms.z," + 
+									" rooms.description, rooms.visible," +
+									" rooms.go_north, rooms.go_east, rooms.go_south," +
+									" rooms.go_west, rooms.go_up, rooms.go_down" +
+							" from rooms where rooms.account_id = ? "
+					);
+					stmt.setInt(1, account_id);
+					
+					resultSet = stmt.executeQuery();
+					
+					ResultSetMetaData resultSchema = stmt.getMetaData();
+					
+					boolean bool = false;
+					
+					while (resultSet.next()) 
+					{
+						// new room must be created every time or else all are set to 14,14,2
+						Room room = new Room(null, null, false, false, false, false, false, false, false);
+						bool = true;
+						// retrieve attributes from resultSet starting with index 1
+						loadRoom(room, resultSet, 1);
+						map.add(room);
+					}
+
+					// check if the map was found
+					if (!bool) 
+					{
+						System.out.println("DerbyDatabase >> account_id: <" + account_id + "> was not found in the map table");
+					}else{
+						System.out.println("DerbyDatabase >> loaded map of account_id: <" + account_id + ">");
+					}
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return map;
+			}
+		});
+	}
 		
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
@@ -729,6 +783,22 @@ public class DerbyDatabase implements IDatabase {
 		//account.setAccount_id(resultSet.getInt(index++));
 		account.setUsername(resultSet.getString(index++));
 		account.setPassword(resultSet.getString(index++));
+	}
+	
+	private void loadRoom(Room room, ResultSet resultSet, int index) throws SQLException {
+		Location loc = new Location(0,0,0);
+		loc.setX(resultSet.getInt(index++));
+		loc.setY(resultSet.getInt(index++));
+		loc.setZ(resultSet.getInt(index++));
+		room.setLocation(loc);
+		room.setDescription(resultSet.getString(index++));
+		room.setVisible(resultSet.getInt(index++) == 1 ? true : false);
+		room.setGoNorth(resultSet.getInt(index++) == 1 ? true : false);
+		room.setGoEast(resultSet.getInt(index++) == 1 ? true : false);
+		room.setGoSouth(resultSet.getInt(index++) == 1 ? true : false);
+		room.setGoWest(resultSet.getInt(index++) == 1 ? true : false);
+		room.setGoUp(resultSet.getInt(index++) == 1 ? true : false);
+		room.setGoDown(resultSet.getInt(index++) == 1 ? true : false);
 	}
 	
 	public void createTables() {

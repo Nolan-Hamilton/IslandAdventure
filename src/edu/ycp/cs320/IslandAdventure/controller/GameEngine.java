@@ -4,6 +4,9 @@ import edu.ycp.cs320.IslandAdventure.persist.DatabaseProvider;
 import edu.ycp.cs320.IslandAdventure.persist.DerbyDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.IDatabase;
+
+import java.util.ArrayList;
+
 import edu.ycp.cs320.IslandAdventure.model.*;
 
 public class GameEngine 
@@ -95,5 +98,9 @@ public class GameEngine
 	
 	public boolean updateMapInDatabase(int account_id, Account account){
 		return db.updateMapInDatabase(account_id, account);
+	}
+	
+	public ArrayList<Room> loadMap(int account_id){
+		return db.loadMapFromDatabase(account_id);
 	}
 }
