@@ -132,6 +132,7 @@ public class ActionController
 				}
 			}
 		}
+		
 		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
@@ -147,6 +148,7 @@ public class ActionController
 				}
 			}
 		}
+		
 		playerController.checkPlayerState(player);	//Checks if player health and stamina > 0 
 		response += " what next?";
 		return response;
