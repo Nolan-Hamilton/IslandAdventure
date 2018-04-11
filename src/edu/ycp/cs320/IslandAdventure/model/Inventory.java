@@ -35,7 +35,7 @@ public class Inventory
 		}
 		else
 		{
-			return null;
+			return 0;
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class Inventory
 				return inventory.get(item);
 			}
 		}
-		return null;
+		return 0;
 	}
 	
 	public Map<Item, Integer> getInventoryMap()

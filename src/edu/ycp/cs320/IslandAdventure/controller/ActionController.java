@@ -19,6 +19,12 @@ public class ActionController
 	
 	private Account account;
 	
+	private EventController eventController = new EventController();
+	
+	private FightController fightController = new FightController();
+	
+	private PlayerController playerController = new PlayerController();
+	
 	// Database implementation is borrowed from Library Example Project By Prof. Hake
 	private IDatabase db    = null;
 	
@@ -38,47 +44,65 @@ public class ActionController
 		Location location = player.getLocation();
 		String response = "";
 		response += ">> " + action + "<br><br>"; // Add action command to response
-		if (action.equals("Chop Wood") || action.equals("chop wood")) 
+		
+		if (action.contains("move") || action.contains("Move"))
+		{
+			if (action.contains("East") || action.contains("east")) 
+			{
+				location.setX(player.getLocation().getX()+1);
+			}
+			else if (action.contains("West") || action.contains("west")) 
+			{
+				location.setX(player.getLocation().getX()-1);
+			}
+			else if (action.contains("North") || action.contains("north")) 
+			{
+				location.setY(player.getLocation().getY()+1);
+			}
+			else if (action.contains("South") || action.contains("south")) 
+			{
+				location.setY(player.getLocation().getY()-1);
+			}
+		}
+		
+		else if (action.equals("Chop Wood") || action.equals("chop wood")) 
 		{
 			inventoryController.changeWoodAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}
-		if (action.equals("Fish") || action.equals("fish")) 
+		
+		else if (action.equals("Fish") || action.equals("fish")) 
 		{
 			inventoryController.changeFishAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}
-		if (action.equals("Drop Wood") || action.equals("drop wood")){
+		
+		else if (action.equals("Drop Wood") || action.equals("drop wood")){
 			inventoryController.changeWoodAmount(-10);
 			// Add item to location
 		}
-		if (action.equals("Move East") || action.equals("move east")) 
-		{
-			location.setX(player.getLocation().getX()+1);
-		}
-		if (action.equals("Move West") || action.equals("move west")) 
-		{
-			location.setX(player.getLocation().getX()-1);
-		}
-		if (action.equals("Move North") || action.equals("move north")) 
-		{
-			location.setY(player.getLocation().getY()+1);
-			
-			EventController eventController = new EventController();
-			Enemy enemy = eventController.createEnemy(player);
-			FightController fightController = new FightController();
-			response += fightController.Fight(player, enemy);
-		}
 		
-		if (action.equals("Move South") || action.equals("move south")) 
+		else if(action.contains("sleep"))
 		{
-			location.setY(player.getLocation().getY()-1);
+			if (player.getLocation().getX() == 10 && player.getLocation().getY() == 10) //Player is home
+			{
+				player.setStamina(100);
+				player.setHealth(100);
+				player.changeTime(8);	//Player sleeps 8 hours
+			}
+			else
+			{
+				player.setStamina(100);
+				player.changeTime(8);	//Player sleeps 8 hours
+				Enemy enemy = eventController.createEnemy(player);
+				response += fightController.Fight(player, enemy);
+			}
 		}
 
 		// Displays the description of the current room as well as any items located in that room
-		if (action.equals("Look") || action.equals("look")) 
+		else if (action.equals("Look") || action.equals("look")) 
 		{
 			// Display description
 			response += account.getLocationByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
@@ -95,7 +119,7 @@ public class ActionController
 			response += "<br>";
 		}
 		
-		if (action.equals("pick up")) // Picks up all items in the room
+		else if (action.equals("pick up")) // Picks up all items in the room
 		{
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
 			if (items.size() != 0) 
@@ -108,7 +132,7 @@ public class ActionController
 				}
 			}
 		}
-		if (action.contains("equip"))
+		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
 			Iterator<Item> iterator = keyset.iterator();
@@ -123,6 +147,7 @@ public class ActionController
 				}
 			}
 		}
+		playerController.checkPlayerState(player);	//Checks if player health and stamina > 0 
 		response += " what next?";
 		return response;
 	}
