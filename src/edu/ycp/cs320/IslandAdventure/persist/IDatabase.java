@@ -1,9 +1,11 @@
 package edu.ycp.cs320.IslandAdventure.persist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Player;
+import edu.ycp.cs320.IslandAdventure.model.Room;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.GameObject;
@@ -24,4 +26,8 @@ public interface IDatabase {
 	public Integer getAccountIdFromDatabase(String username);
 
 	public Boolean updatePlayerInDatabase(int account_id, Player player);
+
+	public Boolean insertRoomsIntoDatabase(int account_id, String username, ArrayList<Room> list);
+
+	public boolean updateMapInDatabase(int account_id, Account account);
 }

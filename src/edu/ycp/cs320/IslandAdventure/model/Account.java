@@ -30,12 +30,12 @@ public class Account
 	
 	public void initialize(){
 		// Set a knife at 10,10,0 and a hammer at 10,9,0.
-		for (int z = 0; z < 25; z++) {
-			for (int y = 0; y < 25; y++) {
-				for (int x = 0; x < 25; x++) {
+		for (int z = 0; z < 3; z++) {
+			for (int y = 0; y < 15; y++) {
+				for (int x = 0; x < 15; x++) {
 					String descript = "Description: Coordinates of this room are " + x + ", " + y + ", " + z;
 					Location local = new Location(x,y,z);
-					Room room = new Room(local, descript, false, false, false, false, false, false, false);
+					Room room = new Room(local, descript, false, true, true, true, true, true, true);
 					mapRooms.add(room);
 				}
 			}

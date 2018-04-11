@@ -43,8 +43,9 @@ public class GameEngine
 					account.getPlayer().getLocation().getZ(), account_id);
 			
 			System.out.println("New Player added, Player_id: <" + player_id + ">");
+			// Create Rooms using accountID
+			db.insertRoomsIntoDatabase(account_id, account.getUsername(), account.getRooms());
 			// Create Objects using account_id
-			// Create Locations using accountID
 			return true;
 		}
 		else
@@ -90,5 +91,9 @@ public class GameEngine
 	// Method to load a player when re-entering the game
 	public Player loadPlayer(int account_id){
 		return db.getPlayer(account_id);
+	}
+	
+	public boolean updateMapInDatabase(int account_id, Account account){
+		return db.updateMapInDatabase(account_id, account);
 	}
 }

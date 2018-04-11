@@ -13,6 +13,7 @@ import java.util.List;
 import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
+import edu.ycp.cs320.IslandAdventure.model.Room;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -516,6 +517,147 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	@Override
+	public Boolean insertRoomsIntoDatabase(int account_id, String username, ArrayList<Room> list) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement insertRooms   = null;
+
+				Boolean done = new Boolean(false);
+				try 
+				{
+					for (Room room : list){
+							
+						insertRooms = conn.prepareStatement("insert into rooms (account_id, username, x, y, z, description, visible,"
+								+ " go_north, go_east, go_south, go_west, go_up, go_down)"
+								+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+						
+						insertRooms.setInt(1, account_id);
+						insertRooms.setString(2, username);
+						insertRooms.setInt(3, room.getLocation().getX());
+						insertRooms.setInt(4, room.getLocation().getY());
+						insertRooms.setInt(5, room.getLocation().getZ());
+						insertRooms.setString(6, room.getDescription());
+						insertRooms.setInt(7, (room.getVisible()) ? 1 : 0); // Convert from boolean to integer
+						insertRooms.setInt(8, (room.getGoNorth()) ? 1 : 0);
+						insertRooms.setInt(9, (room.getGoEast()) ? 1 : 0);
+						insertRooms.setInt(10, (room.getGoSouth()) ? 1 : 0);
+						insertRooms.setInt(11, (room.getGoWest()) ? 1 : 0);
+						insertRooms.setInt(12, (room.getGoUp()) ? 1 : 0);
+						insertRooms.setInt(13, (room.getGoDown()) ? 1 : 0);
+						
+						insertRooms.executeUpdate();						
+					}
+					done = true;
+					System.out.println("DerbyDatabase >> Rooms inserted into database for account_id: <" + account_id + ">, Username: <" + username + ">");
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(insertRooms);
+				}
+				return done;
+			}
+		});
+	}
+	
+	@Override
+	public boolean updateMapInDatabase(int account_id, Account account) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;				
+				
+				ResultSet resultSet2 = null;				
+				
+				// for saving author ID and book ID
+				Boolean bool = new Boolean(false);
+
+				//Modify the values of the attributes of the players table
+				try {
+					for (Room room : account.getRooms()){
+					
+						stmt1 = conn.prepareStatement(
+								"UPDATE rooms" +
+									" SET rooms.visible = ?," +
+										" rooms.go_north = ?," +
+										" rooms.go_east = ?," +
+										" rooms.go_south = ?," +
+										" rooms.go_west = ?," +
+										" rooms.go_up = ?," +
+										" rooms.go_down = ?" +
+									" WHERE rooms.account_id = ? AND rooms.x = ? AND rooms.y = ? AND rooms.z = ? "
+						);
+						stmt1.setInt(1, room.getVisible() ? 1 : 0);
+						stmt1.setInt(2, room.getGoNorth() ? 1 : 0);
+						stmt1.setInt(3, room.getGoEast() ? 1 : 0);
+						stmt1.setInt(4, room.getGoSouth() ? 1 : 0);
+						stmt1.setInt(5, room.getGoWest() ? 1 : 0);
+						stmt1.setInt(6, room.getGoUp() ? 1 : 0);
+						stmt1.setInt(7, room.getGoDown() ? 1 : 0);
+						stmt1.setInt(8, account_id);
+						stmt1.setInt(9, room.getLocation().getX());
+						stmt1.setInt(10, room.getLocation().getY());
+						stmt1.setInt(11, room.getLocation().getZ());
+						
+						// execute the update
+						stmt1.executeUpdate(); // IF MANIPULATING DATABASE, MUST USE EXECUTE UPDATE!!!!!!!!!!!!!
+					
+					}
+					
+					stmt2 = conn.prepareStatement(
+							"select rooms.visible from rooms " +
+							"  where rooms.account_id = ? AND rooms.x = ? AND rooms.y = ? AND rooms.z = ? "
+					);
+					stmt2.setInt(1, account_id);
+					stmt2.setInt(2, account.getPlayer().getLocation().getX());
+					stmt2.setInt(3, account.getPlayer().getLocation().getY());
+					stmt2.setInt(4, account.getPlayer().getLocation().getZ());
+					
+					// execute the update
+					resultSet2 = stmt2.executeQuery();
+					
+					// get the precise schema of the tuples returned as the result of the query
+					ResultSetMetaData resultSchema2 = stmt2.getMetaData();
+
+					// iterate through the returned tuples, printing each one
+					// count # of rows returned
+					int rowsReturned = 0;
+					
+					// THis should only iterate once since only visible is being retrieved.
+					while (resultSet2.next()) {
+						for (int i = 1; i <= resultSchema2.getColumnCount(); i++) {
+							Integer obj = (Integer) resultSet2.getObject(i);
+							bool = (obj == 1) ? true : false; // Convert integer to boolean
+							//System.out.println("account_id: " + account_id);
+							if (i > 1) {
+								System.out.print(",");
+							}
+							//System.out.print(obj2.toString());
+						}
+						System.out.println();
+						// count # of rows returned
+						rowsReturned++;
+						System.out.println("DerbyDatabase >> visible retireved for current room: <" + bool.toString() + "> for account_id: <" + account_id + ">");	
+					}
+					// indicate if the query returned nothing
+					if (rowsReturned == 0) {
+						System.out.println("DerbyDatabase >> No rows returned that matched the query. Visible retrieved for current room: <" + bool.toString() + ">");
+					}
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);					
+					DBUtil.closeQuietly(resultSet2);
+				}
+				return bool;
+			}
+		});
+	}
 		
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
@@ -595,6 +737,7 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
 				
 				try {
 					stmt1 = conn.prepareStatement(
@@ -628,10 +771,34 @@ public class DerbyDatabase implements IDatabase {
 						
 					System.out.println("Accounts table created.");
 					
+					// Create Room tables
+					stmt3 = conn.prepareStatement(
+						"create table rooms (" +
+						"	room_id integer primary key " +
+						"		generated always as identity (start with 1, increment by 1), " +
+						"	account_id integer," +
+						"	username varchar(40)," +
+						"	x integer," +
+						"	y integer," +
+						"	z integer," +
+						"	description varchar(150)," +
+						"	visible integer," +
+						"	go_north integer," +
+						"	go_east integer," +
+						"	go_south integer," +
+						"	go_west integer," +
+						"	go_up integer," +
+						"	go_down integer" +
+						")"
+					);
+					stmt3.executeUpdate();
+					System.out.println("Rooms table created.");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
 				}
 			}
 		});

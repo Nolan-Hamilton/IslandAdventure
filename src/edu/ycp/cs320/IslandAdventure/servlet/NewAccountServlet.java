@@ -62,6 +62,7 @@ public class NewAccountServlet extends HttpServlet {
 				Location playerLocation = new Location(10,10,10);
 				player.changeLocation(playerLocation);
 				account.setPlayer(player);
+				account.initialize();
 				fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 				
 				Boolean newAcc = engine.insertNewAccountIntoDatabase(account); // account data is added to database
