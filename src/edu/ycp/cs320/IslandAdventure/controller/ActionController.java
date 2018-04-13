@@ -4,6 +4,7 @@ import edu.ycp.cs320.IslandAdventure.persist.DatabaseProvider;
 import edu.ycp.cs320.IslandAdventure.persist.DerbyDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.IDatabase;
+import edu.ycp.cs320.IslandAdventure.MapView.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,11 +58,11 @@ public class ActionController
 			}
 			else if (action.contains("North") || action.contains("north")) 
 			{
-				location.setY(player.getLocation().getY()+1);
+				location.setY(player.getLocation().getY()-1);
 			}
 			else if (action.contains("South") || action.contains("south")) 
 			{
-				location.setY(player.getLocation().getY()-1);
+				location.setY(player.getLocation().getY()+1);
 			}
 		}
 		
@@ -99,6 +100,12 @@ public class ActionController
 				Enemy enemy = eventController.createEnemy(player);
 				response += fightController.Fight(player, enemy);
 			}
+		}
+		
+		//Display Map
+		else if (action.equals("display map") || action.equals("Display Map")){
+			MapFrame map = new MapFrame();
+			map.displayMap(account);
 		}
 
 		// Displays the description of the current room as well as any items located in that room

@@ -117,6 +117,27 @@ public class Account
 		return results;
 	}
 	
+	// Needs to be Tested!
+	public int getMaxRowOfMap(){
+		int rows = 0;
+		for (Room room: mapRooms){
+			if (room.getLocation().getY() > rows){
+				rows = room.getLocation().getY();
+			}
+		}
+		return rows;
+	}
+	
+	public int getMaxColumnOfMap(){
+		int columns = 0;
+		for (Room room: mapRooms){
+			if (room.getLocation().getY() > columns){
+				columns = room.getLocation().getY();
+			}
+		}
+		return columns;
+	}
+	
 	public ArrayList<Item> getItemsByXYZ(int x, int y, int z){
 		ArrayList<Item> results = new ArrayList<Item>();
 		for (Item item : itemList) {
