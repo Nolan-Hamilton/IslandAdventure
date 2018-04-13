@@ -110,6 +110,18 @@ public class AccountTest {
 	}
 	
 	@Test
+	public void testGetMaxRowOfMap(){
+		int max = account.getMaxRowOfMap();
+		assertTrue(max == 10);
+	}
+	
+	@Test
+	public void testGetMaxColumnOfMap(){
+		int max = account.getMaxColumnOfMap();
+		assertTrue(max == 10);
+	}
+	
+	@Test
 	public void testGetObjectsByXYZ() {
 		//knife.setLocation(location);
 		account.getObjectList().get(0).setX(10);

@@ -23,6 +23,7 @@ public class ActionControllerTest
 	{
 		this.player = playerController.createNewPlayer();
 		actionController = new ActionController(player, account);
+		account.initialize();
 	}
 	
 	@Test
@@ -33,7 +34,7 @@ public class ActionControllerTest
 		assertTrue(player.getInventory().getItemCountFromString("Wood") == 20);
 		
 		actionController.interpretAction("Move North");
-		assertTrue(player.getLocation().getY() == 11);
+		assertTrue(player.getLocation().getY() == 9);
 	}
 
 }
