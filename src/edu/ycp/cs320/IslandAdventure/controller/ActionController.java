@@ -50,19 +50,36 @@ public class ActionController
 		{
 			if (action.contains("East") || action.contains("east")) 
 			{
-				location.setX(player.getLocation().getX()+1);
+				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoEast() == true){
+					location.setX(player.getLocation().getX()+1);
+				}else{
+					response += "You cannot go that way! <br><br>";
+				}
 			}
 			else if (action.contains("West") || action.contains("west")) 
 			{
-				location.setX(player.getLocation().getX()-1);
+				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoWest() == true){
+					location.setX(player.getLocation().getX()-1);
+				}else{
+					response += "You cannot go that way! <br><br>";
+				}
 			}
 			else if (action.contains("North") || action.contains("north")) 
 			{
-				location.setY(player.getLocation().getY()-1);
+				
+				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoNorth() == true){
+					location.setY(player.getLocation().getY()-1);
+				}else{
+					response += "You cannot go that way! <br><br>";
+				}
 			}
 			else if (action.contains("South") || action.contains("south")) 
 			{
-				location.setY(player.getLocation().getY()+1);
+				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoSouth() == true){
+					location.setY(player.getLocation().getY()+1);
+				}else{
+					response += "You cannot go that way! <br><br>";
+				}
 			}
 		}
 		

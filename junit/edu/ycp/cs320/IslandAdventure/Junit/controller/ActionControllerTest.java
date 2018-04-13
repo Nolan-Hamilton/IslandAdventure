@@ -23,6 +23,7 @@ public class ActionControllerTest
 	{
 		this.player = playerController.createNewPlayer();
 		actionController = new ActionController(player, account);
+		account.initialize();
 	}
 	
 	@Test

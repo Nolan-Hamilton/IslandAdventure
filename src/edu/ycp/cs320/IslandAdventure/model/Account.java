@@ -35,7 +35,12 @@ public class Account
 				for (int x = 0; x < 15; x++) {
 					String descript = "Description: Coordinates of this room are " + x + ", " + y + ", " + z;
 					Location local = new Location(x,y,z);
-					Room room = new Room(local, descript, false, true, true, true, true, true, true);
+					boolean top = true, right = true, bottom = true, left = true;
+					if (x == 14){ right = false;}
+					if (x == 0){ left = false;}
+					if (y == 14){ bottom = false;}	// If on bottom row, can't go south
+					if (y == 0){ top = false;}
+					Room room = new Room(local, descript, false, top, right, bottom, left, true, true);
 					mapRooms.add(room);
 				}
 			}
