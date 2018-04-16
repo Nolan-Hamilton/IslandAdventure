@@ -7,6 +7,7 @@ import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Room;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
+import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.GameObject;
 
@@ -32,4 +33,11 @@ public interface IDatabase {
 	public boolean updateMapInDatabase(int account_id, Account account);
 
 	public ArrayList<Room> loadMapFromDatabase(int account_id);
+	
+	public Boolean insertItemIntoDatabase(Integer account_id, Integer inventoryItem, String name, String description, 
+			Integer uses, Integer amount, Integer x, Integer y, Integer z);
+
+	public Account getItemList(Integer account_id, Account account);
+	
+	
 }

@@ -100,4 +100,17 @@ public class FakeDatabase implements IDatabase
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Boolean insertItemIntoDatabase(Integer player_id, Integer inventoryItem, String name,
+			String description, Integer uses, Integer amount, Integer x, Integer y, Integer z) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Account getItemList(Integer account_id, Account account) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.IslandAdventure.model.Account;
+import edu.ycp.cs320.IslandAdventure.model.Inventory;
+import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Room;
@@ -211,7 +213,8 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public Integer addPlayer(String user, Integer score, Integer health, Integer stamina, Integer time, Integer x, Integer y, Integer z, int account_id) 
+	public Integer addPlayer(String user, Integer score, Integer health, 
+			Integer stamina, Integer time, Integer x, Integer y, Integer z, int account_id) 
 	{
 		return executeTransaction(new Transaction<Integer>() 
 		{
@@ -270,6 +273,92 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt);
 				}
 				return player_id;
+			}
+		});
+	}
+	
+	@Override
+	public Boolean insertItemIntoDatabase(Integer account_id, Integer inventoryItem, String name, 
+			String description, Integer uses, Integer amount, Integer x, Integer y, Integer z) {
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement insertItem   = null;
+
+				Boolean itemAdded = false;
+				try 
+				{
+					insertItem = conn.prepareStatement("insert into items (account_id, inventoryItem, name, description, uses,"
+							+ " amount, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					{
+						insertItem.setInt(1, account_id);
+						insertItem.setInt(2, inventoryItem);
+						insertItem.setString(3, name);
+						insertItem.setString(4, description);
+						insertItem.setInt(5, uses);
+						insertItem.setInt(6, amount);
+						insertItem.setInt(7, x);
+						insertItem.setInt(8, y);
+						insertItem.setInt(9, z);
+					}
+					insertItem.executeUpdate();
+					
+					System.out.println("New item for account number <" + account_id + "> inserted in items table");
+					itemAdded = true;
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(insertItem);
+				}
+				return itemAdded;
+			}
+		});
+	}
+	
+	@Override
+	public Account getItemList(Integer account_id, Account account) 
+	{
+		return executeTransaction(new Transaction<Account>() 
+		{
+			@Override
+			public Account execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+	
+				try {
+					// Retrieve all attributes from items tables
+					stmt = conn.prepareStatement(
+							"select inventoryItem, items.name, items.description, items.uses, items.amount, "
+							+ "items.x, items.y, items.z from items" +
+							" where items.account_id = ? "
+					);
+					stmt.setInt(1, account_id);
+					
+					resultSet = stmt.executeQuery();
+
+					Boolean found = false;
+					
+					while (resultSet.next()) 
+					{
+						found = true;
+				
+						// retrieve attributes from resultSet starting with index 1
+						loadItem(account, resultSet, 1);
+					}
+
+					// check if the player was found
+					if (!found) 
+					{
+						System.out.println("No items found in the items table for account.");
+					}
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return account;
 			}
 		});
 	}
@@ -778,6 +867,32 @@ public class DerbyDatabase implements IDatabase {
 		//player.setPlayer_id(resultSet.getInt(index++));
 	}
 	
+	private void loadItem(Account account, ResultSet resultSet, int index) throws SQLException
+	{
+		Inventory inventory = account.getPlayer().getInventory();
+
+		Integer inventoryItem = resultSet.getInt(index++);
+		String name = resultSet.getString(index++);
+		String description = resultSet.getString(index++);
+		Integer uses = resultSet.getInt(index++);
+		Integer amount = resultSet.getInt(index++);
+		Integer x = resultSet.getInt(index++);
+		Integer y = resultSet.getInt(index++);
+		Integer z = resultSet.getInt(index++);
+		
+		Location location = new Location(x, y, z);
+		Item item = new Item(name, description, location, uses);
+		
+		if (inventoryItem == 1)
+		{
+			inventory.addItem(item, amount); //If item is in inventory than add to players inventory
+		}
+		else
+		{
+			account.getItemList().add(item); // Else add to account itemList
+		}
+	}
+	
 	private void loadAccount(Account account, ResultSet resultSet, int index) throws SQLException 
 	{
 		//account.setAccount_id(resultSet.getInt(index++));
@@ -808,6 +923,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
 				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
 				
 				try {
 					stmt1 = conn.prepareStatement(
@@ -864,6 +980,27 @@ public class DerbyDatabase implements IDatabase {
 					stmt3.executeUpdate();
 					System.out.println("Rooms table created.");
 					
+					// Create items table
+					stmt4 = conn.prepareStatement(
+							"create table items (" +
+							"	item_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	account_id integer," +
+							"	inventoryItem integer," +
+							"	name string," +
+							"	description string," +
+							"	uses integer," +
+							"	amount integer," +
+							"	x integer," +
+							"	y integer," +
+							"	z integer," +
+							")"
+						);	
+						stmt4.executeUpdate();
+						System.out.println("Inventory table created.");
+						
+						System.out.println("Players table created.");
+						
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
@@ -934,6 +1071,4 @@ public class DerbyDatabase implements IDatabase {
 		
 		System.out.println("Success!");
 	}
-
-
 }

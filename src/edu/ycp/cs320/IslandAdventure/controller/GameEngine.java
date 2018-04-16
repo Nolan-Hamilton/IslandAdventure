@@ -103,4 +103,29 @@ public class GameEngine
 	public ArrayList<Room> loadMap(int account_id){
 		return db.loadMapFromDatabase(account_id);
 	}
+	
+	public Boolean insertNewItemIntoDatabase(Account account, int account_id, Item item, Integer amount) 
+	{
+		Location location = item.getLocation();
+		Integer inventoryItem = 0;
+		if (account.getPlayer().getInventory().getItemCountFromString(item.getName()) > 0)
+		{
+			inventoryItem = 1;
+		}
+		String name = item.getName();
+		String description = item.getDescription();
+		Integer uses = item.getUses();
+		Integer x = location.getX();
+		Integer y = location.getY();
+		Integer z = location.getZ();
+
+		Boolean added = db.insertItemIntoDatabase(account_id, inventoryItem, name, description, uses, amount, x, y, z);
+		return added;
+	}
+	
+	public Account getItemList(Account account, int account_id)
+	{
+		account = db.getItemList(account_id, account);
+		return account;
+	}
 }
