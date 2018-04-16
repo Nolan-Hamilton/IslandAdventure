@@ -143,6 +143,56 @@ public class ActionController
 			response += "<br>";
 		}
 		
+		else if (action.contains("drop") || action.contains("Drop")){
+			int chop = action.indexOf(" ") + 1;			//This finds the index of the first letter of the item
+			String itemName = action.substring(chop).toLowerCase();	//returns the name of the item and throws out the 'take '
+			boolean found = false;
+			for (Item key: player.getInventory().getInventoryMap().keySet()){
+				if (itemName.equals(key.getName().toLowerCase())){
+					Item item = new Item(key.getName(), key.getDescription(), new Location(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()), key.getUses());
+					account.getItemList().add(item);
+					player.getInventory().addItem(key, -1);
+					found = true;
+					response += itemName + " has been removed from your inventory. <br>";
+					if (player.getInventory().getInventoryMap().get(key) == 0){
+						player.getInventory().getInventoryMap().remove(key); // Remove from list otherwise Hammer = 0, Hammer = 1
+					}
+					break;
+				}
+			}
+			if (found == false){
+				response += "This item was not found in your inventory. <br>";
+			}
+		}
+		
+		else if (action.contains("take") || action.contains("Take")){
+			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
+			int chop = action.indexOf(" ") + 1;			//This finds the index of the first letter of the item
+			String itemName = action.substring(chop).toLowerCase();	//returns the name of the item and throws out the 'take '
+			if (items.size() != 0) 
+			{
+				boolean stringFound = false;
+				for (Item item : items) 
+				{
+					if (item.getName().toLowerCase().equals(itemName)){
+						response += "You acquired the following item: <br>" + item.getName() + "<br>";
+						player.getInventory().addItem(item, 1);
+						//Remove the Item from the objectList //////////////////////////////////////////
+						int index = account.getObjectIndexByNameAndXYZ(item.getName(), item.getX(), item.getY(), item.getZ()); //This finds index of item in ObjectList
+						account.getItemList().remove(index);			//This removes item from ObjectList using index.
+						///////////////////////////////////////////////////////////////////////////////
+						stringFound = true;
+						break;	// Only one item is taken at a time
+					}
+				}
+				if (stringFound == false){		// This is if item is misspelled or not here
+					response += "This item could not be found. <br> ";
+				}
+			}else{
+				response += "There is nothing here to take. <br>";
+			}
+		}
+		/*//This is no longer used but is here for reference or to revert back to
 		else if (action.equals("pick up")) // Picks up all items in the room
 		{
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
@@ -156,7 +206,7 @@ public class ActionController
 				}
 			}
 		}
-		
+		*/
 		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();

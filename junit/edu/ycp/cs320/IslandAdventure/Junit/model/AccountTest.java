@@ -29,8 +29,8 @@ public class AccountTest {
 		player = new Player(0, 0, 0, 0, inventory, location, null, null, null);
 		account = new Account("MyName", "SomePassword", player);
 		objects = new ArrayList<GameObject>();
-		knife = new Item(null, null, location, null);
-		hammer = new Item(null, null, location, null);
+		knife = new Item("knife", null, location, null);
+		hammer = new Item("hammer", null, location, null);
 		objects.add(knife);
 		account.getObjectList().add(hammer);
 		roomList = new ArrayList<Room>();
@@ -39,6 +39,9 @@ public class AccountTest {
 		roomList.add(room2);
 		Room room = new Room(location, "Descript", false, false, false, false, false, false, false);
 		account.getRooms().add(room);
+		
+		account.getItemList().add(hammer);
+		account.getItemList().add(knife);
 	}
 	
 	// Name Tests
@@ -129,6 +132,13 @@ public class AccountTest {
 		account.getObjectList().get(0).setZ(10);
 		//assertTrue(account.getObjectList().size() == 2);
 		assertTrue(account.getObjectsByXYZ(10,10,10).get(0).equals(account.getObjectList().get(0)));
+	}
+	
+	@Test
+	public void testGetItemIndexByNameAndXYZ(){
+		assertEquals(0, account.getObjectIndexByNameAndXYZ("hammer", 10, 10, 10));
+		assertTrue(account.getObjectIndexByNameAndXYZ("Hammer", 10, 10, 10) == 0);
+		assertEquals(1, account.getObjectIndexByNameAndXYZ("knife", 10, 10, 10));
 	}
 	
 }
