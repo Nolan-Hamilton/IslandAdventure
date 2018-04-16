@@ -142,11 +142,29 @@ public class ActionController
 			}
 			response += "<br>";
 		}
-		/*
+		
 		else if (action.contains("drop") || action.contains("Drop")){
-			
+			int chop = action.indexOf(" ") + 1;			//This finds the index of the first letter of the item
+			String itemName = action.substring(chop).toLowerCase();	//returns the name of the item and throws out the 'take '
+			boolean found = false;
+			for (Item key: player.getInventory().getInventoryMap().keySet()){
+				if (itemName.equals(key.getName().toLowerCase())){
+					Item item = new Item(key.getName(), key.getDescription(), new Location(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()), key.getUses());
+					account.getItemList().add(item);
+					player.getInventory().addItem(key, -1);
+					found = true;
+					response += itemName + " has been removed from your inventory. <br>";
+					if (player.getInventory().getInventoryMap().get(key) == 0){
+						player.getInventory().getInventoryMap().remove(key); // Remove from list otherwise Hammer = 0, Hammer = 1
+					}
+					break;
+				}
+			}
+			if (found == false){
+				response += "This item was not found in your inventory. <br>";
+			}
 		}
-		*/
+		
 		else if (action.contains("take") || action.contains("Take")){
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
 			int chop = action.indexOf(" ") + 1;			//This finds the index of the first letter of the item
