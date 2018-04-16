@@ -122,7 +122,6 @@ public class Account
 		return results;
 	}
 	
-	// Needs to be Tested!
 	public int getMaxRowOfMap(){
 		int rows = 0;
 		for (Room room: mapRooms){
@@ -151,5 +150,19 @@ public class Account
 			}
 		}
 		return results;
+	}
+	
+	public int getObjectIndexByNameAndXYZ(String name, int x, int y, int z){
+		int index = -1;
+		for (Item item : itemList){
+			//System.out.println(item.getName() + item.getX() + item.getY()+ item.getZ());
+			//System.out.println(name + x + y + z);
+			//System.out.println(item.getName().toLowerCase().equals(name.toLowerCase()));
+			if (item.getName().toLowerCase().equals(name.toLowerCase()) && item.getX() == x && item.getY() == y && item.getZ() == z) {
+				index = itemList.indexOf(item);
+				//System.out.println(objectList.indexOf(item));
+			}
+		}
+		return index;
 	}
 }

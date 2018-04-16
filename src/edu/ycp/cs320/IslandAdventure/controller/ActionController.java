@@ -142,7 +142,39 @@ public class ActionController
 			}
 			response += "<br>";
 		}
-		
+		/*
+		else if (action.contains("drop") || action.contains("Drop")){
+			
+		}
+		*/
+		else if (action.contains("take") || action.contains("Take")){
+			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
+			int chop = action.indexOf(" ") + 1;			//This finds the index of the first letter of the item
+			String itemName = action.substring(chop).toLowerCase();	//returns the name of the item and throws out the 'take '
+			if (items.size() != 0) 
+			{
+				boolean stringFound = false;
+				for (Item item : items) 
+				{
+					if (item.getName().toLowerCase().equals(itemName)){
+						response += "You acquired the following item: <br>" + item.getName() + "<br>";
+						player.getInventory().addItem(item, 1);
+						//Remove the Item from the objectList //////////////////////////////////////////
+						int index = account.getObjectIndexByNameAndXYZ(item.getName(), item.getX(), item.getY(), item.getZ()); //This finds index of item in ObjectList
+						account.getItemList().remove(index);			//This removes item from ObjectList using index.
+						///////////////////////////////////////////////////////////////////////////////
+						stringFound = true;
+						break;	// Only one item is taken at a time
+					}
+				}
+				if (stringFound == false){		// This is if item is misspelled or not here
+					response += "This item could not be found. <br> ";
+				}
+			}else{
+				response += "There is nothing here to take. <br>";
+			}
+		}
+		/*//This is no longer used but is here for reference or to revert back to
 		else if (action.equals("pick up")) // Picks up all items in the room
 		{
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
@@ -156,7 +188,7 @@ public class ActionController
 				}
 			}
 		}
-		
+		*/
 		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
