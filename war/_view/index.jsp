@@ -56,5 +56,16 @@
 				<input type="text" name="action" size="12" value="${action}" autofocus="autofocus" />
 			</form>
 		</div>
+		
+		<!-- This is the stuff for the direction commands -->
+		<div id="inputBox">
+			<form action="${pageContext.servletContext.contextPath}/index" method="post" style="text-align: center;">
+					<input type="Submit" name="north" value="North"><br>
+					<input type="Submit" name="west" value="West">
+					<input type="Submit" name="east" value="East"><br>
+					<input type="Submit" name="south" value="South">
+				</form>
+		</div>
+		
 	</body>
 </html>

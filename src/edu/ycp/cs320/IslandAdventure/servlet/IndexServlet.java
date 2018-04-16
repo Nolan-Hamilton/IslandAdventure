@@ -127,6 +127,7 @@ public class IndexServlet extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/expandabilityMenu");
 		}
 		
+		
 		// Initialize variables in the Inventory model		
 		req.setAttribute("inventory", player.getInventory());
 		
@@ -134,6 +135,16 @@ public class IndexServlet extends HttpServlet {
 		
 		action = req.getParameter("action");
 		
+		// Check for directional button movement
+		if (req.getParameter("north") != null){
+			action = "move north";
+		}else if (req.getParameter("east") != null){
+			action = "move east";
+		}else if (req.getParameter("south") != null){
+			action = "move south";
+		}else if (req.getParameter("west") != null){
+			action = "move west";
+		}
 
 		//req.setAttribute("lastAction", action);
 		
