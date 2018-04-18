@@ -11,11 +11,11 @@
 
 	<body>
 		<div id= "titleText">
-			<h1>Island Adventure</h1>
+			Island Adventure
 		</div>
 		
 		<div id= "titleText">
-			<h2>New Account</h2>
+			New Account
 		</div>
 		
 		<div id= "inputBox">

@@ -11,11 +11,13 @@ public class EventController
 	{
 	}
 	Random rand = new Random();
-
-	int  n = rand.nextInt(50) + 1;	//random # from 1-50
+	
+	FightController fightController = new FightController();
 	
 	public Enemy createEnemy(Player player)
 	{	
+		int  n = rand.nextInt(50) + 1;	//random # from 1-50
+		
 		if (n > 0)
 		{
 			Enemy spider = new Enemy("Giant Spider", "A Deadly Spider as Large as a Human", 
@@ -26,5 +28,39 @@ public class EventController
 		{
 			return null;
 		}
+	}
+	public String sleepEvent(Player player) 
+	{
+		String sleepEvent = "";
+		int  n;
+		if (player.getLocation().getX() == 10 && player.getLocation().getY() == 10) //Player is home
+		{
+			n = rand.nextInt(20) + 1;	//random # from 1-20
+		}
+		else
+		{
+			n = rand.nextInt(50) + 1;	//random # from 1-50
+		}
+
+		if (n > 10 && n < 20)
+		{
+			player.setStamina(100);
+			player.changeTime(8);	//Player sleeps 8 hours
+			sleepEvent = "You could have slept better but you feel slightly rejuvenated.";
+		}
+		else if (n >= 20)
+		{
+			sleepEvent += "You awake to a creature ready to attack!";
+			Enemy enemy = createEnemy(player);
+			sleepEvent += fightController.Fight(player, enemy);
+		}
+		else
+		{
+			player.setStamina(100);
+			player.setHealth(100);
+			player.changeTime(8);	//Player sleeps 8 hours
+			sleepEvent = "You got a good night of sleep.";
+		}
+		return sleepEvent;
 	}
 }
