@@ -331,7 +331,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					// Retrieve all attributes from items tables
 					stmt = conn.prepareStatement(
-							"select inventoryItem, items.name, items.description, items.uses, items.amount, "
+							"select items.inventoryItem, items.name, items.description, items.uses, items.amount, "
 							+ "items.x, items.y, items.z from items" +
 							" where items.account_id = ? "
 					);
@@ -362,7 +362,101 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-	
+	/*
+	@Override
+	public Boolean updateItemsInDatabase(int account_id, Account account) { // Still working on this
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;				
+				
+				ResultSet resultSet2 = null;				
+				
+				// for saving author ID and book ID
+				Boolean bool = new Boolean(false);
+
+				//Modify the values of the attributes of the players table
+				try {
+					for (Item item : account.getItemList()){
+					
+						stmt1 = conn.prepareStatement(
+								"UPDATE items" +
+									" SET items.visible = ?," +
+										" items.go_north = ?," +
+										" items.go_east = ?," +
+										" items.go_south = ?," +
+										" items.go_west = ?," +
+										" items.go_up = ?," +
+										" items.go_down = ?" +
+									" WHERE items.account_id = ? AND items.x = ? AND items.y = ? AND items.z = ? "
+						);
+						stmt1.setInt(1, item.getVisible() ? 1 : 0);
+						stmt1.setInt(2, item.getGoNorth() ? 1 : 0);
+						stmt1.setInt(3, item.getGoEast() ? 1 : 0);
+						stmt1.setInt(4, item.getGoSouth() ? 1 : 0);
+						stmt1.setInt(5, item.getGoWest() ? 1 : 0);
+						stmt1.setInt(6, item.getGoUp() ? 1 : 0);
+						stmt1.setInt(7, item.getGoDown() ? 1 : 0);
+						stmt1.setInt(8, account_id);
+						stmt1.setInt(9, item.getLocation().getX());
+						stmt1.setInt(10, item.getLocation().getY());
+						stmt1.setInt(11, item.getLocation().getZ());
+						
+						// execute the update
+						stmt1.executeUpdate(); // IF MANIPULATING DATABASE, MUST USE EXECUTE UPDATE!!!!!!!!!!!!!
+					
+					}
+					
+					stmt2 = conn.prepareStatement(
+							"select rooms.visible from rooms " +
+							"  where rooms.account_id = ? AND rooms.x = ? AND rooms.y = ? AND rooms.z = ? "
+					);
+					stmt2.setInt(1, account_id);
+					stmt2.setInt(2, account.getPlayer().getLocation().getX());
+					stmt2.setInt(3, account.getPlayer().getLocation().getY());
+					stmt2.setInt(4, account.getPlayer().getLocation().getZ());
+					
+					// execute the update
+					resultSet2 = stmt2.executeQuery();
+					
+					// get the precise schema of the tuples returned as the result of the query
+					ResultSetMetaData resultSchema2 = stmt2.getMetaData();
+
+					// iterate through the returned tuples, printing each one
+					// count # of rows returned
+					int rowsReturned = 0;
+					
+					// THis should only iterate once since only visible is being retrieved.
+					while (resultSet2.next()) {
+						for (int i = 1; i <= resultSchema2.getColumnCount(); i++) {
+							Integer obj = (Integer) resultSet2.getObject(i);
+							bool = (obj == 1) ? true : false; // Convert integer to boolean
+							//System.out.println("account_id: " + account_id);
+							if (i > 1) {
+								System.out.print(",");
+							}
+							//System.out.print(obj2.toString());
+						}
+						System.out.println();
+						// count # of rows returned
+						rowsReturned++;
+						System.out.println("DerbyDatabase >> visible retireved for current room: <" + bool.toString() + "> for account_id: <" + account_id + ">");	
+					}
+					// indicate if the query returned nothing
+					if (rowsReturned == 0) {
+						System.out.println("DerbyDatabase >> No rows returned that matched the query. Visible retrieved for current room: <" + bool.toString() + ">");
+					}
+				} finally {
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);					
+					DBUtil.closeQuietly(resultSet2);
+				}
+				return bool;
+			}
+		});
+	}
+	*/
 	@Override
 	public Player getPlayer(String user) 
 	{
@@ -869,7 +963,7 @@ public class DerbyDatabase implements IDatabase {
 	
 	private void loadItem(Account account, ResultSet resultSet, int index) throws SQLException
 	{
-		Inventory inventory = account.getPlayer().getInventory();
+		//Inventory inventory = account.getPlayer().getInventory();
 
 		Integer inventoryItem = resultSet.getInt(index++);
 		String name = resultSet.getString(index++);
@@ -885,7 +979,8 @@ public class DerbyDatabase implements IDatabase {
 		
 		if (inventoryItem == 1)
 		{
-			inventory.addItem(item, amount); //If item is in inventory than add to players inventory
+			//inventory.addItem(item, amount); //If item is in inventory than add to players inventory
+			account.getPlayer().getInventory().addItem(item, amount);
 		}
 		else
 		{

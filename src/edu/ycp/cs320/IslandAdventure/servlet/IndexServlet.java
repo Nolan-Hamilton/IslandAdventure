@@ -83,6 +83,7 @@ public class IndexServlet extends HttpServlet {
 				System.out.println(account.getRoomByXYZ(11, 11, 0).getVisible());
 				//System.out.println(account.getRooms().get(350).getVisible());
 				
+				
 			}else{
 				System.out.println("IndexServlet >> existingPlayer == false");
 			}
@@ -92,6 +93,7 @@ public class IndexServlet extends HttpServlet {
 			System.out.println(account.getUsername() + "'s account is now created");
 			req.setAttribute("user", account.getUsername());
 		}
+		req.getSession().setAttribute("newItem", false); // auto sets to false
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 	}
 
@@ -129,6 +131,17 @@ public class IndexServlet extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/expandabilityMenu");
 		}
 		
+		// If a new item has been created execute this block
+		if (req.getSession().getAttribute("newItem").equals(true)){
+			String name = req.getSession().getAttribute("newItemName").toString();
+			String description = req.getSession().getAttribute("newItemDescript").toString();
+			//Location location = new Location((int) req.getSession().getAttribute("newItemX"), (int) req.getSession().getAttribute("newItemY"), (int) req.getSession().getAttribute("newItemZ"));
+			Item itemToAdd = new Item(name, description, player.getLocation(), 0);
+			engine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1);
+			req.getSession().setAttribute("newItem", false); // Reset to false so this it only executes this black after creating new item
+			engine.getItemList(account, account_id);
+		}
+		
 		
 		// Initialize variables in the Inventory model		
 		req.setAttribute("inventory", player.getInventory());
@@ -149,8 +162,10 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		//req.setAttribute("lastAction", action);
+		if (action != null){
+			response = controller.interpretAction(action);
+		}
 		
-		response = controller.interpretAction(action);
 		//System.out.println("Player X position: " + player.getLocation().getX());
 		
 		req.setAttribute("response", response);
@@ -184,6 +199,7 @@ public class IndexServlet extends HttpServlet {
 		if (req.getSession().getAttribute("username") != null) {
 			engine.updatePlayerInDatabase(account_id, player);
 			engine.updateMapInDatabase(account_id, account);
+			//engine.updateItemsList(account_id, account);
 		}
 		req.setAttribute("action", ""); // Empty the input box for next command
 		

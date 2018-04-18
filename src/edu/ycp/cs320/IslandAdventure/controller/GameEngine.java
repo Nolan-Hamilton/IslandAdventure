@@ -128,4 +128,9 @@ public class GameEngine
 		account = db.getItemList(account_id, account);
 		return account;
 	}
+	/*
+	public Boolean updateItemsList(int account_id, Account account){
+		return db.updateItemsInDatabase(account_id, account);
+	}
+	*/
 }

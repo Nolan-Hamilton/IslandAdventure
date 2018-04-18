@@ -52,6 +52,14 @@ public class NewItemServlet extends HttpServlet {
 			
 			if (!(name.equals("")) && !(description.equals("")) && !(locationX.equals("")) && !(locationY.equals("")) && !(locationZ.equals(""))) {
 				//System.out.println("Success!");
+				req.getSession().setAttribute("newItemName", name);
+				req.getSession().setAttribute("newItemDescript", description);
+				req.getSession().setAttribute("newItemX", locationX);
+				req.getSession().setAttribute("newItemY", locationY);
+				req.getSession().setAttribute("newItemZ", locationZ);
+				req.getSession().setAttribute("newItem", true);
+				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
+				/*
 				Location location = new Location(Integer.parseInt(locationX), Integer.parseInt(locationY), Integer.parseInt(locationZ));
 				Item itemToAdd = new Item(name, description, location, 0);
 				// Add item to players database
@@ -60,6 +68,7 @@ public class NewItemServlet extends HttpServlet {
 				Integer account_id = gameEngine.getAccountID(username);
 				Account account = (Account) req.getSession().getAttribute("account");
 				gameEngine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1);
+				*/
 			}
 			else
 			{

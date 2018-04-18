@@ -38,6 +38,8 @@ public interface IDatabase {
 			Integer uses, Integer amount, Integer x, Integer y, Integer z);
 
 	public Account getItemList(Integer account_id, Account account);
+
+	//public Boolean updateItemsInDatabase(int account_id, Account account);
 	
 	
 }
