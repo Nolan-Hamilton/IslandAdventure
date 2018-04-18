@@ -58,6 +58,7 @@ public class NewItemServlet extends HttpServlet {
 				req.getSession().setAttribute("newItemY", locationY);
 				req.getSession().setAttribute("newItemZ", locationZ);
 				req.getSession().setAttribute("newItem", true);
+				System.out.println("NewItemServlet >> newItem == " + req.getSession().getAttribute("newItem"));
 				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 				/*
 				Location location = new Location(Integer.parseInt(locationX), Integer.parseInt(locationY), Integer.parseInt(locationZ));

@@ -138,6 +138,7 @@ public class ActionController
 				for (Item item : items) 
 				{
 					response += item.getName() + "<br>";
+					System.out.println("AcitonController >> Item: " + item.toString());
 				}
 			}
 			response += "<br>";

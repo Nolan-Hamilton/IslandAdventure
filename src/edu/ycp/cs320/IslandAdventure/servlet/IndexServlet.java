@@ -139,7 +139,8 @@ public class IndexServlet extends HttpServlet {
 			Item itemToAdd = new Item(name, description, player.getLocation(), 0);
 			engine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1);
 			req.getSession().setAttribute("newItem", false); // Reset to false so this it only executes this black after creating new item
-			engine.getItemList(account, account_id);
+			System.out.println("IndexServlet >> newItem == " + req.getSession().getAttribute("newItem"));
+			
 		}
 		
 		
@@ -199,7 +200,7 @@ public class IndexServlet extends HttpServlet {
 		if (req.getSession().getAttribute("username") != null) {
 			engine.updatePlayerInDatabase(account_id, player);
 			engine.updateMapInDatabase(account_id, account);
-			//engine.updateItemsList(account_id, account);
+			engine.updateItemsList(account_id, account);
 		}
 		req.setAttribute("action", ""); // Empty the input box for next command
 		

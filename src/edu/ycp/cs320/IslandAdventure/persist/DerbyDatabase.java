@@ -362,16 +362,16 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-	/*
+	
 	@Override
-	public Boolean updateItemsInDatabase(int account_id, Account account) { // Still working on this
+	public boolean updateItemsInDatabase(int account_id, Account account) { // Still working on this
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;				
+				//PreparedStatement stmt2 = null;				
 				
-				ResultSet resultSet2 = null;				
+				//ResultSet resultSet2 = null;				
 				
 				// for saving author ID and book ID
 				Boolean bool = new Boolean(false);
@@ -382,32 +382,27 @@ public class DerbyDatabase implements IDatabase {
 					
 						stmt1 = conn.prepareStatement(
 								"UPDATE items" +
-									" SET items.visible = ?," +
-										" items.go_north = ?," +
-										" items.go_east = ?," +
-										" items.go_south = ?," +
-										" items.go_west = ?," +
-										" items.go_up = ?," +
-										" items.go_down = ?" +
-									" WHERE items.account_id = ? AND items.x = ? AND items.y = ? AND items.z = ? "
+									" SET items.inventoryItem = ?," +
+										" items.uses = ?," +
+										" items.x = ?," +
+										" items.y = ?," +
+										" items.z = ?" +
+									" WHERE items.account_id = ? AND items.name = ? AND items.description = ? "
 						);
-						stmt1.setInt(1, item.getVisible() ? 1 : 0);
-						stmt1.setInt(2, item.getGoNorth() ? 1 : 0);
-						stmt1.setInt(3, item.getGoEast() ? 1 : 0);
-						stmt1.setInt(4, item.getGoSouth() ? 1 : 0);
-						stmt1.setInt(5, item.getGoWest() ? 1 : 0);
-						stmt1.setInt(6, item.getGoUp() ? 1 : 0);
-						stmt1.setInt(7, item.getGoDown() ? 1 : 0);
-						stmt1.setInt(8, account_id);
-						stmt1.setInt(9, item.getLocation().getX());
-						stmt1.setInt(10, item.getLocation().getY());
-						stmt1.setInt(11, item.getLocation().getZ());
+						stmt1.setInt(1, item.getInventoryItem() ? 1 : 0);
+						stmt1.setInt(2, item.getUses());
+						stmt1.setInt(3, item.getX());
+						stmt1.setInt(4, item.getY());
+						stmt1.setInt(5, item.getZ());
+						stmt1.setInt(6, account_id);
+						stmt1.setString(7, item.getName());
+						stmt1.setString(8, item.getDescription());
 						
 						// execute the update
 						stmt1.executeUpdate(); // IF MANIPULATING DATABASE, MUST USE EXECUTE UPDATE!!!!!!!!!!!!!
-					
+						bool = true;
 					}
-					
+					/*//This may not be needed
 					stmt2 = conn.prepareStatement(
 							"select rooms.visible from rooms " +
 							"  where rooms.account_id = ? AND rooms.x = ? AND rooms.y = ? AND rooms.z = ? "
@@ -447,16 +442,17 @@ public class DerbyDatabase implements IDatabase {
 					if (rowsReturned == 0) {
 						System.out.println("DerbyDatabase >> No rows returned that matched the query. Visible retrieved for current room: <" + bool.toString() + ">");
 					}
+					*/
 				} finally {
 					DBUtil.closeQuietly(stmt1);
-					DBUtil.closeQuietly(stmt2);					
-					DBUtil.closeQuietly(resultSet2);
+					//DBUtil.closeQuietly(stmt2);					
+					//DBUtil.closeQuietly(resultSet2);
 				}
 				return bool;
 			}
 		});
 	}
-	*/
+	
 	@Override
 	public Player getPlayer(String user) 
 	{

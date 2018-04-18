@@ -8,10 +8,12 @@ package edu.ycp.cs320.IslandAdventure.model;
 public class Item extends GameObject {
 	// FIELDS (Fields that are not found in GameObject)
 	private Integer uses;
+	private boolean inventoryItem;
 	
 	public Item(String name, String description, Location location, Integer uses){
 		super(name, description, location);	// This passes arguments to superclass for construction.
 		this.uses = uses;
+		this.inventoryItem = false;
 	}
 	
 	// METHODS
@@ -26,5 +28,13 @@ public class Item extends GameObject {
 	// This method is called when an item is used.
 	public void use(){
 		this.uses--;	// Decrease # of uses by 1.
+	}
+	
+	public void setInventoryItem(boolean bool){
+		this.inventoryItem = bool;
+	}
+	
+	public boolean getInventoryItem(){
+		return this.inventoryItem;
 	}
 }

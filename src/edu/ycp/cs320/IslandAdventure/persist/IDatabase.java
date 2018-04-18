@@ -39,7 +39,7 @@ public interface IDatabase {
 
 	public Account getItemList(Integer account_id, Account account);
 
-	//public Boolean updateItemsInDatabase(int account_id, Account account);
+	public boolean updateItemsInDatabase(int account_id, Account account);
 	
 	
 }

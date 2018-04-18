@@ -109,4 +109,14 @@ public class ItemTest {
 		assertTrue(item.getUses().equals(6));
 	}
 	
+	@Test
+	public void testGetInventoryItem(){
+		assertEquals(item.getInventoryItem(), false);
+	}
+	
+	@Test
+	public void testSetInventoryItem(){
+		item.setInventoryItem(true);
+		assertEquals(item.getInventoryItem(), true);
+	}
 }
