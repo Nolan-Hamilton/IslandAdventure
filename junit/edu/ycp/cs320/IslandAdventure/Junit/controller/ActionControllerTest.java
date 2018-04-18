@@ -34,7 +34,7 @@ public class ActionControllerTest
 		assertTrue(player.getInventory().getItemCountFromString("Wood") == 20);
 		
 		actionController.interpretAction("Move North");
-		assertTrue(player.getLocation().getY() == 9);
+		assertTrue(player.getLocation().getY() == 11);
 	}
 
 }

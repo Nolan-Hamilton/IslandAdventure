@@ -52,7 +52,7 @@ public class MapPanel extends JPanel {
 			// Only work with rooms on current floor
 			if (room.getLocation().getZ() == floor){
 				int x = room.getLocation().getX();
-				int y = room.getLocation().getY();
+				int y = colBound - room.getLocation().getY();
 				map[x][y] = room.getVisible() ? 1 : 0;
 				// If the current room is where the player is located
 				if (room.getLocation().equals(account.getPlayer().getLocation())){
