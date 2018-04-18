@@ -987,19 +987,17 @@ public class DerbyDatabase implements IDatabase {
 							"		generated always as identity (start with 1, increment by 1), " +
 							"	account_id integer," +
 							"	inventoryItem integer," +
-							"	name string," +
-							"	description string," +
+							"	name varchar(40)," +
+							"	description varchar(150)," +
 							"	uses integer," +
 							"	amount integer," +
 							"	x integer," +
 							"	y integer," +
-							"	z integer," +
+							"	z integer" +
 							")"
 						);	
 						stmt4.executeUpdate();
-						System.out.println("Inventory table created.");
-						
-						System.out.println("Players table created.");
+						System.out.println("Items table created.");
 						
 					return true;
 				} finally {
