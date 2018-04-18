@@ -10,16 +10,17 @@
 
 	<body>
 		<div id= "titleText">
-			<h1>Island Adventure</h1>
+			Island Adventure
 		</div>
 		
-		<c:if test="${! empty user}">
-			<h2>${user} is now playing</h2>
-		</c:if>
-		<c:if test="${ empty user}">
-			<h2>You are playing with a temporary Account.</h2>
-		</c:if>
-		
+		<div id= "subtitleText">
+			<c:if test="${! empty user}">
+				<h2>${user} is now playing</h2>
+			</c:if>
+			<c:if test="${ empty user}">
+				<h2>You are playing with a temporary Account.</h2>
+			</c:if>
+		</div>
 		
 		
 		<div id= "outputBox">
@@ -53,7 +54,7 @@
 		<div id= "inputBox">
 			What Next?
 			<form action="${pageContext.servletContext.contextPath}/index" method="post">
-				<input type="text" name="action" size="12" value="${action}" autofocus="autofocus" />
+				<input type="text" name="action" size="48" value="${action}" autofocus="autofocus" />
 			</form>
 		</div>
 		

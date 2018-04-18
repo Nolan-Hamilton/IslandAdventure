@@ -1,38 +1,61 @@
 body 
 {
-    background-color: lightblue;
+    	background-image: url("water.jpg");
+	background-repeat: repeat;
+	background-color: #A9CADB;
 }
 
 #titleText {
-	border-top: 2px solid darkblue;
-	border-bottom: 2px solid darkblue;
+	border-top: 2px solid #3eb5ff;
+	border-bottom: 2px solid #3eb5ff;
 	text-align: center;
-	color: red;
+	color: #385737;
 	font-variant: small-caps;
 	margin-bottom: 20px;
+	margin-top: 20px;
+	margin-left: 20%;
+	margin-right: 20%;
+	border-right-style: solid;
+	border-left-style: solid;
+	font-size: xx-large;
+	border-right-color: #3eb5ff;
+	border-left-color: #3eb5ff;
+	background-color: #A9CADB;
 }
 
+
+#subtitleText {
+	margin-left: 2%;
+}
 #outputBox {
-	width: 480px;
+	width: 40%;
 	height: 480px;
-	border:2px solid darkblue;
-	float:left;
+	border: 2px solid #3eb5ff;
+	float: left;
 	padding: 10px 10px 10px 10px;
-	margin-left: 20px;
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 50%;
+	background-color: #A9CADB;
 }
 
 #variablesBox {
-	width: 480px;
+	width: 38%;
 	height: 480px;
-	border:2px solid darkblue;
-	float:left;
+	border: 2px solid #3eb5ff;
+	float: right;
 	padding: 10px 10px 10px 10px;
-	margin-left: 20px;
+	margin-left: 2%;
+	margin-right: 2%;
+	background-color: #A9CADB;
 }
 #inputBox {
-	width: 480px;
-	border:2px solid darkblue;
+	width: 50%;
+	border: 2px solid #3eb5ff;
 	padding: 10px 10px 10px 10px;
-	margin-left: 20px;
-}x;
+	margin-left: 2%;
+	margin-right: 2%;
+	background-color: #A9CADB;
 }
+
+

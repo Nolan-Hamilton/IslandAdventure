@@ -68,7 +68,7 @@ public class ActionController
 			{
 				
 				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoNorth() == true){
-					location.setY(player.getLocation().getY()-1);
+					location.setY(player.getLocation().getY()+1);
 				}else{
 					response += "You cannot go that way! <br><br>";
 				}
@@ -76,7 +76,7 @@ public class ActionController
 			else if (action.contains("South") || action.contains("south")) 
 			{
 				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoSouth() == true){
-					location.setY(player.getLocation().getY()+1);
+					location.setY(player.getLocation().getY()-1);
 				}else{
 					response += "You cannot go that way! <br><br>";
 				}

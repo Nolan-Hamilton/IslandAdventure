@@ -59,7 +59,6 @@ public class IndexServlet extends HttpServlet {
 			if (req.getSession().getAttribute("existingPlayer").equals(true)){
 				System.out.println("IndexServlet >> existingPlayer == true");
 				
-				
 				// Load the player data from database (This is how to make player persist
 				// Only execute this code player already exists.
 				Player playerLoader = engine.loadPlayer(account_id);
@@ -78,6 +77,9 @@ public class IndexServlet extends HttpServlet {
 				}
 				*/
 				account.setRoomsList(engine.loadMap(account_id));
+				
+				account.setPlayer(player);	// Sets player loaded from database to account
+				engine.getItemList(account, account_id);	// Loads items to account
 				System.out.println(account.getRoomByXYZ(11, 11, 0).getVisible());
 				//System.out.println(account.getRooms().get(350).getVisible());
 				

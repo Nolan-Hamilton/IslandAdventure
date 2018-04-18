@@ -55,6 +55,11 @@ public class NewItemServlet extends HttpServlet {
 				Location location = new Location(Integer.parseInt(locationX), Integer.parseInt(locationY), Integer.parseInt(locationZ));
 				Item itemToAdd = new Item(name, description, location, 0);
 				// Add item to players database
+				GameEngine gameEngine = new GameEngine();
+				String username = (String) req.getSession().getAttribute("username");
+				Integer account_id = gameEngine.getAccountID(username);
+				Account account = (Account) req.getSession().getAttribute("account");
+				gameEngine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1);
 			}
 			else
 			{
