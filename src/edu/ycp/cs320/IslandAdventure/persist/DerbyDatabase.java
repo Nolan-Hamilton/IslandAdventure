@@ -318,7 +318,39 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
-	public Account getItemList(Integer account_id, Account account) 
+	public Boolean moveItemInventory(Integer account_id, Integer inventoryItem, String name) {
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement updateItem = null;
+				boolean bool = false;
+				try 
+				{
+					updateItem = conn.prepareStatement(
+							"UPDATE items" +
+							" SET items.inventoryItem = ?" +
+							" WHERE items.name = ? AND items.account_id = ?"
+					);
+					updateItem.setInt(1, inventoryItem);
+					updateItem.setString(2, name);
+					updateItem.setInt(3, account_id);
+					
+					updateItem.executeUpdate();
+					
+					bool = true;
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(updateItem);
+				}
+				return bool;
+			}
+		});
+	}
+	@Override
+	public Account updateItemList(Integer account_id, Account account) 
 	{
 		return executeTransaction(new Transaction<Account>() 
 		{
@@ -349,7 +381,7 @@ public class DerbyDatabase implements IDatabase {
 						loadItem(account, resultSet, 1);
 					}
 
-					// check if the player was found
+					// check if the items were found
 					if (!found) 
 					{
 						System.out.println("No items found in the items table for account.");
@@ -869,8 +901,8 @@ public class DerbyDatabase implements IDatabase {
 	
 	private void loadItem(Account account, ResultSet resultSet, int index) throws SQLException
 	{
-		Inventory inventory = account.getPlayer().getInventory();
-
+		Inventory inventory = account.getPlayer().getInventory();	// Get players inventory
+		
 		Integer inventoryItem = resultSet.getInt(index++);
 		String name = resultSet.getString(index++);
 		String description = resultSet.getString(index++);
@@ -883,6 +915,10 @@ public class DerbyDatabase implements IDatabase {
 		Location location = new Location(x, y, z);
 		Item item = new Item(name, description, location, uses);
 		
+		if (account.getPlayer().getInventory().getItemCountFromString(item.getName()) > 0)
+		{
+			inventoryItem = 1;
+		}
 		if (inventoryItem == 1)
 		{
 			inventory.addItem(item, amount); //If item is in inventory than add to players inventory

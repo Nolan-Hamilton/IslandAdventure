@@ -3,6 +3,7 @@ package edu.ycp.cs320.IslandAdventure.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +47,6 @@ public class IndexServlet extends HttpServlet {
 			account = new Account(null, null, null);
 			account.setUsername(req.getSession().getAttribute("username").toString());
 			account.setPassword(req.getSession().getAttribute("password").toString());
-			//player = new Player(0, 0, 0, 0, null, null, null);
 			playerController = new PlayerController();
 			player = playerController.createNewPlayer();
 			account.setPlayer(player);
@@ -77,15 +77,20 @@ public class IndexServlet extends HttpServlet {
 				}
 				*/
 				account.setRoomsList(engine.loadMap(account_id));
-				
-				account.setPlayer(player);	// Sets player loaded from database to account
-				engine.getItemList(account, account_id);	// Loads items to account
+			
 				System.out.println(account.getRoomByXYZ(11, 11, 0).getVisible());
 				//System.out.println(account.getRooms().get(350).getVisible());
-				
 			}else{
+				Iterator<Item> iterator = account.getItemList().iterator();
+				while(iterator.hasNext())	// Puts initial items into database
+				{
+					Item item = iterator.next();
+					engine.insertNewItemIntoDatabase(account, account_id, item, 1);
+				}
 				System.out.println("IndexServlet >> existingPlayer == false");
 			}
+			
+			engine.updateItemList(account, account_id);	// Loads items to account
 			
 			inventoryController = new InventoryController(player.getInventory());
 			locationController = new LocationController(player.getLocation());
@@ -123,15 +128,13 @@ public class IndexServlet extends HttpServlet {
 			System.out.println("Player X location: " + account.getPlayer().getLocation().getX());
 		}
 
+		req.getSession().setAttribute("account", account);
+		
 		if (req.getParameter("expandabilityMenu") != null) 
 		{
 			System.out.println("expandabilityMenu has been clicked!");
 			resp.sendRedirect(req.getContextPath() + "/expandabilityMenu");
 		}
-		
-		
-		// Initialize variables in the Inventory model		
-		req.setAttribute("inventory", player.getInventory());
 		
 		req.setAttribute("action", req.getParameter("action"));
 		
@@ -152,6 +155,9 @@ public class IndexServlet extends HttpServlet {
 		
 		response = controller.interpretAction(action);
 		//System.out.println("Player X position: " + player.getLocation().getX());
+		
+		// Initialize variables in the Inventory model		
+		req.setAttribute("inventory", player.getInventory());
 		
 		req.setAttribute("response", response);
 		req.setAttribute("score", player.getScore());

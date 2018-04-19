@@ -123,9 +123,15 @@ public class GameEngine
 		return added;
 	}
 	
-	public Account getItemList(Account account, int account_id)
+	public Account updateItemList(Account account, int account_id) //Uploads account with items in db
 	{
-		account = db.getItemList(account_id, account);
+		account = db.updateItemList(account_id, account);
 		return account;
 	}
+	
+	public void moveItemInventory(int account_id, int inventoryItem, String name) //Uploads account with items in db
+	{
+		db.moveItemInventory(account_id, inventoryItem, name);
+	}
+	
 }
