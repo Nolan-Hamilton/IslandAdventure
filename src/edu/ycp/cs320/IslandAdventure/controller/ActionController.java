@@ -8,6 +8,7 @@ import edu.ycp.cs320.IslandAdventure.MapView.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 
 import edu.ycp.cs320.IslandAdventure.model.*;
@@ -105,7 +106,18 @@ public class ActionController
 		
 		else if(action.contains("sleep"))
 		{
-			response += eventController.sleepEvent(player);
+			Random rand = new Random();
+			int  n;
+			if (player.getLocation().getX() == 10 && player.getLocation().getY() == 10) //Player is home
+			{
+				n = rand.nextInt(20) + 1;	//random # from 1-20
+			}
+			else
+			{
+				n = rand.nextInt(50) + 1;	//random # from 1-50
+			}
+			
+			response += eventController.sleepEvent(player, n);
 		}
 		
 		//Display Map
