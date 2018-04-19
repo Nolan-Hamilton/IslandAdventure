@@ -22,7 +22,7 @@ public class InventoryControllerTest
 	{
 		Map<Item, Integer> inventoryMap = new HashMap<Item, Integer>();
 		inventory = new Inventory(inventoryMap);
-		inventoryController = new InventoryController(inventory);
+		inventoryController = new InventoryController(inventory, null, null);
 	}
 		
 	@Test

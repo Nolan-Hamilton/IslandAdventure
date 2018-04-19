@@ -92,7 +92,7 @@ public class IndexServlet extends HttpServlet {
 			
 			engine.updateItemList(account, account_id);	// Loads items to account
 			
-			inventoryController = new InventoryController(player.getInventory());
+			inventoryController = new InventoryController(player.getInventory(), account, account_id);
 			locationController = new LocationController(player.getLocation());
 			System.out.println(account.getUsername() + "'s account is now created");
 			req.setAttribute("user", account.getUsername());
@@ -122,7 +122,7 @@ public class IndexServlet extends HttpServlet {
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 			controller = new ActionController(player, account);
 			
-			inventoryController = new InventoryController(player.getInventory());
+			inventoryController = new InventoryController(player.getInventory(), account, account_id);
 			locationController = new LocationController(player.getLocation());
 			System.out.println(account.getUsername() + "'s account is now created");
 			System.out.println("Player X location: " + account.getPlayer().getLocation().getX());

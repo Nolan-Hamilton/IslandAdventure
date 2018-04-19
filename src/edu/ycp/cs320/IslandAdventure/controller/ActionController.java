@@ -34,9 +34,8 @@ public class ActionController
 	public ActionController(Player player, Account account) 
 	{
 		this.player = player;
-		inventoryController = new InventoryController(player.getInventory());
 		this.account = account;
-		
+		inventoryController = new InventoryController(player.getInventory(), account, gameEngine.getAccountID(account.getUsername()));
 		// creating DB instance here
 		//DatabaseProvider.setInstance(new DerbyDatabase());
 		//db = DatabaseProvider.getInstance();
