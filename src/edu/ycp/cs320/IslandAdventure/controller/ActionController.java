@@ -104,19 +104,7 @@ public class ActionController
 		
 		else if(action.contains("sleep"))
 		{
-			if (player.getLocation().getX() == 10 && player.getLocation().getY() == 10) //Player is home
-			{
-				player.setStamina(100);
-				player.setHealth(100);
-				player.changeTime(8);	//Player sleeps 8 hours
-			}
-			else
-			{
-				player.setStamina(100);
-				player.changeTime(8);	//Player sleeps 8 hours
-				Enemy enemy = eventController.createEnemy(player);
-				response += fightController.Fight(player, enemy);
-			}
+			action += eventController.sleepEvent(player);
 		}
 		
 		//Display Map
