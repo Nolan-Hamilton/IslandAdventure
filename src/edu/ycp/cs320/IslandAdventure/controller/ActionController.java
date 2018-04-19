@@ -105,7 +105,7 @@ public class ActionController
 		
 		else if(action.contains("sleep"))
 		{
-			action += eventController.sleepEvent(player);
+			response += eventController.sleepEvent(player);
 		}
 		
 		//Display Map

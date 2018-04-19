@@ -59,7 +59,10 @@ public class NewItemServlet extends HttpServlet {
 				String username = (String) req.getSession().getAttribute("username");
 				Integer account_id = gameEngine.getAccountID(username);
 				Account account = (Account) req.getSession().getAttribute("account");
+				System.out.println(username);
+				System.out.println(account_id);
 				gameEngine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1);
+				engine.updateItemList(account, account_id);
 			}
 			else
 			{
@@ -71,17 +74,14 @@ public class NewItemServlet extends HttpServlet {
 			errorMessage = e.toString();
 		}
 		
-		
-/*
-		req.setAttribute("errorMessage", errorMessage); //In case of error message
-		req.setAttribute("user", req.getParameter("user"));
-		req.setAttribute("pass", req.getParameter("pass"));
-		req.setAttribute("pass2", req.getParameter("pass2")); //These are supposed to keep the inputs from disappearing.
-*/
 		// If there is an error message, show it and stay on the same page.
 		if (errorMessage != null){
 			System.out.println("Error: " + errorMessage);
 			req.getRequestDispatcher("/_view/newItem.jsp").forward(req, resp); //Go to this page
+		}
+		else
+		{
+			req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
 		}
 	}
 }
