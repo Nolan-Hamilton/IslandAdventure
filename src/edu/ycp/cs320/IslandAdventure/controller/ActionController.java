@@ -83,6 +83,20 @@ public class ActionController
 					response += "You cannot go that way! <br><br>";
 				}
 			}
+			// Print description and items
+			// Display description
+			response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			// Display Items
+			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
+			if (items.size() != 0) 
+			{
+				response += "The following item(s) are also present: <br>";
+				for (Item item : items) 
+				{
+					response += item.getName() + "<br>";
+				}
+			}
+			response += "<br>";
 		}
 		
 		else if (action.equals("Chop Wood") || action.equals("chop wood")) 
