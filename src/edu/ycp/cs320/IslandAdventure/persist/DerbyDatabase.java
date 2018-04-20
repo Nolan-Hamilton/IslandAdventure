@@ -285,32 +285,69 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException 
 			{
+				PreparedStatement checkItem   = null;
 				PreparedStatement insertItem   = null;
+				PreparedStatement updateItem   = null;
 
+				ResultSet resultSet = null;
 				Boolean itemAdded = false;
 				try 
 				{
-					insertItem = conn.prepareStatement("insert into items (account_id, inventoryItem, name, description, uses,"
-							+ " amount, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-					{
-						insertItem.setInt(1, account_id);
-						insertItem.setInt(2, inventoryItem);
-						insertItem.setString(3, name);
-						insertItem.setString(4, description);
-						insertItem.setInt(5, uses);
-						insertItem.setInt(6, amount);
-						insertItem.setInt(7, x);
-						insertItem.setInt(8, y);
-						insertItem.setInt(9, z);
-					}
-					insertItem.executeUpdate();
+					// Check if item already exists
+					checkItem = conn.prepareStatement(
+							"select items.item_id, items.amount from items" +
+							" WHERE items.name = ? AND items.account_id = ? AND items.inventoryItem = ?"
+					);
+					checkItem.setString(1, name);
+					checkItem.setInt(2, account_id);
+					checkItem.setInt(3, 1);
+					resultSet = checkItem.executeQuery();
 					
-					System.out.println("New item for account number <" + account_id + "> inserted in items table");
-					itemAdded = true;
+					if (resultSet.next()) // If item exists only change amount
+					{
+						int item_id = resultSet.getInt(1);
+						int itemAmount = resultSet.getInt(2) + amount;		
+						
+						updateItem = conn.prepareStatement(
+								"UPDATE items" +
+									" SET items.amount = ?" +
+									" where items.item_id = ?"
+						);
+						updateItem.setInt(1, itemAmount);
+						updateItem.setInt(2, item_id);
+						
+						// execute the update
+						updateItem.executeUpdate();
+						
+						itemAdded = true;
+					}
+					else
+					{
+						insertItem = conn.prepareStatement("insert into items (account_id, inventoryItem, name, description, uses,"
+								+ " amount, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+						{
+							insertItem.setInt(1, account_id);
+							insertItem.setInt(2, inventoryItem);
+							insertItem.setString(3, name);
+							insertItem.setString(4, description);
+							insertItem.setInt(5, uses);
+							insertItem.setInt(6, amount);
+							insertItem.setInt(7, x);
+							insertItem.setInt(8, y);
+							insertItem.setInt(9, z);
+						}
+						insertItem.executeUpdate();
+						
+						System.out.println("New item for account number <" + account_id + "> inserted in items table");
+						itemAdded = true;
+					}
 				} 
 				finally 
 				{
+					DBUtil.closeQuietly(checkItem);
 					DBUtil.closeQuietly(insertItem);
+					DBUtil.closeQuietly(updateItem);
+					DBUtil.closeQuietly(resultSet);
 				}
 				return itemAdded;
 			}
@@ -318,7 +355,39 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
-	public Account getItemList(Integer account_id, Account account) 
+	public Boolean moveItemInventory(Integer account_id, Integer inventoryItem, String name) {
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement updateItem = null;
+				boolean bool = false;
+				try 
+				{
+					updateItem = conn.prepareStatement(
+							"UPDATE items" +
+							" SET items.inventoryItem = ?" +
+							" WHERE items.name = ? AND items.account_id = ?"
+					);
+					updateItem.setInt(1, inventoryItem);
+					updateItem.setString(2, name);
+					updateItem.setInt(3, account_id);
+					
+					updateItem.executeUpdate();
+					
+					bool = true;
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(updateItem);
+				}
+				return bool;
+			}
+		});
+	}
+	@Override
+	public Account updateItemList(Integer account_id, Account account) 
 	{
 		return executeTransaction(new Transaction<Account>() 
 		{
@@ -349,7 +418,7 @@ public class DerbyDatabase implements IDatabase {
 						loadItem(account, resultSet, 1);
 					}
 
-					// check if the player was found
+					// check if the items were found
 					if (!found) 
 					{
 						System.out.println("No items found in the items table for account.");
@@ -959,8 +1028,8 @@ public class DerbyDatabase implements IDatabase {
 	
 	private void loadItem(Account account, ResultSet resultSet, int index) throws SQLException
 	{
-		//Inventory inventory = account.getPlayer().getInventory();
-
+		Inventory inventory = account.getPlayer().getInventory();	// Get players inventory
+		
 		Integer inventoryItem = resultSet.getInt(index++);
 		String name = resultSet.getString(index++);
 		String description = resultSet.getString(index++);
@@ -973,6 +1042,10 @@ public class DerbyDatabase implements IDatabase {
 		Location location = new Location(x, y, z);
 		Item item = new Item(name, description, location, uses);
 		
+		if (account.getPlayer().getInventory().getItemCountFromString(item.getName()) > 0)
+		{
+			inventoryItem = 1;
+		}
 		if (inventoryItem == 1)
 		{
 			//inventory.addItem(item, amount); //If item is in inventory than add to players inventory
@@ -1159,5 +1232,11 @@ public class DerbyDatabase implements IDatabase {
 //		db.loadInitialData();
 		
 		System.out.println("Success!");
+	}
+
+	@Override
+	public Account getItemList(Integer account_id, Account account) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -41,5 +41,7 @@ public interface IDatabase {
 
 	public boolean updateItemsInDatabase(int account_id, Account account);
 	
-	
+	public Account updateItemList(Integer account_id, Account account);
+
+	public Boolean moveItemInventory(Integer account_id, Integer inventoryItem, String name);
 }

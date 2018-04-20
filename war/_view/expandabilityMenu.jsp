@@ -12,11 +12,11 @@
 	<body>
 	
 		<div id= "titleText">
-			<h1>Island Adventure</h1>
+			Island Adventure
 		</div>
 		
 		<div id= "titleText">
-			<h2>Expandability Menu</h2>
+			Expandability Menu
 		</div>
 		
 		<div id= "inputBox">

@@ -8,6 +8,7 @@ import edu.ycp.cs320.IslandAdventure.MapView.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 
 import edu.ycp.cs320.IslandAdventure.model.*;
@@ -26,15 +27,16 @@ public class ActionController
 	
 	private PlayerController playerController = new PlayerController();
 	
+	private GameEngine gameEngine = new GameEngine();
+	
 	// Database implementation is borrowed from Library Example Project By Prof. Hake
 	private IDatabase db    = null;
 	
 	public ActionController(Player player, Account account) 
 	{
 		this.player = player;
-		inventoryController = new InventoryController(player.getInventory());
 		this.account = account;
-		
+		inventoryController = new InventoryController(player.getInventory(), account, gameEngine.getAccountID(account.getUsername()));
 		// creating DB instance here
 		//DatabaseProvider.setInstance(new DerbyDatabase());
 		//db = DatabaseProvider.getInstance();
@@ -104,19 +106,18 @@ public class ActionController
 		
 		else if(action.contains("sleep"))
 		{
+			Random rand = new Random();
+			int  n;
 			if (player.getLocation().getX() == 10 && player.getLocation().getY() == 10) //Player is home
 			{
-				player.setStamina(100);
-				player.setHealth(100);
-				player.changeTime(8);	//Player sleeps 8 hours
+				n = rand.nextInt(20) + 1;	//random # from 1-20
 			}
 			else
 			{
-				player.setStamina(100);
-				player.changeTime(8);	//Player sleeps 8 hours
-				Enemy enemy = eventController.createEnemy(player);
-				response += fightController.Fight(player, enemy);
+				n = rand.nextInt(50) + 1;	//random # from 1-50
 			}
+			
+			response += eventController.sleepEvent(player, n);
 		}
 		
 		//Display Map
@@ -178,6 +179,8 @@ public class ActionController
 					if (item.getName().toLowerCase().equals(itemName)){
 						response += "You acquired the following item: <br>" + item.getName() + "<br>";
 						player.getInventory().addItem(item, 1);
+						int account_id = gameEngine.getAccountID(account.getUsername());
+						gameEngine.moveItemInventory(account_id, 1, item.getName());
 						//Remove the Item from the objectList //////////////////////////////////////////
 						int index = account.getObjectIndexByNameAndXYZ(item.getName(), item.getX(), item.getY(), item.getZ()); //This finds index of item in ObjectList
 						account.getItemList().remove(index);			//This removes item from ObjectList using index.

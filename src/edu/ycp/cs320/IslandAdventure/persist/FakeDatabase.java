@@ -109,7 +109,13 @@ public class FakeDatabase implements IDatabase
 	}
 
 	@Override
-	public Account getItemList(Integer account_id, Account account) {
+	public Account updateItemList(Integer account_id, Account account) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean moveItemInventory(Integer account_id, Integer inventoryItem, String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -118,5 +124,11 @@ public class FakeDatabase implements IDatabase
 	public boolean updateItemsInDatabase(int account_id, Account account) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Account getItemList(Integer account_id, Account account) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
