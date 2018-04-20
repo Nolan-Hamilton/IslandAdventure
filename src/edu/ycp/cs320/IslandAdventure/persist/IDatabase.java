@@ -37,10 +37,6 @@ public interface IDatabase {
 	public Boolean insertItemIntoDatabase(Integer account_id, Integer inventoryItem, String name, String description, 
 			Integer uses, Integer amount, Integer x, Integer y, Integer z);
 
-	public Account getItemList(Integer account_id, Account account);
-
-	public boolean updateItemsInDatabase(int account_id, Account account);
-	
 	public Account updateItemList(Integer account_id, Account account);
 
 	public Boolean moveItemInventory(Integer account_id, Integer inventoryItem, String name);

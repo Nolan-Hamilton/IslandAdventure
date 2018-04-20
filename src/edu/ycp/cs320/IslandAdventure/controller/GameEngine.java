@@ -129,10 +129,6 @@ public class GameEngine
 		return account;
 	}
 	
-	public boolean updateItemsList(int account_id, Account account){
-		return db.updateItemsInDatabase(account_id, account);
-	}
-
 	public void moveItemInventory(int account_id, int inventoryItem, String name) //Uploads account with items in db
 	{
 		db.moveItemInventory(account_id, inventoryItem, name);

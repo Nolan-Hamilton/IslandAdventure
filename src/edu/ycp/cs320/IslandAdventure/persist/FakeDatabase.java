@@ -119,16 +119,4 @@ public class FakeDatabase implements IDatabase
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public boolean updateItemsInDatabase(int account_id, Account account) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Account getItemList(Integer account_id, Account account) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

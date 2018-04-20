@@ -97,7 +97,6 @@ public class IndexServlet extends HttpServlet {
 			System.out.println(account.getUsername() + "'s account is now created");
 			req.setAttribute("user", account.getUsername());
 		}
-		req.getSession().setAttribute("newItem", false); // auto sets to false
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 	}
 
@@ -136,23 +135,6 @@ public class IndexServlet extends HttpServlet {
 			System.out.println("expandabilityMenu has been clicked!");
 			resp.sendRedirect(req.getContextPath() + "/expandabilityMenu");
 		}
-		/*
-		// If a new item has been created execute this block
-		if (req.getSession().getAttribute("newItem").equals(true)){
-			String name = req.getSession().getAttribute("newItemName").toString();
-			String description = req.getSession().getAttribute("newItemDescript").toString();
-			//Location location = new Location((int) req.getSession().getAttribute("newItemX"), (int) req.getSession().getAttribute("newItemY"), (int) req.getSession().getAttribute("newItemZ"));
-			Item itemToAdd = new Item(name, description, player.getLocation(), 0);
-			engine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1);
-			req.getSession().setAttribute("newItem", false); // Reset to false so this it only executes this black after creating new item
-			System.out.println("IndexServlet >> newItem == " + req.getSession().getAttribute("newItem"));
-			
-		}
-		
-		
-		// Initialize variables in the Inventory model		
-		req.setAttribute("inventory", player.getInventory());
-		*/
 		
 		req.setAttribute("action", req.getParameter("action"));
 		
@@ -170,10 +152,8 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		//req.setAttribute("lastAction", action);
-		if (action != null){
-			response = controller.interpretAction(action);
-		}
 		
+		response = controller.interpretAction(action);
 		//System.out.println("Player X position: " + player.getLocation().getX());
 		
 		// Initialize variables in the Inventory model		
@@ -210,7 +190,6 @@ public class IndexServlet extends HttpServlet {
 		if (req.getSession().getAttribute("username") != null) {
 			engine.updatePlayerInDatabase(account_id, player);
 			engine.updateMapInDatabase(account_id, account);
-			engine.updateItemsList(account_id, account);
 		}
 		req.setAttribute("action", ""); // Empty the input box for next command
 		
