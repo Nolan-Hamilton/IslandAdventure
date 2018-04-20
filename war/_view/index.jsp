@@ -8,7 +8,7 @@
 		<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 	</head>
 
-	<body>
+	<body onload='bottom();'>
 		<div id= "titleText">
 			Island Adventure
 		</div>
@@ -23,12 +23,12 @@
 		</div>
 		
 		
-		<div id= "outputBox">
+		<div id= "outputBox" style='overflow: auto;'>
 			Welcome to Island Adventure!
 			<br />
-			<p>
+			
 			${response}
-			</p>
+			<div id="bottom"></div>
 		</div>
 		
 		<div id= "variablesBox">
@@ -67,6 +67,10 @@
 					<input type="Submit" name="south" value="South">
 				</form>
 		</div>
-		
+		<script>
+			function bottom(){
+				document.getElementById('bottom').scrollIntoView();
+			}
+		</script>
 	</body>
 </html>

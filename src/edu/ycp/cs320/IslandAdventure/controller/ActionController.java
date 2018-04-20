@@ -131,7 +131,7 @@ public class ActionController
 				n = rand.nextInt(50) + 1;	//random # from 1-50
 			}
 			
-			response += eventController.sleepEvent(player, n);
+			response += eventController.sleepEvent(player, n) + "<br>";
 		}
 		
 		//Display Map
@@ -240,10 +240,13 @@ public class ActionController
 					response += "You equipped a " + item.getName() + "!";
 				}
 			}
+		}else{
+			// If the command is not enderstandable
+			response += "I do not understand what you are saying... <br>";
 		}
 		
 		playerController.checkPlayerState(player);	//Checks if player health and stamina > 0 
-		response += " what next?";
+		response += "<br>";
 		return response;
 	}
 }
