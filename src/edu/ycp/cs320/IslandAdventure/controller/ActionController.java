@@ -153,6 +153,8 @@ public class ActionController
 					Item item = new Item(key.getName(), key.getDescription(), new Location(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()), key.getUses());
 					account.getItemList().add(item);
 					player.getInventory().addItem(key, -1);
+					int account_id = gameEngine.getAccountID(account.getUsername());
+					gameEngine.moveItemInventory(account_id, 0, item.getName());
 					found = true;
 					response += itemName + " has been removed from your inventory. <br>";
 					if (player.getInventory().getInventoryMap().get(key) == 0){
