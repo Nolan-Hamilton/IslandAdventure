@@ -87,6 +87,7 @@ public class IndexServlet extends HttpServlet {
 					Item item = iterator.next();
 					engine.insertNewItemIntoDatabase(account, account_id, item, 1);
 				}
+				account.getItemList().clear(); // Clears initial items after added to database so there aren't duplicates
 				System.out.println("IndexServlet >> existingPlayer == false");
 			}
 			

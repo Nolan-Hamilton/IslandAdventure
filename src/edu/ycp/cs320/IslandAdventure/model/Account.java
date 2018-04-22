@@ -12,6 +12,7 @@ public class Account
 	private ArrayList<GameObject> objectList;
 	private ArrayList<Room> mapRooms;
 	private ArrayList<Item> itemList;
+	private ArrayList<Enemy> enemyList;
 	
 	//Constructors
 
@@ -101,6 +102,14 @@ public class Account
 		this.itemList = list;
 	}
 	
+	public ArrayList<Enemy> getEnemyList() {
+		return this.enemyList;
+	}
+	
+	public void setEnemyList(ArrayList<Enemy> list){
+		this.enemyList = list;
+	}
+	
 	public Room getRoomByXYZ(int x, int y, int z) {
 		Room found = null;
 		Location target = new Location(x,y,z);
@@ -147,6 +156,16 @@ public class Account
 		for (Item item : itemList) {
 			if (item.getX() == x && item.getY() == y && item.getZ() == z) {
 				results.add(item);
+			}
+		}
+		return results;
+	}
+	
+	public ArrayList<Enemy> getEnemiesByXYZ(int x, int y, int z){
+		ArrayList<Enemy> results = new ArrayList<Enemy>();
+		for (Enemy enemy : enemyList) {
+			if (enemy.getX() == x && enemy.getY() == y && enemy.getZ() == z) {
+				results.add(enemy);
 			}
 		}
 		return results;

@@ -1,8 +1,12 @@
 package edu.ycp.cs320.IslandAdventure.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
+import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Enemy;
+import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 
 public class EventController 
@@ -53,5 +57,14 @@ public class EventController
 			sleepEvent = "You got a good night of sleep.";
 		}
 		return sleepEvent;
+	}
+	public String moveEvent(Account account)
+	{
+		String moveEvent = "";
+		Player player = account.getPlayer();
+		Location location = player.getLocation();
+		ArrayList<Enemy> enemyList = account.getEnemiesByXYZ(location.getX(), location.getY(), location.getZ());
+		Iterator iterator = enemyList.iterator();
+		return moveEvent;
 	}
 }
