@@ -40,10 +40,14 @@ public class GameEngine
 		{
 			System.out.println("New account (ID: " + account_id + ") successfully added to accounts table: <" + account.getUsername() + ">");
 			
+			Player player = account.getPlayer();
+			Skills skills = player.getSkills();
+			Location location = player.getLocation();
 			// Create Player using account_id
-			int player_id = db.addPlayer(account.getUsername(), account.getPlayer().getScore(), account.getPlayer().getHealth(), account.getPlayer().getStamina(), 
-					account.getPlayer().getTime(), account.getPlayer().getLocation().getX(), account.getPlayer().getLocation().getY(), 
-					account.getPlayer().getLocation().getZ(), account_id);
+			int player_id = db.addPlayer(account.getUsername(), player.getScore(), player.getHealth(), 
+					player.getStamina(), player.getTime(), location.getX(), location.getY(), 
+					location.getZ(), account_id, skills.getWoodCuttingXP(), skills.getFishingXP(), 
+					skills.getCombatXP(), skills.getCraftingXP());
 			
 			System.out.println("New Player added, Player_id: <" + player_id + ">");
 			// Create Rooms using accountID

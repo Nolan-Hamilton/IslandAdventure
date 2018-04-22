@@ -69,6 +69,10 @@ public class IndexServlet extends HttpServlet {
 				player.setX(playerLoader.getLocation().getX());
 				player.setY(playerLoader.getLocation().getY());
 				player.setZ(playerLoader.getLocation().getZ());
+				player.getSkills().setWoodCuttingXP(playerLoader.getSkills().getWoodCuttingXP());
+				player.getSkills().setFishingXP(playerLoader.getSkills().getFishingXP());
+				player.getSkills().setCombatXP(playerLoader.getSkills().getCombatXP());
+				player.getSkills().setCraftingXP(playerLoader.getSkills().getCraftingXP());
 				//account.setPlayer(player);
 				/*
 				ArrayList<Room> rooms = engine.loadMap(account_id);
@@ -87,6 +91,7 @@ public class IndexServlet extends HttpServlet {
 					Item item = iterator.next();
 					engine.insertNewItemIntoDatabase(account, account_id, item, 1);
 				}
+				account.getItemList().clear(); // Clears initial items after added to database so there aren't duplicates
 				System.out.println("IndexServlet >> existingPlayer == false");
 			}
 			
@@ -182,6 +187,11 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("health", player.getHealth());
 		req.setAttribute("stamina", player.getStamina());
 		req.setAttribute("time", player.getTime());
+		
+		req.setAttribute("woodCuttingXP", player.getSkills().getWoodCuttingXP());
+		req.setAttribute("fishingXP", player.getSkills().getFishingXP());
+		req.setAttribute("combatXP", player.getSkills().getCombatXP());
+		req.setAttribute("craftingXP", player.getSkills().getCraftingXP());
 		
 		if (player.getArmor() != null)
 		{

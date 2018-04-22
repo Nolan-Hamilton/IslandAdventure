@@ -31,6 +31,13 @@ public class SkillsTest
 	}
 	
 	@Test
+	public void testSetWoodCuttingXP()
+	{
+		skills.setWoodCuttingXP(100);
+		assertTrue(skills.getWoodCuttingXP() == 100);
+	}
+	
+	@Test
 	public void testGetFishingXP() 
 	{
 		assertTrue(skills.getFishingXP() == 5);
@@ -41,6 +48,12 @@ public class SkillsTest
 	{
 		skills.addFishingXP(35);
 		assertTrue(skills.getFishingXP() == 40);
+	}
+	@Test
+	public void testSetFishingXP()
+	{
+		skills.setFishingXP(60);
+		assertTrue(skills.getFishingXP() == 60);
 	}
 	
 	@Test
@@ -55,6 +68,12 @@ public class SkillsTest
 		skills.addCombatXP(10);
 		assertTrue(skills.getCombatXP() == 20);
 	}
+	@Test
+	public void testSetCombatXP()
+	{
+		skills.setCombatXP(160);
+		assertTrue(skills.getCombatXP() == 160);
+	}
 	
 	@Test
 	public void testGetCraftingXP() 
@@ -67,6 +86,12 @@ public class SkillsTest
 	{
 		skills.addCraftingXP(1);
 		assertTrue(skills.getCraftingXP() == 16);
+	}
+	@Test
+	public void testSetCraftingXP()
+	{
+		skills.setCraftingXP(200);
+		assertTrue(skills.getCraftingXP() == 200);
 	}
 
 }

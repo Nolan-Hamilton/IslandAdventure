@@ -16,6 +16,7 @@ import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Room;
+import edu.ycp.cs320.IslandAdventure.model.Skills;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -214,7 +215,8 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public Integer addPlayer(String user, Integer score, Integer health, 
-			Integer stamina, Integer time, Integer x, Integer y, Integer z, int account_id) 
+			Integer stamina, Integer time, Integer x, Integer y, Integer z, int account_id, 
+			Integer woodCuttingXP, Integer fishingXP, Integer combatXP, Integer craftingXP) 
 	{
 		return executeTransaction(new Transaction<Integer>() 
 		{
@@ -229,7 +231,7 @@ public class DerbyDatabase implements IDatabase {
 				try 
 				{
 					insertPlayer = conn.prepareStatement("insert into players (username, score, health, stamina,"
-							+ " time, x, y, z, account_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							+ " time, x, y, z, account_id, woodcutting, fishing, combat, crafting) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					{
 						insertPlayer.setString(1, user);
 						insertPlayer.setInt(2, score);
@@ -240,6 +242,10 @@ public class DerbyDatabase implements IDatabase {
 						insertPlayer.setInt(7, y);
 						insertPlayer.setInt(8, z);
 						insertPlayer.setInt(9, account_id);
+						insertPlayer.setInt(10, woodCuttingXP);
+						insertPlayer.setInt(11, fishingXP);
+						insertPlayer.setInt(12, combatXP);
+						insertPlayer.setInt(13, craftingXP);
 					}
 					insertPlayer.executeUpdate();
 					
@@ -444,11 +450,12 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				
 				Location location = new Location(10,10,0);
-				Player player = new Player(0, 0, 0, 0, null, location, null, null, null);
+				Skills skills = new Skills(0,0,0,0);
+				Player player = new Player(0, 0, 0, 0, null, location, skills, null, null);
 				try {
 					// Retrieve all attributes from players tables
 					stmt = conn.prepareStatement(
-							"select score, health, stamina, time, x, y, z from players" +
+							"select score, health, stamina, time, x, y, z, woodcutting, fishing, combat, crafting from players" +
 							" where players.username = ? "
 					);
 					stmt.setString(1, user);
@@ -565,7 +572,11 @@ public class DerbyDatabase implements IDatabase {
 									" players.time = ?," +
 									" players.x = ?," +
 									" players.y = ?," +
-									" players.z = ?" +
+									" players.z = ?," +
+									" players.woodcutting = ?," +
+									" players.fishing = ?," +
+									" players.combat = ?," +
+									" players.crafting = ?" +
 								" WHERE players.account_id = ? "
 					);
 					stmt1.setInt(1, player.getScore());
@@ -575,7 +586,11 @@ public class DerbyDatabase implements IDatabase {
 					stmt1.setInt(5, player.getLocation().getX());
 					stmt1.setInt(6, player.getLocation().getY());
 					stmt1.setInt(7, player.getLocation().getZ());
-					stmt1.setInt(8, account_id);
+					stmt1.setInt(8, player.getSkills().getWoodCuttingXP());
+					stmt1.setInt(9, player.getSkills().getFishingXP());
+					stmt1.setInt(10, player.getSkills().getCombatXP());
+					stmt1.setInt(11, player.getSkills().getCraftingXP());
+					stmt1.setInt(12, account_id);
 					
 					// execute the update
 					stmt1.executeUpdate(); // IF MANIPULATING DATABASE, MUST USE EXECUTE UPDATE!!!!!!!!!!!!!
@@ -637,12 +652,14 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				
 				Location location = new Location(10,10,0);
-				Player player = new Player(0, 0, 0, 0, null, location, null, null, null);
+				Skills skills = new Skills(0,0,0,0);
+				Player player = new Player(0, 0, 0, 0, null, location, skills, null, null);
 				try {
 					// Retrieve all attributes from players tables
 					stmt = conn.prepareStatement(
 							"select players.score, players.health, players.stamina, " + 
-									" players.time, players.x, players.y, players.z from players" +
+									" players.time, players.x, players.y, players.z, "
+									+ "woodcutting, fishing, combat, crafting from players" +
 							" where players.account_id = ? "
 					);
 					stmt.setInt(1, account_id);
@@ -933,7 +950,10 @@ public class DerbyDatabase implements IDatabase {
 		player.setX(resultSet.getInt(index++));
 		player.setY(resultSet.getInt(index++));
 		player.setZ(resultSet.getInt(index++));
-		//player.setPlayer_id(resultSet.getInt(index++));
+		player.getSkills().setWoodCuttingXP(resultSet.getInt(index++));
+		player.getSkills().setFishingXP(resultSet.getInt(index++));
+		player.getSkills().setCombatXP(resultSet.getInt(index++));
+		player.getSkills().setCraftingXP(resultSet.getInt(index++));
 	}
 	
 	private void loadItem(Account account, ResultSet resultSet, int index) throws SQLException
@@ -1011,7 +1031,11 @@ public class DerbyDatabase implements IDatabase {
 						"	x integer," +
 						"	y integer," +
 						"	z integer," +
-						"	account_id integer" +
+						"	account_id integer," +
+						"	woodcutting integer," +
+						"	fishing integer," +
+						"	combat integer," +
+						"	crafting integer" +
 						")"
 					);	
 					stmt1.executeUpdate();
