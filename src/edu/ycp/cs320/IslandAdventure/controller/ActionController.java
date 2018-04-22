@@ -103,6 +103,7 @@ public class ActionController
 		{
 			inventoryController.changeWoodAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
+			player.getSkills().addWoodCuttingXP(5);	//Gains 5 WC XP
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}
 		
@@ -110,6 +111,7 @@ public class ActionController
 		{
 			inventoryController.changeFishAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
+			player.getSkills().addFishingXP(5);	//Gains 5 Fishing XP
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}
 		

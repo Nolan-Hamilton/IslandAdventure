@@ -23,6 +23,10 @@ public class Skills
 	{
 		woodCuttingXP = woodCuttingXP + XP;
 	}
+	public void setWoodCuttingXP(int XP)
+	{
+		woodCuttingXP = XP;
+	}
 	
 	public int getFishingXP()
 	{
@@ -31,6 +35,10 @@ public class Skills
 	public void addFishingXP(int XP)
 	{
 		fishingXP = fishingXP + XP;
+	}
+	public void setFishingXP(int XP)
+	{
+		fishingXP = XP;
 	}
 	
 	public int getCombatXP()
@@ -41,6 +49,10 @@ public class Skills
 	{
 		combatXP = combatXP + XP;
 	}
+	public void setCombatXP(int XP)
+	{
+		combatXP = XP;
+	}
 	
 	public int getCraftingXP()
 	{
@@ -49,5 +61,9 @@ public class Skills
 	public void addCraftingXP(int XP)
 	{
 		craftingXP = craftingXP + XP;
+	}
+	public void setCraftingXP(int XP)
+	{
+		craftingXP = XP;
 	}
 }
