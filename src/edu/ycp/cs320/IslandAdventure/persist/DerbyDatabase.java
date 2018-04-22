@@ -400,7 +400,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					// Retrieve all attributes from items tables
 					stmt = conn.prepareStatement(
-							"select items.inventoryItem, items.name, items.description, items.uses, items.amount, "
+							"select inventoryItem, items.name, items.description, items.uses, items.amount, "
 							+ "items.x, items.y, items.z from items" +
 							" where items.account_id = ? "
 					);
@@ -428,96 +428,6 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt);
 				}
 				return account;
-			}
-		});
-	}
-	
-	@Override
-	public boolean updateItemsInDatabase(int account_id, Account account) { // Still working on this
-		return executeTransaction(new Transaction<Boolean>() {
-			@Override
-			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				//PreparedStatement stmt2 = null;				
-				
-				//ResultSet resultSet2 = null;				
-				
-				// for saving author ID and book ID
-				Boolean bool = new Boolean(false);
-
-				//Modify the values of the attributes of the players table
-				try {
-					for (Item item : account.getItemList()){
-					
-						stmt1 = conn.prepareStatement(
-								"UPDATE items" +
-									" SET items.inventoryItem = ?," +
-										" items.uses = ?," +
-										" items.x = ?," +
-										" items.y = ?," +
-										" items.z = ?" +
-									" WHERE items.account_id = ? AND items.name = ? AND items.description = ? "
-						);
-						stmt1.setInt(1, item.getInventoryItem() ? 1 : 0);
-						stmt1.setInt(2, item.getUses());
-						stmt1.setInt(3, item.getX());
-						stmt1.setInt(4, item.getY());
-						stmt1.setInt(5, item.getZ());
-						stmt1.setInt(6, account_id);
-						stmt1.setString(7, item.getName());
-						stmt1.setString(8, item.getDescription());
-						
-						// execute the update
-						stmt1.executeUpdate(); // IF MANIPULATING DATABASE, MUST USE EXECUTE UPDATE!!!!!!!!!!!!!
-						bool = true;
-					}
-					/*//This may not be needed
-					stmt2 = conn.prepareStatement(
-							"select rooms.visible from rooms " +
-							"  where rooms.account_id = ? AND rooms.x = ? AND rooms.y = ? AND rooms.z = ? "
-					);
-					stmt2.setInt(1, account_id);
-					stmt2.setInt(2, account.getPlayer().getLocation().getX());
-					stmt2.setInt(3, account.getPlayer().getLocation().getY());
-					stmt2.setInt(4, account.getPlayer().getLocation().getZ());
-					
-					// execute the update
-					resultSet2 = stmt2.executeQuery();
-					
-					// get the precise schema of the tuples returned as the result of the query
-					ResultSetMetaData resultSchema2 = stmt2.getMetaData();
-
-					// iterate through the returned tuples, printing each one
-					// count # of rows returned
-					int rowsReturned = 0;
-					
-					// THis should only iterate once since only visible is being retrieved.
-					while (resultSet2.next()) {
-						for (int i = 1; i <= resultSchema2.getColumnCount(); i++) {
-							Integer obj = (Integer) resultSet2.getObject(i);
-							bool = (obj == 1) ? true : false; // Convert integer to boolean
-							//System.out.println("account_id: " + account_id);
-							if (i > 1) {
-								System.out.print(",");
-							}
-							//System.out.print(obj2.toString());
-						}
-						System.out.println();
-						// count # of rows returned
-						rowsReturned++;
-						System.out.println("DerbyDatabase >> visible retireved for current room: <" + bool.toString() + "> for account_id: <" + account_id + ">");	
-					}
-					// indicate if the query returned nothing
-					if (rowsReturned == 0) {
-						System.out.println("DerbyDatabase >> No rows returned that matched the query. Visible retrieved for current room: <" + bool.toString() + ">");
-					}
-					*/
-				} finally {
-					DBUtil.closeQuietly(stmt1);
-					//DBUtil.closeQuietly(stmt2);					
-					//DBUtil.closeQuietly(resultSet2);
-				}
-				return bool;
 			}
 		});
 	}
@@ -1048,8 +958,7 @@ public class DerbyDatabase implements IDatabase {
 		}
 		if (inventoryItem == 1)
 		{
-			//inventory.addItem(item, amount); //If item is in inventory than add to players inventory
-			account.getPlayer().getInventory().addItem(item, amount);
+			inventory.addItem(item, amount); //If item is in inventory than add to players inventory
 		}
 		else
 		{
@@ -1238,5 +1147,11 @@ public class DerbyDatabase implements IDatabase {
 	public Account getItemList(Integer account_id, Account account) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean updateItemsInDatabase(int account_id, Account account) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

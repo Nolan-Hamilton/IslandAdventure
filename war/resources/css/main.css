@@ -30,6 +30,7 @@ body
 #outputBox {
 	width: 40%;
 	height: 480px;
+	max-height: 480px;
 	border: 2px solid #3eb5ff;
 	float: left;
 	padding: 10px 10px 10px 10px;
@@ -37,6 +38,7 @@ body
 	margin-right: 2%;
 	width: 50%;
 	background-color: #A9CADB;
+	overflow: auto;
 }
 
 #variablesBox {

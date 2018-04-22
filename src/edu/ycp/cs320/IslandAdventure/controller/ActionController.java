@@ -83,6 +83,20 @@ public class ActionController
 					response += "You cannot go that way! <br><br>";
 				}
 			}
+			// Print description and items
+			// Display description
+			response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			// Display Items
+			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
+			if (items.size() != 0) 
+			{
+				response += "The following item(s) are also present: <br>";
+				for (Item item : items) 
+				{
+					response += item.getName() + "<br>";
+				}
+			}
+			response += "<br>";
 		}
 		
 		else if (action.equals("Chop Wood") || action.equals("chop wood")) 
@@ -117,7 +131,7 @@ public class ActionController
 				n = rand.nextInt(50) + 1;	//random # from 1-50
 			}
 			
-			response += eventController.sleepEvent(player, n);
+			response += eventController.sleepEvent(player, n) + "<br>";
 		}
 		
 		//Display Map
@@ -139,7 +153,6 @@ public class ActionController
 				for (Item item : items) 
 				{
 					response += item.getName() + "<br>";
-					System.out.println("AcitonController >> Item: " + item.toString());
 				}
 			}
 			response += "<br>";
@@ -154,6 +167,8 @@ public class ActionController
 					Item item = new Item(key.getName(), key.getDescription(), new Location(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()), key.getUses());
 					account.getItemList().add(item);
 					player.getInventory().addItem(key, -1);
+					int account_id = gameEngine.getAccountID(account.getUsername());
+					gameEngine.moveItemInventory(account_id, 0, item.getName());
 					found = true;
 					response += itemName + " has been removed from your inventory. <br>";
 					if (player.getInventory().getInventoryMap().get(key) == 0){
@@ -225,10 +240,13 @@ public class ActionController
 					response += "You equipped a " + item.getName() + "!";
 				}
 			}
+		}else{
+			// If the command is not enderstandable
+			response += "I do not understand what you are saying... <br>";
 		}
 		
 		playerController.checkPlayerState(player);	//Checks if player health and stamina > 0 
-		response += " what next?";
+		response += "<br>";
 		return response;
 	}
 }
