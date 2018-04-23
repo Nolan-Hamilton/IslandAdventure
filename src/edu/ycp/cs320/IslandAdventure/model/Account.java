@@ -53,6 +53,10 @@ public class Account
 		Location location2 = new Location(10,9,0);
 		Item hammer = new Item("Hammer", "A rock tied to a stick.", location2, 10);
 		itemList.add(hammer);
+		this.getRoomByXYZ(5, 5, 0).setGoDown(true);	// This is where the cave entrance is.
+		this.getRoomByXYZ(5, 5, 1).setGoUp(true);	// This is where the cave exit is.
+		Item lantern = new Item("Lantern", "For seeing in the dark", new Location(4,4,0), 10);
+		itemList.add(lantern);
 	}
 	
 	public String getUsername(){
