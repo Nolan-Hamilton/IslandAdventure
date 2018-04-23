@@ -145,10 +145,27 @@ public class ActionController
 		
 		else if (action.equals("fish")) 
 		{
-			inventoryController.changeFishAmount(10);
-			player.changeTime(1);	// Takes 1 hour to chop wood
-			player.getSkills().addFishingXP(5);	//Gains 5 Fishing XP
-			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
+			boolean fishingRod = false;
+			boolean shorLine = false;
+			for (Item item : player.getInventory().getInventoryMap().keySet()){
+				if (item.getName().toLowerCase().contains("fishing rod")){
+					fishingRod = true;
+					System.out.println("ActionConroller >> FishingRod = " + fishingRod);
+				}
+			} // If player does not possess light source, cannot move underground
+			if (fishingRod == false){
+				response += "You cannot fish without a fishing rod. Craft one. <br><br>";
+				return response;
+			}
+			if ((player.getLocation().getX() == 0 || player.getLocation().getX() == 14 || player.getLocation().getY() == 0 || player.getLocation().getY() == 14) && player.getLocation().getZ() == 0){
+				inventoryController.changeFishAmount(10);
+				player.changeTime(1);	// Takes 1 hour to chop wood
+				player.getSkills().addFishingXP(5);	//Gains 5 Fishing XP
+				player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
+			}else{
+				response += "You must me on the shoreline to fish in the ocean! <br><br>";
+				return response;
+			}
 		}
 		
 		else if(action.contains("sleep"))
