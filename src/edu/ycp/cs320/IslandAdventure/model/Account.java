@@ -42,7 +42,7 @@ public class Account
 					if (x == 0){ left = false;}
 					if (y == 14){ bottom = false;}	// If on bottom row, can't go south
 					if (y == 0){ top = false;}
-					Room room = new Room(local, descript1, descript2, false, top, right, bottom, left, true, true);
+					Room room = new Room(local, descript1, descript2, false, top, right, bottom, left, false, false);
 					mapRooms.add(room);
 				}
 			}

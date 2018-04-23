@@ -84,6 +84,22 @@ public class ActionController
 					response += "You cannot go that way! <br><br>";
 				}
 			}
+			else if (action.contains("down")) 
+			{
+				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoDown() == true){
+					location.setZ(player.getLocation().getZ()+1);
+				}else{
+					response += "You cannot go that way! <br><br>";
+				}
+			}
+			else if (action.contains("up")) 
+			{
+				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoUp() == true){
+					location.setZ(player.getLocation().getZ()-1);
+				}else{
+					response += "You cannot go that way! <br><br>";
+				}
+			}
 			// Print description and items
 			// if new room, display long description
 			if (account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getVisible() == false) {
