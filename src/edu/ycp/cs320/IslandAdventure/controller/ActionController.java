@@ -51,6 +51,20 @@ public class ActionController
 		
 		if (action.contains("move"))
 		{
+			if (player.getLocation().getZ() != 0 && !(action.contains("up")) && !(action.contains("down"))){
+				System.out.println("ActionController >> Underground Movement!");
+				boolean lightSource = false;
+				for (Item item : player.getInventory().getInventoryMap().keySet()){
+					if (item.getName().toLowerCase().equals("lantern") || item.getName().toLowerCase().equals("torch")){
+						lightSource = true;
+						System.out.println("ActionConroller >> LightSource = " + lightSource);
+					}
+				} // If player does not possess light source, cannot move underground
+				if (lightSource == false){
+					response += "You cannot move in this darkness without a light source. <br><br>";
+					return response;
+				}
+			}
 			if (action.toLowerCase().contains("east")) 
 			{
 				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoEast() == true){
