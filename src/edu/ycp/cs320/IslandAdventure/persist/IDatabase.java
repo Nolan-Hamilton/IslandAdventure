@@ -45,4 +45,6 @@ public interface IDatabase {
 	public Account updateItemList(Integer account_id, Account account);
 
 	public Boolean moveItemInventory(Integer account_id, Integer inventoryItem, String name);
+	
+	public Boolean updateItemAmount(Integer account_id, String name, Integer amount);
 }

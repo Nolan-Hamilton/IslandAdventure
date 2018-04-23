@@ -132,5 +132,11 @@ public class FakeDatabase implements IDatabase
 		return null;
 	}
 
+	@Override
+	public Boolean updateItemAmount(Integer account_id, String name, Integer amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

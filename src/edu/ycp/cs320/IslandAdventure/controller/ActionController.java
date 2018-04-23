@@ -218,39 +218,26 @@ public class ActionController
 				response += "There is nothing here to take. <br>";
 			}
 		}
-/*		
+		
 		else if (action.contains("craft"))
 		{
-			if (action.contains("sword"))
+			if (action.contains("wood"))
 			{
-				if (action.contains("wood"))
+				if (action.contains("sword"))
 				{
-					int count = player.getInventory().getItemCountFromString("Wood");
-					int craftingXP = player.getSkills().getCraftingXP();
-					if (count >= 5 && craftingXP >= 0)
-					{
-						response += "You crafted a wood sword. <br>";
-					}
-					else if (count < 5)
-					{
-						response += "You need more wood to craft that. <br>";
-					}
-					else
-					{
-						response += "You need more crafting XP to craft that. <br>";
-					}
+					response += craftItem(player, "wood sword", "Wood", 5, 0, 5); // Need 5 wood and 0 XP to craft wood sword
+				}
+				if (action.contains("axe"))
+				{
+					response += craftItem(player, "wood axe", "Wood", 5, 0, 5); // Need 5 wood and 0 XP to craft wood axe
+				}
+				if (action.contains("rod"))
+				{
+					response += craftItem(player, "wood fishing rod", "Wood", 5, 0, 5); // Need 5 wood and 0 XP to craft wood rod
 				}
 			}
-			if (action.contains("axe"))
-			{
-				
-			}
-			if (action.contains("rod"))
-			{
-				
-			}
 		}
-*/	
+	
 		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
@@ -272,6 +259,47 @@ public class ActionController
 		
 		playerController.checkPlayerState(player);	//Checks if player health and stamina > 0 
 		response += "<br>";
+		return response;
+	}
+	
+	public String craftItem(Player player, String itemName, String itemRequired, 
+			Integer amountRequired, Integer craftingXPRequired, Integer craftingXPGained)
+	{
+		String response = "";
+		int count = player.getInventory().getItemCountFromString(itemRequired);
+		int craftingXP = player.getSkills().getCraftingXP();
+		Inventory inventory = player.getInventory();
+		if (count >= amountRequired && craftingXP >= craftingXPRequired)
+		{
+			response += "You crafted a " + itemName + "! <br>";
+			Item item = new Item(itemName, itemName, player.getLocation(), craftingXP);
+			inventory.addItem(item, 1);
+			int account_id = gameEngine.getAccountID(account.getUsername());
+			gameEngine.insertNewItemIntoDatabase(account, account_id, item, 1);
+			player.getSkills().addCraftingXP(craftingXPGained);
+			// Below removes items used for crafting from inventory;
+			Item itemToRemove = null;
+			Set<Item> keySet = inventory.getInventoryMap().keySet();
+			Iterator<Item> iterator = keySet.iterator();
+			while (iterator.hasNext())
+			{
+				Item itemCheck = iterator.next();
+				if (itemCheck.getName().equals(itemRequired))
+				{
+					itemToRemove = itemCheck;
+				}
+			}
+			inventory.addItem(itemToRemove, -amountRequired);
+			gameEngine.updateItemAmount(account_id, itemToRemove.getName(), inventory.getItemCount(itemToRemove));
+		}
+		else if (count < amountRequired)
+		{
+			response += "You need more " + itemRequired + " to craft that. <br>";
+		}
+		else
+		{
+			response += "You need more crafting XP to craft that. <br>";
+		}
 		return response;
 	}
 }

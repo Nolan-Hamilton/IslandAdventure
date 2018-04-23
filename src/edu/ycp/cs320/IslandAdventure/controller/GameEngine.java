@@ -137,9 +137,13 @@ public class GameEngine
 		return db.updateItemsInDatabase(account_id, account);
 	}
 	
-	public void moveItemInventory(int account_id, int inventoryItem, String name) //Uploads account with items in db
+	public void moveItemInventory(int account_id, int inventoryItem, String name) // Changes account items from inventory to map or vice versa
 	{
 		db.moveItemInventory(account_id, inventoryItem, name);
+	}
+	public void updateItemAmount(int account_id, String name, Integer amount) //Changes amount of item
+	{
+		db.updateItemAmount(account_id, name, amount);
 	}
 	
 }

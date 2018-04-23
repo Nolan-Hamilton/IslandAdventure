@@ -392,6 +392,40 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	@Override
+	public Boolean updateItemAmount(Integer account_id, String name, Integer amount) {
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement updateItem = null;
+				boolean bool = false;
+				try 
+				{
+					updateItem = conn.prepareStatement(
+							"UPDATE items" +
+							" SET items.amount = ?" +
+							" WHERE items.name = ? AND items.account_id = ?"
+					);
+					updateItem.setInt(1, amount);
+					updateItem.setString(2, name);
+					updateItem.setInt(3, account_id);
+					
+					updateItem.executeUpdate();
+					
+					bool = true;
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(updateItem);
+				}
+				return bool;
+			}
+		});
+	}
+	
 	@Override
 	public Account updateItemList(Integer account_id, Account account) 
 	{
