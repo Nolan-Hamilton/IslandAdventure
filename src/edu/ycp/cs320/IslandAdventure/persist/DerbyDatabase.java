@@ -708,16 +708,16 @@ public class DerbyDatabase implements IDatabase {
 				{
 					for (Room room : list){
 							
-						insertRooms = conn.prepareStatement("insert into rooms (account_id, username, x, y, z, description, visible,"
-								+ " go_north, go_east, go_south, go_west, go_up, go_down)"
-								+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+						insertRooms = conn.prepareStatement("insert into rooms (account_id, username, x, y, z, longDescript, visible,"
+								+ " go_north, go_east, go_south, go_west, go_up, go_down, shortDescript)"
+								+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 						
 						insertRooms.setInt(1, account_id);
 						insertRooms.setString(2, username);
 						insertRooms.setInt(3, room.getLocation().getX());
 						insertRooms.setInt(4, room.getLocation().getY());
 						insertRooms.setInt(5, room.getLocation().getZ());
-						insertRooms.setString(6, room.getDescription());
+						insertRooms.setString(6, room.getLongDescription());
 						insertRooms.setInt(7, (room.getVisible()) ? 1 : 0); // Convert from boolean to integer
 						insertRooms.setInt(8, (room.getGoNorth()) ? 1 : 0);
 						insertRooms.setInt(9, (room.getGoEast()) ? 1 : 0);
@@ -725,6 +725,7 @@ public class DerbyDatabase implements IDatabase {
 						insertRooms.setInt(11, (room.getGoWest()) ? 1 : 0);
 						insertRooms.setInt(12, (room.getGoUp()) ? 1 : 0);
 						insertRooms.setInt(13, (room.getGoDown()) ? 1 : 0);
+						insertRooms.setString(14, room.getShortDescription());
 						
 						insertRooms.executeUpdate();						
 					}
@@ -849,9 +850,9 @@ public class DerbyDatabase implements IDatabase {
 					// Retrieve all attributes from players tables
 					stmt = conn.prepareStatement(
 							"select rooms.x, rooms.y, rooms.z," + 
-									" rooms.description, rooms.visible," +
+									" rooms.longDescript, rooms.visible," +
 									" rooms.go_north, rooms.go_east, rooms.go_south," +
-									" rooms.go_west, rooms.go_up, rooms.go_down" +
+									" rooms.go_west, rooms.go_up, rooms.go_down, rooms.shortDescript" +
 							" from rooms where rooms.account_id = ? "
 					);
 					stmt.setInt(1, account_id);
@@ -865,7 +866,7 @@ public class DerbyDatabase implements IDatabase {
 					while (resultSet.next()) 
 					{
 						// new room must be created every time or else all are set to 14,14,2
-						Room room = new Room(null, null, false, false, false, false, false, false, false);
+						Room room = new Room(null, null, null, false, false, false, false, false, false, false);
 						bool = true;
 						// retrieve attributes from resultSet starting with index 1
 						loadRoom(room, resultSet, 1);
@@ -999,7 +1000,7 @@ public class DerbyDatabase implements IDatabase {
 		loc.setY(resultSet.getInt(index++));
 		loc.setZ(resultSet.getInt(index++));
 		room.setLocation(loc);
-		room.setDescription(resultSet.getString(index++));
+		room.setLongDescription(resultSet.getString(index++));
 		room.setVisible(resultSet.getInt(index++) == 1 ? true : false);
 		room.setGoNorth(resultSet.getInt(index++) == 1 ? true : false);
 		room.setGoEast(resultSet.getInt(index++) == 1 ? true : false);
@@ -1007,6 +1008,7 @@ public class DerbyDatabase implements IDatabase {
 		room.setGoWest(resultSet.getInt(index++) == 1 ? true : false);
 		room.setGoUp(resultSet.getInt(index++) == 1 ? true : false);
 		room.setGoDown(resultSet.getInt(index++) == 1 ? true : false);
+		room.setShortDescription(resultSet.getString(index++));
 	}
 	
 	public void createTables() {
@@ -1064,14 +1066,15 @@ public class DerbyDatabase implements IDatabase {
 						"	x integer," +
 						"	y integer," +
 						"	z integer," +
-						"	description varchar(150)," +
+						"	longDescript varchar(250)," +
 						"	visible integer," +
 						"	go_north integer," +
 						"	go_east integer," +
 						"	go_south integer," +
 						"	go_west integer," +
 						"	go_up integer," +
-						"	go_down integer" +
+						"	go_down integer," +
+						"	shortDescript varchar(150)" +
 						")"
 					);
 					stmt3.executeUpdate();

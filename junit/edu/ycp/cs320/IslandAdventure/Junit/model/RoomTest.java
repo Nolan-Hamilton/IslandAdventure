@@ -22,7 +22,7 @@ public class RoomTest {
 	@Before
 	public void setUp() {
 		 loc = new Location(1,2,3);
-		 room = new Room(loc, "This is the description.", false, false, false, false, false, false, false);
+		 room = new Room(loc, "This is the description.", "Here is a shorter one.", false, false, false, false, false, false, false);
 	}
 	
 	@Test
@@ -50,13 +50,24 @@ public class RoomTest {
 
 	@Test
 	public void testGetDescription() {
-		assertTrue(room.getDescription().equals("This is the description."));
+		assertTrue(room.getLongDescription().equals("This is the description."));
 	}
 	
 	@Test
 	public void testSetDescription() {
-		room.setDescription("This is the new Description.");
-		assertTrue(room.getDescription().equals("This is the new Description."));
+		room.setLongDescription("This is the new Description.");
+		assertTrue(room.getLongDescription().equals("This is the new Description."));
+	}
+	
+	@Test
+	public void testGetShortDescription() {
+		assertTrue(room.getShortDescription().equals("Here is a shorter one."));
+	}
+	
+	@Test
+	public void testSetShortDescription() {
+		room.setShortDescription("This one's even shorter.");
+		assertTrue(room.getShortDescription().equals("This one's even shorter."));
 	}
 	
 	@Test

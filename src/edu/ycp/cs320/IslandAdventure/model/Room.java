@@ -7,7 +7,8 @@ package edu.ycp.cs320.IslandAdventure.model;
 
 public class Room {
 	private Location location;
-	private String description;
+	private String longDescript;
+	private String shortDescript;
 	boolean visible;
 	boolean goNorth;
 	boolean goEast;
@@ -17,10 +18,11 @@ public class Room {
 	boolean goDown;
 
 	
-	public Room(Location loc, String descript, boolean vis, boolean gN, boolean gE,
+	public Room(Location loc, String longDescript, String shortDescript, boolean vis, boolean gN, boolean gE,
 			boolean gS, boolean gW, boolean gU, boolean gD){
 		this.location = loc;
-		this.description = descript;
+		this.longDescript = longDescript;
+		this.shortDescript = shortDescript;
 		this.visible = vis;
 		this.goNorth = gN;
 		this.goEast = gE;
@@ -46,12 +48,20 @@ public class Room {
 		this.location = loc;
 	}
 	
-	public void setDescription(String descript) {
-		this.description = descript;
+	public void setLongDescription(String descript) {
+		this.longDescript = descript;
 	}
 	
-	public String getDescription() {
-		return this.description;
+	public String getLongDescription() {
+		return this.longDescript;
+	}
+	
+	public void setShortDescription(String descript) {
+		this.shortDescript = descript;
+	}
+	
+	public String getShortDescription() {
+		return this.shortDescript;
 	}
 	
 	public void setVisible(boolean vis) {

@@ -84,8 +84,13 @@ public class ActionController
 				}
 			}
 			// Print description and items
-			// Display description
-			response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			// if new room, display long description
+			if (account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getVisible() == false) {
+				response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getLongDescription() + "<br>";
+			}else {
+				response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getShortDescription() + "<br>";
+			}
+			
 			// Display Items
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
 			if (items.size() != 0) 
@@ -146,7 +151,11 @@ public class ActionController
 		else if (action.equals("Look") || action.equals("look")) 
 		{
 			// Display description
-			response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getDescription() + "<br>";
+			if (account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getVisible() == false) {
+				response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getLongDescription() + "<br>";
+			}else {
+				response += account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getShortDescription() + "<br>";
+			}
 			// Display list of items.
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
 			if (items.size() != 0) 

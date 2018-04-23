@@ -35,9 +35,9 @@ public class AccountTest {
 		account.getObjectList().add(hammer);
 		roomList = new ArrayList<Room>();
 		location2 = new Location(5,5,5);
-		Room room2 = new Room(location2, "Descript2", false, false, false, false, false, false, false);
+		Room room2 = new Room(location2, "Descript2", "shortDescript2", false, false, false, false, false, false, false);
 		roomList.add(room2);
-		Room room = new Room(location, "Descript", false, false, false, false, false, false, false);
+		Room room = new Room(location, "Descript", "shortDescript", false, false, false, false, false, false, false);
 		account.getRooms().add(room);
 		
 		account.getItemList().add(hammer);
