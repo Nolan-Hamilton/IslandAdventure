@@ -47,10 +47,11 @@ public class ActionController
 		Location location = player.getLocation();
 		String response = "";
 		response += ">> " + action + "<br><br>"; // Add action command to response
+		action = action.toLowerCase();
 		
-		if (action.contains("move") || action.contains("Move"))
+		if (action.contains("move"))
 		{
-			if (action.contains("East") || action.contains("east")) 
+			if (action.toLowerCase().contains("east")) 
 			{
 				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoEast() == true){
 					location.setX(player.getLocation().getX()+1);
@@ -58,7 +59,7 @@ public class ActionController
 					response += "You cannot go that way! <br><br>";
 				}
 			}
-			else if (action.contains("West") || action.contains("west")) 
+			else if (action.contains("west")) 
 			{
 				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoWest() == true){
 					location.setX(player.getLocation().getX()-1);
@@ -66,7 +67,7 @@ public class ActionController
 					response += "You cannot go that way! <br><br>";
 				}
 			}
-			else if (action.contains("North") || action.contains("north")) 
+			else if (action.contains("north")) 
 			{
 				
 				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoSouth() == true){
@@ -75,7 +76,7 @@ public class ActionController
 					response += "You cannot go that way! <br><br>";
 				}
 			}
-			else if (action.contains("South") || action.contains("south")) 
+			else if (action.contains("south")) 
 			{
 				if (account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).getGoNorth() == true){
 					location.setY(player.getLocation().getY()-1);
@@ -104,7 +105,7 @@ public class ActionController
 			response += "<br>";
 		}
 		
-		else if (action.equals("Chop Wood") || action.equals("chop wood")) 
+		else if (action.equals("chop wood")) 
 		{
 			inventoryController.changeWoodAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
@@ -112,17 +113,12 @@ public class ActionController
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
 		}
 		
-		else if (action.equals("Fish") || action.equals("fish")) 
+		else if (action.equals("fish")) 
 		{
 			inventoryController.changeFishAmount(10);
 			player.changeTime(1);	// Takes 1 hour to chop wood
 			player.getSkills().addFishingXP(5);	//Gains 5 Fishing XP
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
-		}
-		
-		else if (action.equals("Drop Wood") || action.equals("drop wood")){
-			inventoryController.changeWoodAmount(-10);
-			// Add item to location
 		}
 		
 		else if(action.contains("sleep"))
@@ -142,13 +138,13 @@ public class ActionController
 		}
 		
 		//Display Map
-		else if (action.equals("display map") || action.equals("Display Map")){
+		else if (action.equals("display map")){
 			MapFrame map = new MapFrame();
 			map.displayMap(account);
 		}
 
 		// Displays the description of the current room as well as any items located in that room
-		else if (action.equals("Look") || action.equals("look")) 
+		else if (action.equals("look")) 
 		{
 			// Display description
 			if (account.getRoomByXYZ(location.getX(), location.getY(), location.getZ()).getVisible() == false) {
@@ -169,7 +165,7 @@ public class ActionController
 			response += "<br>";
 		}
 		
-		else if (action.contains("drop") || action.contains("Drop")){
+		else if (action.contains("drop")){
 			int chop = action.indexOf(" ") + 1;			//This finds the index of the first letter of the item
 			String itemName = action.substring(chop).toLowerCase();	//returns the name of the item and throws out the 'take '
 			boolean found = false;
@@ -193,7 +189,7 @@ public class ActionController
 			}
 		}
 		
-		else if (action.contains("take") || action.contains("Take")){
+		else if (action.contains("take")){
 			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
 			int chop = action.indexOf(" ") + 1;			//This finds the index of the first letter of the item
 			String itemName = action.substring(chop).toLowerCase();	//returns the name of the item and throws out the 'take '
@@ -222,21 +218,39 @@ public class ActionController
 				response += "There is nothing here to take. <br>";
 			}
 		}
-		/*//This is no longer used but is here for reference or to revert back to
-		else if (action.equals("pick up")) // Picks up all items in the room
+/*		
+		else if (action.contains("craft"))
 		{
-			ArrayList<Item> items = account.getItemsByXYZ(location.getX(), location.getY(), location.getZ());
-			if (items.size() != 0) 
+			if (action.contains("sword"))
 			{
-				response += "You acquired the following item(s): <br>";
-				for (Item item : items) 
+				if (action.contains("wood"))
 				{
-					response += item.getName() + "<br>";
-					player.getInventory().addItem(item, 1);
+					int count = player.getInventory().getItemCountFromString("Wood");
+					int craftingXP = player.getSkills().getCraftingXP();
+					if (count >= 5 && craftingXP >= 0)
+					{
+						response += "You crafted a wood sword. <br>";
+					}
+					else if (count < 5)
+					{
+						response += "You need more wood to craft that. <br>";
+					}
+					else
+					{
+						response += "You need more crafting XP to craft that. <br>";
+					}
 				}
 			}
+			if (action.contains("axe"))
+			{
+				
+			}
+			if (action.contains("rod"))
+			{
+				
+			}
 		}
-		*/
+*/	
 		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
@@ -252,7 +266,7 @@ public class ActionController
 				}
 			}
 		}else{
-			// If the command is not enderstandable
+			// If the command is not understandable
 			response += "I do not understand what you are saying... <br>";
 		}
 		
