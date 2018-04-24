@@ -24,6 +24,7 @@ public class Account
 		objectList = new ArrayList<GameObject>();
 		mapRooms = new ArrayList<Room>();
 		itemList = new ArrayList<Item>();
+		enemyList = new ArrayList<Enemy>();
 	}
 	
 	
@@ -57,6 +58,9 @@ public class Account
 		this.getRoomByXYZ(5, 5, 1).setGoUp(true);	// This is where the cave exit is.
 		Item lantern = new Item("Lantern", "For seeing in the dark", new Location(4,4,0), 10);
 		itemList.add(lantern);
+		Location location3 = new Location(2,3,0);
+		Enemy enemyBoss = new Enemy("Island King", "The king of the island", 500, location3, 100);
+		enemyList.add(enemyBoss);
 	}
 	
 	public String getUsername(){

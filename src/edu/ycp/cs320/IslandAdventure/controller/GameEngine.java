@@ -146,4 +146,23 @@ public class GameEngine
 		db.updateItemAmount(account_id, name, amount);
 	}
 	
+	public Boolean insertEnemyIntoDatabase(Account account, int account_id, Enemy enemy) 
+	{
+		Location location = enemy.getLocation();
+		String name = enemy.getName();
+		String description = enemy.getDescription();
+		Integer health = enemy.getHealth();
+		Integer damage = enemy.getDamage();
+		Integer x = location.getX();
+		Integer y = location.getY();
+		Integer z = location.getZ();
+
+		Boolean added = db.insertEnemyIntoDatabase(account_id, name, description, health, damage, x, y, z);
+		return added;
+	}
+	
+	public Account updateEnemiesList(int account_id, Account account)
+	{
+		return db.updateEnemyList(account_id, account);
+	}
 }

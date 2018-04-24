@@ -47,4 +47,9 @@ public interface IDatabase {
 	public Boolean moveItemInventory(Integer account_id, Integer inventoryItem, String name);
 	
 	public Boolean updateItemAmount(Integer account_id, String name, Integer amount);
+	
+	public Boolean insertEnemyIntoDatabase(Integer account_id, String name, String description, 
+			Integer health, Integer damage, Integer x, Integer y, Integer z);
+	
+	public Account updateEnemyList(Integer account_id, Account account);
 }

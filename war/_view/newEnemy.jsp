@@ -35,7 +35,7 @@
 				<br><br>
 				Enemy Location(z):<input type="text" name="z" size="3" value="${locationZ}" />
 				<br><br>
-				<input type="Submit" name="submit" value="Create Item!">
+				<input type="Submit" name="submit" value="Create Enemy!">
 			</form>
 		</div>
 		

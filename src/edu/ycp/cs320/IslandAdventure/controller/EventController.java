@@ -64,7 +64,11 @@ public class EventController
 		Player player = account.getPlayer();
 		Location location = player.getLocation();
 		ArrayList<Enemy> enemyList = account.getEnemiesByXYZ(location.getX(), location.getY(), location.getZ());
-		Iterator iterator = enemyList.iterator();
+		if (!enemyList.isEmpty())
+		{
+			Enemy enemy = enemyList.get(0);	// Get first enemy if enemyList isn't empty
+			moveEvent += fightController.Fight(player, enemy);
+		}
 		return moveEvent;
 	}
 }

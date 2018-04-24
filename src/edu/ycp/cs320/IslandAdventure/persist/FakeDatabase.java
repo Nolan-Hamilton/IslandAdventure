@@ -138,5 +138,18 @@ public class FakeDatabase implements IDatabase
 		return null;
 	}
 
+	@Override
+	public Boolean insertEnemyIntoDatabase(Integer account_id, String name, String description, Integer health,
+			Integer damage, Integer x, Integer y, Integer z) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Account updateEnemyList(Integer account_id, Account account) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

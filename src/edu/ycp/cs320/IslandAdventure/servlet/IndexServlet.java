@@ -93,9 +93,19 @@ public class IndexServlet extends HttpServlet {
 				}
 				account.getItemList().clear(); // Clears initial items after added to database so there aren't duplicates
 				System.out.println("IndexServlet >> existingPlayer == false");
+				
+				Iterator<Enemy> iterator2 = account.getEnemyList().iterator();
+				while(iterator2.hasNext())	// Puts initial items into database
+				{
+					Enemy enemy = iterator2.next();
+					engine.insertEnemyIntoDatabase(account, account_id, enemy);
+				}
+				account.getEnemyList().clear(); // Clears initial items after added to database so there aren't duplicates
+				System.out.println("IndexServlet >> existingPlayer == false");
 			}
 			
 			engine.updateItemList(account, account_id);	// Loads items to account
+			engine.updateEnemiesList(account_id, account); // Loads enemies to account
 			
 			inventoryController = new InventoryController(player.getInventory(), account, account_id);
 			locationController = new LocationController(player.getLocation());

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.IslandAdventure.model.Account;
+import edu.ycp.cs320.IslandAdventure.model.Enemy;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Location;
@@ -922,7 +923,94 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-		
+	
+	@Override
+	public Account updateEnemyList(Integer account_id, Account account) 
+	{
+		return executeTransaction(new Transaction<Account>() 
+		{
+			@Override
+			public Account execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+	
+				try {
+					// Retrieve all attributes from items tables
+					stmt = conn.prepareStatement(
+							"select enemies.name, enemies.description, enemies.health, enemies.damage, "
+							+ "enemies.x, enemies.y, enemies.z from enemies" +
+							" where enemies.account_id = ? "
+					);
+					stmt.setInt(1, account_id);
+					
+					resultSet = stmt.executeQuery();
+
+					Boolean found = false;
+					
+					account.getEnemyList().clear();	//Empties current enemyList to update with new list
+					
+					while (resultSet.next()) 
+					{
+						found = true;
+				
+						// retrieve attributes from resultSet starting with index 1
+						loadEnemy(account, resultSet, 1);
+					}
+
+					// check if the items were found
+					if (!found) 
+					{
+						System.out.println("No enemy found in the enemies table.");
+					}
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return account;
+			}
+		});
+	}
+	
+	@Override
+	public Boolean insertEnemyIntoDatabase(Integer account_id, String name, String description, 
+			Integer health, Integer damage, Integer x, Integer y, Integer z) {
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement insertEnemy   = null;
+
+				Boolean enemyAdded = false;
+				try 
+				{
+					insertEnemy = conn.prepareStatement("insert into enemies (account_id, name, description, health,"
+							+ " damage, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?)");
+					{
+						insertEnemy.setInt(1, account_id);
+						insertEnemy.setString(2, name);
+						insertEnemy.setString(3, description);
+						insertEnemy.setInt(4, health);
+						insertEnemy.setInt(5, damage);
+						insertEnemy.setInt(6, x);
+						insertEnemy.setInt(7, y);
+						insertEnemy.setInt(8, z);
+					}
+					insertEnemy.executeUpdate();
+						
+					System.out.println("New enemy for account number <" + account_id + "> inserted in enemies table");
+					enemyAdded = true;
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(insertEnemy);
+				}
+				return enemyAdded;
+			}
+		});
+	}
+	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
 			return doExecuteTransaction(txn);
@@ -1020,6 +1108,23 @@ public class DerbyDatabase implements IDatabase {
 			account.getItemList().add(item); // Else add to account itemList
 		}
 	}
+	private void loadEnemy(Account account, ResultSet resultSet, int index) throws SQLException
+	{
+		Inventory inventory = account.getPlayer().getInventory();	// Get players inventory
+
+		String name = resultSet.getString(index++);
+		String description = resultSet.getString(index++);
+		Integer health = resultSet.getInt(index++);
+		Integer damage = resultSet.getInt(index++);
+		Integer x = resultSet.getInt(index++);
+		Integer y = resultSet.getInt(index++);
+		Integer z = resultSet.getInt(index++);
+		
+		Location location = new Location(x, y, z);
+		Enemy enemy = new Enemy(name, description, health, location, damage);
+		
+		account.getEnemyList().add(enemy);
+	}
 	
 	private void loadAccount(Account account, ResultSet resultSet, int index) throws SQLException 
 	{
@@ -1053,6 +1158,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt2 = null;
 				PreparedStatement stmt3 = null;
 				PreparedStatement stmt4 = null;
+				PreparedStatement stmt5 = null;
 				
 				try {
 					stmt1 = conn.prepareStatement(
@@ -1130,14 +1236,34 @@ public class DerbyDatabase implements IDatabase {
 							"	z integer" +
 							")"
 						);	
-						stmt4.executeUpdate();
-						System.out.println("Items table created.");
+					stmt4.executeUpdate();
+					System.out.println("Items table created.");
+						
+					// Create enemies table
+					stmt5 = conn.prepareStatement(
+							"create table enemies (" +
+							"	enemy_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	account_id integer," +
+							"	name varchar(40)," +
+							"	description varchar(150)," +
+							"	health integer," +
+							"	damage integer," +
+							"	x integer," +
+							"	y integer," +
+							"	z integer" +
+							")"
+						);	
+					stmt5.executeUpdate();
+					System.out.println("Enemies table created.");
 						
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
 					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(stmt5);
 				}
 			}
 		});

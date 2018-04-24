@@ -132,6 +132,7 @@ public class ActionController
 					response += item.getName() + "<br>";
 				}
 			}
+			response += eventController.moveEvent(account);
 			response += "<br>";
 		}
 		

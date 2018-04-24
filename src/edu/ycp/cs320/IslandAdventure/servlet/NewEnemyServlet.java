@@ -22,16 +22,16 @@ public class NewEnemyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("New Item Servlet: doGet");
+		System.out.println("New Enemy Servlet: doGet");
 		engine = new GameEngine();
-		req.getRequestDispatcher("/_view/newItem.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/newEnemy.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("NewItemServlet doPost");
+		System.out.println("NewEnemyServlet doPost");
 		
 		// Navigating to new page by pressing button
 		if (req.getParameter("return") != null)
@@ -56,7 +56,12 @@ public class NewEnemyServlet extends HttpServlet {
 				//System.out.println("Success!");
 				Location location = new Location(Integer.parseInt(locationX), Integer.parseInt(locationY), Integer.parseInt(locationZ));
 				Enemy enemyToAdd = new Enemy(name, description, Integer.parseInt(health), location, Integer.parseInt(damage));
-				// Add item to players database
+				// Add enemy to players database
+				String username = (String) req.getSession().getAttribute("username");
+				Integer account_id = engine.getAccountID(username);
+				Account account = (Account) req.getSession().getAttribute("account");
+				engine.insertEnemyIntoDatabase(account, account_id, enemyToAdd);
+				engine.updateEnemiesList(account_id, account);
 			}
 			else
 			{
@@ -68,17 +73,16 @@ public class NewEnemyServlet extends HttpServlet {
 			errorMessage = e.toString();
 		}
 		
-		
-
 		req.setAttribute("errorMessage", errorMessage); //In case of error message
-		req.setAttribute("user", req.getParameter("user"));
-		req.setAttribute("pass", req.getParameter("pass"));
-		req.setAttribute("pass2", req.getParameter("pass2")); //These are supposed to keep the inputs from disappearing.
 		
 		// If there is an error message, show it and stay on the same page.
 		if (errorMessage != null){
 			System.out.println("Error: " + errorMessage);
 			req.getRequestDispatcher("/_view/newAccount.jsp").forward(req, resp); //Go to this page
+		}
+		else
+		{
+			req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
 		}
 	}
 }
