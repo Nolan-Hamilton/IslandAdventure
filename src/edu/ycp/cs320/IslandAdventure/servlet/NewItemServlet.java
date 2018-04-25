@@ -85,6 +85,8 @@ public class NewItemServlet extends HttpServlet {
 			errorMessage = e.toString();
 		}
 		
+		req.setAttribute("errorMessage", errorMessage); //In case of error message
+		
 		// If there is an error message, show it and stay on the same page.
 		if (errorMessage != null){
 			System.out.println("Error: " + errorMessage);
