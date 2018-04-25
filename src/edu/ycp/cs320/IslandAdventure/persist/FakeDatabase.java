@@ -151,5 +151,11 @@ public class FakeDatabase implements IDatabase
 		return null;
 	}
 
+	@Override
+	public Boolean updateItemLocation(int account_id, String name, int x, int y, int z) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

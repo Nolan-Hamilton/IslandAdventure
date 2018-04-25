@@ -228,6 +228,8 @@ public class IndexServlet extends HttpServlet {
 		if (req.getSession().getAttribute("username") != null) {
 			engine.updatePlayerInDatabase(account_id, player);
 			engine.updateMapInDatabase(account_id, account);
+			// Need to update items
+			// need to update enemies
 		}
 		req.setAttribute("action", ""); // Empty the input box for next command
 		

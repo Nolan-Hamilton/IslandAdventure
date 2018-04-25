@@ -395,6 +395,43 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
+	public Boolean updateItemLocation(int account_id, String name, int x, int y, int z) {
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement updateItem = null;
+				boolean bool = false;
+				try 
+				{
+					updateItem = conn.prepareStatement(
+							"UPDATE items" +
+							" SET items.x = ?," +
+							" 	items.y = ?," +
+							" 	items.z = ?" +
+							" WHERE items.name = ? AND items.account_id = ?"
+					);
+					updateItem.setInt(1, x);
+					updateItem.setInt(2, y);
+					updateItem.setInt(3, z);
+					updateItem.setString(4, name);
+					updateItem.setInt(5, account_id);
+					
+					updateItem.executeUpdate();
+					
+					bool = true;
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(updateItem);
+				}
+				return bool;
+			}
+		});
+	}
+	
+	@Override
 	public Boolean updateItemAmount(Integer account_id, String name, Integer amount) {
 		return executeTransaction(new Transaction<Boolean>() 
 		{
@@ -427,6 +464,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	//This loads the list of items from database into account model
 	@Override
 	public Account updateItemList(Integer account_id, Account account) 
 	{
@@ -441,7 +479,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					// Retrieve all attributes from items tables
 					stmt = conn.prepareStatement(
-							"select inventoryItem, items.name, items.description, items.uses, items.amount, "
+							"select items.inventoryItem, items.name, items.description, items.uses, items.amount, "
 							+ "items.x, items.y, items.z from items" +
 							" where items.account_id = ? "
 					);

@@ -224,6 +224,8 @@ public class ActionController
 					player.getInventory().addItem(key, -1);
 					int account_id = gameEngine.getAccountID(account.getUsername());
 					gameEngine.moveItemInventory(account_id, 0, item.getName());
+					//Set Item location in inventory
+					gameEngine.updateItemLocation(account_id, item.getName(), item.getX(), item.getY(), item.getZ());
 					found = true;
 					response += itemName + " has been removed from your inventory. <br>";
 					if (player.getInventory().getInventoryMap().get(key) == 0){
