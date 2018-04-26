@@ -138,7 +138,13 @@ public class ActionController
 		
 		else if (action.equals("chop wood")) 
 		{
-			inventoryController.changeWoodAmount(10);
+			int axeMultiplier = 1;
+			if (player.getInventory().getItemCountFromString("wood axe") > 0)
+			{
+				axeMultiplier = 2;
+			}
+			int amountChopped = axeMultiplier * ((player.getSkills().getWoodCuttingXP()/100) + 1);
+			inventoryController.changeWoodAmount(amountChopped);
 			player.changeTime(1);	// Takes 1 hour to chop wood
 			player.getSkills().addWoodCuttingXP(5);	//Gains 5 WC XP
 			player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood
@@ -147,7 +153,6 @@ public class ActionController
 		else if (action.equals("fish")) 
 		{
 			boolean fishingRod = false;
-			boolean shorLine = false;
 			for (Item item : player.getInventory().getInventoryMap().keySet()){
 				if (item.getName().toLowerCase().contains("fishing rod")){
 					fishingRod = true;
@@ -159,7 +164,8 @@ public class ActionController
 				return response;
 			}
 			if ((player.getLocation().getX() == 0 || player.getLocation().getX() == 14 || player.getLocation().getY() == 0 || player.getLocation().getY() == 14) && player.getLocation().getZ() == 0){
-				inventoryController.changeFishAmount(10);
+				int amountFished = (player.getSkills().getFishingXP()/100 + 3);
+				inventoryController.changeFishAmount(amountFished);
 				player.changeTime(1);	// Takes 1 hour to chop wood
 				player.getSkills().addFishingXP(5);	//Gains 5 Fishing XP
 				player.modifyStamina(-15);	// Stamina is reduced by 15 when chopping wood

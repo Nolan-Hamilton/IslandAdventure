@@ -31,9 +31,9 @@ public class ActionControllerTest
 	@Test
 	public void testInterpretAction() 
 	{
-		actionController.interpretAction("Chop Wood");	//Adds 10 wood to player inventory.
+		actionController.interpretAction("Chop Wood");	//Adds wood based on player inventory and xp.
 		actionController.interpretAction("Chop Wood");
-		assertTrue(player.getInventory().getItemCountFromString("Wood") == 20);
+		assertTrue(player.getInventory().getItemCountFromString("Wood") == 2);
 		
 		actionController.interpretAction("Move North");
 		assertTrue(player.getLocation().getY() == 11);
