@@ -78,7 +78,7 @@ public class NewEnemyServlet extends HttpServlet {
 		// If there is an error message, show it and stay on the same page.
 		if (errorMessage != null){
 			System.out.println("Error: " + errorMessage);
-			req.getRequestDispatcher("/_view/newAccount.jsp").forward(req, resp); //Go to this page
+			req.getRequestDispatcher("/_view/newEnemy.jsp").forward(req, resp); //Go to this page
 		}
 		else
 		{

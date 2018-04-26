@@ -27,11 +27,13 @@
 				<br><br>
 				<input type="Submit" name="submit" value="Login!">
 			</form>
+			
+			<c:if test="${! empty errorMessage}">
+				<br><div class="error">${errorMessage}</div>
+			</c:if>
 		</div>
 		
-		<c:if test="${! empty errorMessage}">
-			<div class="error">${errorMessage}</div>
-		</c:if>
+		
 		
 		<div id= "inputBox">
 			<form action="${pageContext.servletContext.contextPath}/login" method="post">

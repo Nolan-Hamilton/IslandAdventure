@@ -146,6 +146,10 @@ public class GameEngine
 		db.updateItemAmount(account_id, name, amount);
 	}
 	
+	public void updateItemLocation(int account_id, String name, int x, int y, int z){
+		db.updateItemLocation(account_id, name, x,y,z);
+	}
+	
 	public Boolean insertEnemyIntoDatabase(Account account, int account_id, Enemy enemy) 
 	{
 		Location location = enemy.getLocation();

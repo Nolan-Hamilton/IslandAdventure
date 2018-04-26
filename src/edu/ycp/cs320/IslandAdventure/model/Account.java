@@ -56,8 +56,10 @@ public class Account
 		itemList.add(hammer);
 		this.getRoomByXYZ(5, 5, 0).setGoDown(true);	// This is where the cave entrance is.
 		this.getRoomByXYZ(5, 5, 1).setGoUp(true);	// This is where the cave exit is.
-		Item lantern = new Item("Lantern", "For seeing in the dark", new Location(4,4,0), 10);
-		itemList.add(lantern);
+		this.getRoomByXYZ(9,9,1).setGoDown(true);	// This is where the dungeon entrance is.
+		this.getRoomByXYZ(9,9,2).setGoUp(true);		// This is where the dungeon exit is.
+		//Item lantern = new Item("Lantern", "For seeing in the dark", new Location(4,4,0), 10);
+		//itemList.add(lantern); //This lantern is no longer needed now that you can craft a torch
 		Location location3 = new Location(2,3,0);
 		Enemy enemyBoss = new Enemy("Island King", "The king of the island", 500, location3, 100);
 		enemyList.add(enemyBoss);
