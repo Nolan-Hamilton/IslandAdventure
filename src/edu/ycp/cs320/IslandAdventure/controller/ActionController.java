@@ -185,6 +185,24 @@ public class ActionController
 			response += eventController.sleepEvent(account, n) + "<br>";
 		}
 		
+		else if (action.equals("eat fish")) 
+		{
+			if (player.getInventory().getItemCountFromString("Fish") > 0)
+			{
+				inventoryController.changeFishAmount(-1);
+				player.modifyHealth(10);	// Health is increased by 10 for each fish eaten
+				if (player.getHealth() > 100)
+				{
+					player.setHealth(100);	// Can't exceed 100 health
+				}
+				response += "You eat a fish and gain health.";
+			}
+			else
+			{
+				response += "You don't have any fish to eat!";
+			}
+		}
+		
 		//Display Map
 		else if (action.equals("display map")){
 			MapFrame map = new MapFrame();
@@ -288,6 +306,10 @@ public class ActionController
 				if (action.contains("torch")){
 					response += craftItem(player, "wooden torch", "Wood", 5, 10, 5); // Need 5 wood and 10 XP to craft a wooden torch
 				}
+			}
+			else
+			{
+				response += "Hint: type craft, material to use, and object. ex. (craft wood sword)";
 			}
 		}
 	

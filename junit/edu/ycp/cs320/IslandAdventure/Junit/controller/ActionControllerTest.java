@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ycp.cs320.IslandAdventure.controller.ActionController;
+import edu.ycp.cs320.IslandAdventure.controller.InventoryController;
 import edu.ycp.cs320.IslandAdventure.controller.PlayerController;
 import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Item;
@@ -36,6 +37,16 @@ public class ActionControllerTest
 		
 		actionController.interpretAction("Move North");
 		assertTrue(player.getLocation().getY() == 11);
+		
+		player.setHealth(90);
+		actionController.interpretAction("Eat FIsh");
+		assertTrue(player.getHealth() == 90);	// Player health doesn't increase if no fish in inventory
+		
+		Item Fish = new Item("Fish", "Fish", player.getLocation(), 0);
+		player.getInventory().addItem(Fish, 5);
+		actionController.interpretAction("Eat FIsh");
+		actionController.interpretAction("Eat FIsh");
+		assertTrue(player.getHealth() == 100);	// Player should be healed but health doesn't exceed 100
 	}
 
 }
