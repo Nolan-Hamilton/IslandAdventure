@@ -30,7 +30,7 @@ public class EventControllerTest
 	@Test
 	public void testSleepEvent() 
 	{
-		eventController.sleepEvent(player, 5);
+		eventController.sleepEvent(account, 5);
 		assertTrue(player.getStamina() == 100);
 		assertTrue(player.getHealth() == 100);
 	}

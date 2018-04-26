@@ -165,4 +165,16 @@ public class GameEngine
 	{
 		return db.updateEnemyList(account_id, account);
 	}
+	public Boolean removeEnemy(int account_id, Enemy enemy) //Changes amount of item
+	{
+		Location location = enemy.getLocation();
+		String name = enemy.getName();
+		String description = enemy.getDescription();
+		Integer x = location.getX();
+		Integer y = location.getY();
+		Integer z = location.getZ();
+		
+		Boolean added = db.removeEnemy(account_id, name, description, x, y, z);
+		return added;
+	}
 }

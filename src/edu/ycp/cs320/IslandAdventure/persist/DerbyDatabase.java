@@ -1011,6 +1011,44 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	@Override
+	public Boolean removeEnemy(Integer account_id, String name, String description, 
+			Integer x, Integer y, Integer z) {
+		return executeTransaction(new Transaction<Boolean>() 
+		{
+			@Override
+			public Boolean execute(Connection conn) throws SQLException 
+			{
+				PreparedStatement removeEnemy   = null;
+
+				Boolean enemyRemoved = false;
+				try 
+				{
+					removeEnemy = conn.prepareStatement("DELETE FROM enemies " + 
+							"WHERE enemies.account_id = ? and enemies.name = ? and enemies.description = ? and "
+							+ "enemies.x = ? and enemies.y = ? and enemies.z = ?");
+					{
+						removeEnemy.setInt(1, account_id);
+						removeEnemy.setString(2, name);
+						removeEnemy.setString(3, description);
+						removeEnemy.setInt(4, x);
+						removeEnemy.setInt(5, y);
+						removeEnemy.setInt(6, z);
+					}
+					removeEnemy.executeUpdate();
+						
+					System.out.println("Enemy <" + name + "> deleted from enemies table");
+					enemyRemoved = true;
+				} 
+				finally 
+				{
+					DBUtil.closeQuietly(removeEnemy);
+				}
+				return enemyRemoved;
+			}
+		});
+	}
+	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
 			return doExecuteTransaction(txn);

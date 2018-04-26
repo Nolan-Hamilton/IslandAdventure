@@ -182,7 +182,7 @@ public class ActionController
 				n = rand.nextInt(50) + 1;	//random # from 1-50
 			}
 			
-			response += eventController.sleepEvent(player, n) + "<br>";
+			response += eventController.sleepEvent(account, n) + "<br>";
 		}
 		
 		//Display Map

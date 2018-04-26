@@ -33,8 +33,10 @@ public class EventController
 			return null;
 		}
 	}
-	public String sleepEvent(Player player, int n) 
+	public String sleepEvent(Account account, int n) 
 	{
+		Player player = account.getPlayer();
+		
 		String sleepEvent = "";
 
 		if (n > 10 && n < 20)
@@ -47,7 +49,7 @@ public class EventController
 		{
 			sleepEvent += "You awake to a creature ready to attack!";
 			Enemy enemy = createEnemy(player);
-			sleepEvent += fightController.Fight(player, enemy);
+			sleepEvent += fightController.Fight(account, enemy);
 		}
 		else
 		{
@@ -67,7 +69,7 @@ public class EventController
 		if (!enemyList.isEmpty())
 		{
 			Enemy enemy = enemyList.get(0);	// Get first enemy if enemyList isn't empty
-			moveEvent += fightController.Fight(player, enemy);
+			moveEvent += fightController.Fight(account, enemy);
 		}
 		return moveEvent;
 	}

@@ -151,5 +151,11 @@ public class FakeDatabase implements IDatabase
 		return null;
 	}
 
+	@Override
+	public Boolean removeEnemy(Integer account_id, String name, String description, Integer x, Integer y, Integer z) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

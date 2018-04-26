@@ -52,4 +52,6 @@ public interface IDatabase {
 			Integer health, Integer damage, Integer x, Integer y, Integer z);
 	
 	public Account updateEnemyList(Integer account_id, Account account);
+
+	public Boolean removeEnemy(Integer account_id, String name, String description, Integer x, Integer y, Integer z);
 }

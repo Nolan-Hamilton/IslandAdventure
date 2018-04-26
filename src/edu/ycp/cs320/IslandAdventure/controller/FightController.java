@@ -1,16 +1,20 @@
 package edu.ycp.cs320.IslandAdventure.controller;
 
+import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Enemy;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 
 public class FightController 
 {
+	GameEngine gameEngine = new GameEngine();
+	
 	public FightController() 
 	{
 	}
 	
-	public String Fight(Player player, Enemy enemy)
+	public String Fight(Account account, Enemy enemy)
 	{
+		Player player = account.getPlayer();
 		String battleDescription;
 		int playerHealthLost = 0;
 		int combatXPGained = 0;
@@ -27,6 +31,8 @@ public class FightController
 			combatXPGained += 10;
 			battleDescription = "You fought a " + enemy.getName() + " and defeated it! You took " + 
 					playerHealthLost + " damage and gained " + combatXPGained + " combat XP!";
+			gameEngine.removeEnemy(gameEngine.getAccountID(account.getUsername()), enemy);
+			account.getEnemyList().remove(enemy);
 		}
 		else
 		{
