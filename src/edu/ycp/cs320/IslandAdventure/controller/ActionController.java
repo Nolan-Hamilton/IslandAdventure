@@ -46,8 +46,13 @@ public class ActionController
 	{
 		Location location = player.getLocation();
 		String response = "";
+		if (action.equals("")){
+			return response += ""; // Do nothing if action command is empty
+		}
 		response += ">> " + action + "<br><br>"; // Add action command to response
 		action = action.toLowerCase();
+		
+		
 		
 		if (action.contains("move"))
 		{

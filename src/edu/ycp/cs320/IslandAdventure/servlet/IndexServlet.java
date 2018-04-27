@@ -113,7 +113,9 @@ public class IndexServlet extends HttpServlet {
 			req.setAttribute("user", account.getUsername());
 		}
 		response = "Lets go on an adventure!<br><br>";
-		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
+		doPost(req, resp);	// displays initial data so not blank on startup
+		//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
+		
 	}
 
 	@Override
@@ -185,7 +187,9 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		//req.setAttribute("lastAction", action);
-		
+		if (action == null){
+			action = "";	// This avoids a nullPointerException on initial doPost()
+		}
 		response += controller.interpretAction(action);
 		//System.out.println("Player X position: " + player.getLocation().getX());
 		

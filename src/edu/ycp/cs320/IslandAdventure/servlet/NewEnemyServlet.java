@@ -82,7 +82,8 @@ public class NewEnemyServlet extends HttpServlet {
 		}
 		else
 		{
-			req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
+			//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp); //Go to this page
+			resp.sendRedirect(req.getContextPath() + "/index"); //Go back to index page should be doGet()
 		}
 	}
 }
