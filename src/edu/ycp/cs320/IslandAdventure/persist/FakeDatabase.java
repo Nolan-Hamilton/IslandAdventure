@@ -163,5 +163,11 @@ public class FakeDatabase implements IDatabase
 		return null;
 	}
 
+	@Override
+	public void loadInitialData(int account_id, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

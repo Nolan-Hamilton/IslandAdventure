@@ -56,4 +56,6 @@ public interface IDatabase {
 	public Boolean removeEnemy(Integer account_id, String name, String description, Integer x, Integer y, Integer z);
 	
 	public Boolean updateItemLocation(int account_id, String name, int x, int y, int z);
+
+	public void loadInitialData(int account_id, String username);
 }

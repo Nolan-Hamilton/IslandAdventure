@@ -80,9 +80,10 @@ public class IndexServlet extends HttpServlet {
 					System.out.println(room.getDescription());
 				}
 				*/
+				
 				account.setRoomsList(engine.loadMap(account_id));
 			
-				System.out.println(account.getRoomByXYZ(11, 11, 0).getVisible());
+				//System.out.println(account.getRoomByXYZ(11, 11, 0).getVisible());
 				//System.out.println(account.getRooms().get(350).getVisible());
 			}else{
 				Iterator<Item> iterator = account.getItemList().iterator();

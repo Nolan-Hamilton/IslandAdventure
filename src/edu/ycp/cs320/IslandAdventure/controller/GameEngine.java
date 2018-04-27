@@ -181,4 +181,7 @@ public class GameEngine
 		Boolean added = db.removeEnemy(account_id, name, description, x, y, z);
 		return added;
 	}
+	public void loadInitialData(int account_id, Account account){
+		db.loadInitialData(account_id, account.getUsername());
+	}
 }

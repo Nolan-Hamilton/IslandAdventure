@@ -18,7 +18,7 @@ import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Room;
 import edu.ycp.cs320.IslandAdventure.model.Skills;
-
+// This code is heacily based off of DerbyDatabase.java from CS320_Lab06 by Prof. Hake.
 public class DerbyDatabase implements IDatabase {
 	static {
 		try {
@@ -1344,36 +1344,51 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-	/*
-	public void loadInitialData() {
+	
+	public void loadInitialData(int account_id, String username) {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				List<Player> playerList;
+				//List<Player> playerList;
+				List<Room> roomList;
 				
 				try {
-					playerList = InitialData.getAuthors();
-					bookList = InitialData.getBooks();
+					//playerList = InitialData.getAuthors();
+					roomList = InitialData.getRooms();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
-				PreparedStatement insertAuthor = null;
+				PreparedStatement insertRoom = null;
 				PreparedStatement insertBook   = null;
 
 				try {
 					// populate authors table (do authors first, since author_id is foreign key in books table)
-					insertAuthor = conn.prepareStatement("insert into authors (lastname, firstname) values (?, ?)");
-					for (Author author : authorList) {
+					insertRoom = conn.prepareStatement("insert into rooms (account_id, username, x, y, z, longDescript, visible,"
+							+ " go_north, go_east, go_south, go_west, go_up, go_down, shortDescript)"
+							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					for (Room room : roomList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						insertAuthor.setString(1, author.getLastname());
-						insertAuthor.setString(2, author.getFirstname());
-						insertAuthor.addBatch();
+						insertRoom.setInt(1, account_id);
+						insertRoom.setString(2, username);
+						insertRoom.setInt(3, room.getLocation().getX());
+						insertRoom.setInt(4, room.getLocation().getY());
+						insertRoom.setInt(5, room.getLocation().getZ());
+						insertRoom.setString(6, room.getLongDescription());
+						insertRoom.setInt(7, room.getVisible() ? 1 : 0);
+						insertRoom.setInt(8, room.getGoNorth() ? 1 : 0);
+						insertRoom.setInt(9, room.getGoEast() ? 1 : 0);
+						insertRoom.setInt(10, room.getGoSouth() ? 1 : 0);
+						insertRoom.setInt(11, room.getGoWest() ? 1 : 0);
+						insertRoom.setInt(12, room.getGoUp() ? 1 : 0);
+						insertRoom.setInt(13, room.getGoDown() ? 1 : 0);
+						insertRoom.addBatch();
 					}
-					insertAuthor.executeBatch();
+					insertRoom.executeBatch();
 					
 					// populate books table (do this after authors table,
 					// since author_id must exist in authors table before inserting book)
+					/*
 					insertBook = conn.prepareStatement("insert into books (author_id, title, isbn, published) values (?, ?, ?, ?)");
 					for (Book book : bookList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
@@ -1384,16 +1399,16 @@ public class DerbyDatabase implements IDatabase {
 						insertBook.addBatch();
 					}
 					insertBook.executeBatch();
-					
+					*/
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertBook);
-					DBUtil.closeQuietly(insertAuthor);
+					DBUtil.closeQuietly(insertRoom);
 				}
 			}
 		});
 	}
-	*/
+	
 	// The main method creates the database tables and loads the initial data.
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
