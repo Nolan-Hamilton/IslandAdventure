@@ -216,8 +216,7 @@ public class IndexServlet extends HttpServlet {
 			req.setAttribute("weapon", player.getWeapon().getName());
 		}
 		
-		req.setAttribute("map", player.getInventory().getInventoryMap());
-		req.setAttribute("", player.getInventory().getInventoryMap());
+		
 		
 		req.setAttribute("locationX", player.getLocation().getX());
 		req.setAttribute("locationY", player.getLocation().getY());
@@ -232,10 +231,19 @@ public class IndexServlet extends HttpServlet {
 		if (req.getSession().getAttribute("username") != null) {
 			engine.updatePlayerInDatabase(account_id, player);
 			engine.updateMapInDatabase(account_id, account);
-			// Need to update items
-			// need to update enemies
+			
+			if (action.toLowerCase().contains("take") || action.toLowerCase().contains("chop") || action.toLowerCase().contains("fish") || 
+					action.toLowerCase().contains("drop") || action.toLowerCase().contains("craft")){
+				player.getInventory().getInventoryMap().clear();
+				engine.updateItemList(account, account_id);	// This reloads items to account to keep inventory from stacking (wood = 2, wood = 1).
+			}
+			
 		}
 		req.setAttribute("action", ""); // Empty the input box for next command
+		
+		req.setAttribute("map", null); // This resets the inventory to avoid repeated keys
+		req.setAttribute("map", player.getInventory().getInventoryMap());
+		req.setAttribute("", player.getInventory().getInventoryMap());
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);

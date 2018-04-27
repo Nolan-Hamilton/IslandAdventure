@@ -60,7 +60,7 @@ public class ActionController
 				System.out.println("ActionController >> Underground Movement!");
 				boolean lightSource = false;
 				for (Item item : player.getInventory().getInventoryMap().keySet()){
-					if (item.getName().toLowerCase().equals("lantern") || item.getName().toLowerCase().equals("wooden torch")){
+					if (item.getName().toLowerCase().equals("lantern") || item.getName().toLowerCase().equals("wood torch")){
 						lightSource = true;
 						System.out.println("ActionConroller >> LightSource = " + lightSource);
 					}
@@ -279,6 +279,7 @@ public class ActionController
 				{
 					if (item.getName().toLowerCase().equals(itemName)){
 						response += "You acquired the following item: <br>" + item.getName() + "<br>";
+						
 						player.getInventory().addItem(item, 1);
 						int account_id = gameEngine.getAccountID(account.getUsername());
 						gameEngine.moveItemInventory(account_id, 1, item.getName());
@@ -315,7 +316,7 @@ public class ActionController
 					response += craftItem(player, "wood fishing rod", "Wood", 5, 0, 5); // Need 5 wood and 0 XP to craft wood rod
 				}
 				if (action.contains("torch")){
-					response += craftItem(player, "wooden torch", "Wood", 5, 10, 5); // Need 5 wood and 10 XP to craft a wooden torch
+					response += craftItem(player, "wood torch", "Wood", 5, 10, 5); // Need 5 wood and 10 XP to craft a wood torch
 				}
 			}
 			else
