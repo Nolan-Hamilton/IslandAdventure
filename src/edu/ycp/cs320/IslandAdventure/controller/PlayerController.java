@@ -1,5 +1,6 @@
 package edu.ycp.cs320.IslandAdventure.controller;
 
+import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
@@ -10,6 +11,7 @@ public class PlayerController
 	InventoryController inventoryController = new InventoryController(null, null, null);
 	LocationController locationController = new LocationController(null);
 	SkillsController skillsController = new SkillsController();
+	GameEngine gameEngine = new GameEngine();
 	
 	public PlayerController() 
 	{
@@ -24,8 +26,10 @@ public class PlayerController
 		return player;
 	}
 	
-	public void checkPlayerState(Player player)
+	public String checkPlayerState(Account account)
 	{
+		String status = "";
+		Player player = account.getPlayer();
 		if (player.getStamina() <= 0)	//Player starts losing health until they sleep
 		{
 			player.modifyHealth(-10);
@@ -33,7 +37,15 @@ public class PlayerController
 		if (player.getHealth() <= 0)
 		{
 			System.out.println("Player died");
-			player.getInventory().getInventoryMap().clear();	//Clears items from inventory
+			//Clears materials from inventory
+			player.getInventory().getInventoryMap().clear();
+			gameEngine.updateItemAmount(gameEngine.getAccountID(account.getUsername()), "Wood", 0);
+			gameEngine.updateItemAmount(gameEngine.getAccountID(account.getUsername()), "Fish", 0);
+			status += "You fell unconscious and lost your materials.";
+			player.getLocation().setX(10); // Set player location to original location
+			player.getLocation().setY(10);
+			player.getLocation().setZ(0);
 		}
+		return status;
 	}
 }

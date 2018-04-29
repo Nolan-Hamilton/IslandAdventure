@@ -344,7 +344,7 @@ public class ActionController
 			response += "I do not understand what you are saying... <br>";
 		}
 		
-		playerController.checkPlayerState(player);	//Checks if player health and stamina > 0 
+		response += playerController.checkPlayerState(account);	//Checks if player health and stamina > 0 
 		response += "<br>";
 		return response;
 	}
