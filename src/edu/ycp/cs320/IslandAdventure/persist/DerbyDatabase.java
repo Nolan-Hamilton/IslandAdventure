@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.cs320.IslandAdventure.model.Account;
+import edu.ycp.cs320.IslandAdventure.model.Armor;
 import edu.ycp.cs320.IslandAdventure.model.Enemy;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Item;
@@ -18,6 +19,7 @@ import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Room;
 import edu.ycp.cs320.IslandAdventure.model.Skills;
+import edu.ycp.cs320.IslandAdventure.model.Weapon;
 // This code is heacily based off of DerbyDatabase.java from CS320_Lab06 by Prof. Hake.
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -286,7 +288,7 @@ public class DerbyDatabase implements IDatabase {
 	
 	@Override
 	public Boolean insertItemIntoDatabase(Integer account_id, Integer inventoryItem, String name, 
-			String description, Integer uses, Integer amount, Integer x, Integer y, Integer z) {
+			String description, Integer uses, Integer amount, Integer x, Integer y, Integer z, Integer damage) {
 		return executeTransaction(new Transaction<Boolean>() 
 		{
 			@Override
@@ -331,7 +333,7 @@ public class DerbyDatabase implements IDatabase {
 					else
 					{
 						insertItem = conn.prepareStatement("insert into items (account_id, inventoryItem, name, description, uses,"
-								+ " amount, x, y, z) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+								+ " amount, x, y, z, damage) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 						{
 							insertItem.setInt(1, account_id);
 							insertItem.setInt(2, inventoryItem);
@@ -342,6 +344,7 @@ public class DerbyDatabase implements IDatabase {
 							insertItem.setInt(7, x);
 							insertItem.setInt(8, y);
 							insertItem.setInt(9, z);
+							insertItem.setInt(10, damage);
 						}
 						insertItem.executeUpdate();
 						
@@ -480,7 +483,7 @@ public class DerbyDatabase implements IDatabase {
 					// Retrieve all attributes from items tables
 					stmt = conn.prepareStatement(
 							"select items.inventoryItem, items.name, items.description, items.uses, items.amount, "
-							+ "items.x, items.y, items.z from items" +
+							+ "items.x, items.y, items.z, items.damage from items" +
 							" where items.account_id = ? "
 					);
 					stmt.setInt(1, account_id);
@@ -1167,23 +1170,47 @@ public class DerbyDatabase implements IDatabase {
 		Integer x = resultSet.getInt(index++);
 		Integer y = resultSet.getInt(index++);
 		Integer z = resultSet.getInt(index++);
+		Integer damage = resultSet.getInt(index++);
 		
 		Location location = new Location(x, y, z);
-		Item item = new Item(name, description, location, uses);
-		
-		if (account.getPlayer().getInventory().getItemCountFromString(item.getName()) > 0)
+		if (damage > 0)
 		{
-			inventoryItem = 1;
+			Weapon weapon = new Weapon(name, description, location, damage);
+			if (inventoryItem > 0)
+			{
+				inventory.addItem(weapon, amount);
+			}
+			else
+			{
+				account.getItemList().add(weapon); // Else add to account itemList
+			}
 		}
-		if (inventoryItem == 1)
+		else if (damage < 0)
 		{
-			inventory.addItem(item, amount); //If item is in inventory than add to players inventory
+			Armor armor = new Armor(name, description, location, -damage);
+			if (inventoryItem > 0)
+			{
+				inventory.addItem(armor, amount);
+			}
+			else
+			{
+				account.getItemList().add(armor); // Else add to account itemList
+			}
 		}
 		else
 		{
-			account.getItemList().add(item); // Else add to account itemList
+			Item item = new Item(name, description, location, uses);
+			if (inventoryItem > 0)
+			{
+				inventory.addItem(item, amount);
+			}
+			else
+			{
+				account.getItemList().add(item); // Else add to account itemList
+			}
 		}
 	}
+	
 	private void loadEnemy(Account account, ResultSet resultSet, int index) throws SQLException
 	{
 		Inventory inventory = account.getPlayer().getInventory();	// Get players inventory
@@ -1309,7 +1336,8 @@ public class DerbyDatabase implements IDatabase {
 							"	amount integer," +
 							"	x integer," +
 							"	y integer," +
-							"	z integer" +
+							"	z integer," +
+							"	damage integer" +
 							")"
 						);	
 					stmt4.executeUpdate();

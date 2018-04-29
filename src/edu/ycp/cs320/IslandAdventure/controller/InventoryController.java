@@ -40,12 +40,12 @@ public class InventoryController
 	{
 		wood.setLocation(account.getPlayer().getLocation());
 		inventory.addItem(wood, amount);
-		gameEngine.insertNewItemIntoDatabase(account, account_id, wood, amount);
+		gameEngine.insertNewItemIntoDatabase(account, account_id, wood, amount, 0);
 	}
 	public void changeFishAmount(int amount)
 	{
 		fish.setLocation(account.getPlayer().getLocation());
 		inventory.addItem(fish, amount);
-		gameEngine.insertNewItemIntoDatabase(account, account_id, fish, amount);
+		gameEngine.insertNewItemIntoDatabase(account, account_id, fish, amount, 0);
 	}
 }

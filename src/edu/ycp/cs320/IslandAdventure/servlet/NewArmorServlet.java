@@ -12,7 +12,7 @@ import edu.ycp.cs320.IslandAdventure.model.*;
 import edu.ycp.cs320.IslandAdventure.persist.*;
 
 
-public class NewItemServlet extends HttpServlet {
+public class NewArmorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	// Fields needed
@@ -22,16 +22,16 @@ public class NewItemServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("New Item Servlet: doGet");
+		System.out.println("New Armor Servlet: doGet");
 		engine = new GameEngine();
-		req.getRequestDispatcher("/_view/newItem.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/newArmor.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("NewItemServlet doPost");
+		System.out.println("NewArmorServlet doPost");
 		
 		// Navigating to new page by pressing button
 		if (req.getParameter("return") != null)
@@ -49,22 +49,14 @@ public class NewItemServlet extends HttpServlet {
 			String locationX = (req.getParameter("x").toString());
 			String locationY = (req.getParameter("y").toString());
 			String locationZ = (req.getParameter("z").toString());
+			String armor =	(req.getParameter("armor").toString());
 			
-			if (!(name.equals("")) && !(description.equals("")) && !(locationX.equals("")) && !(locationY.equals("")) && !(locationZ.equals(""))) {
-				//System.out.println("Success!");
-				/*
-				req.getSession().setAttribute("newItemName", name);
-				req.getSession().setAttribute("newItemDescript", description);
-				req.getSession().setAttribute("newItemX", locationX);
-				req.getSession().setAttribute("newItemY", locationY);
-				req.getSession().setAttribute("newItemZ", locationZ);
-				req.getSession().setAttribute("newItem", true);
-				System.out.println("NewItemServlet >> newItem == " + req.getSession().getAttribute("newItem"));
-				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
-				*/
-				
+			if (!(name.equals("")) && !(description.equals("")) && !(locationX.equals("")) && 
+					!(locationY.equals("")) && !(locationZ.equals("")) && !(armor.equals(""))) 
+			{
 				Location location = new Location(Integer.parseInt(locationX), Integer.parseInt(locationY), Integer.parseInt(locationZ));
 				Item itemToAdd = new Item(name, description, location, 0);
+				Integer armorAmount = Integer.parseInt(armor) * -1;
 				// Add item to players database
 				GameEngine gameEngine = new GameEngine();
 				String username = (String) req.getSession().getAttribute("username");
@@ -72,7 +64,7 @@ public class NewItemServlet extends HttpServlet {
 				Account account = (Account) req.getSession().getAttribute("account");
 				System.out.println(username);
 				System.out.println(account_id);
-				gameEngine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1);
+				gameEngine.insertNewItemIntoDatabase(account, account_id, itemToAdd, 1, armorAmount);
 				engine.updateItemList(account, account_id);
 			}
 			else

@@ -90,7 +90,17 @@ public class IndexServlet extends HttpServlet {
 				while(iterator.hasNext())	// Puts initial items into database
 				{
 					Item item = iterator.next();
-					engine.insertNewItemIntoDatabase(account, account_id, item, 1);
+
+					if (item instanceof Weapon) {
+						engine.insertNewItemIntoDatabase(account, account_id, item, 1, ((Weapon) item).getDamage());
+					}
+					else if (item instanceof Armor){
+						engine.insertNewItemIntoDatabase(account, account_id, item, 1, -((Armor) item).getArmorAmount());
+					}
+					else
+					{
+						engine.insertNewItemIntoDatabase(account, account_id, item, 1, 0);
+					}
 				}
 				account.getItemList().clear(); // Clears initial items after added to database so there aren't duplicates
 				System.out.println("IndexServlet >> existingPlayer == false");

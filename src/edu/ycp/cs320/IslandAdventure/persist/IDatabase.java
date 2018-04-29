@@ -36,7 +36,7 @@ public interface IDatabase {
 	public ArrayList<Room> loadMapFromDatabase(int account_id);
 	
 	public Boolean insertItemIntoDatabase(Integer account_id, Integer inventoryItem, String name, String description, 
-			Integer uses, Integer amount, Integer x, Integer y, Integer z);
+			Integer uses, Integer amount, Integer x, Integer y, Integer z, Integer damage);
 
 	public Account getItemList(Integer account_id, Account account);
 

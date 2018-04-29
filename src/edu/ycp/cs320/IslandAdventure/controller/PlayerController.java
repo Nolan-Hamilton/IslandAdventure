@@ -33,6 +33,7 @@ public class PlayerController
 		if (player.getStamina() <= 0)	//Player starts losing health until they sleep
 		{
 			player.modifyHealth(-10);
+			status += "You are exhausted. You need to sleep or you will take damage! <br>";
 		}
 		if (player.getHealth() <= 0)
 		{
@@ -41,7 +42,8 @@ public class PlayerController
 			player.getInventory().getInventoryMap().clear();
 			gameEngine.updateItemAmount(gameEngine.getAccountID(account.getUsername()), "Wood", 0);
 			gameEngine.updateItemAmount(gameEngine.getAccountID(account.getUsername()), "Fish", 0);
-			status += "You fell unconscious and lost your materials.";
+			status += "You fell unconscious and lost your materials. <br>";
+			player.setHealth(50);
 			player.getLocation().setX(10); // Set player location to original location
 			player.getLocation().setY(10);
 			player.getLocation().setZ(0);

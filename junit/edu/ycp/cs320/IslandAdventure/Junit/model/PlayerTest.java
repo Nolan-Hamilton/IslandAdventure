@@ -9,11 +9,13 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ycp.cs320.IslandAdventure.model.Armor;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Skills;
+import edu.ycp.cs320.IslandAdventure.model.Weapon;
 
 public class PlayerTest 
 {
@@ -132,8 +134,8 @@ public class PlayerTest
 	@Test
 	public void testEquipArmor() 
 	{
-		Item armor1 = new Item("Wood Armor", "Weak Armor", location, null);
-		Item armor2 = new Item("Steel Armor", "Strong Armor", location, null);
+		Armor armor1 = new Armor("Wood Armor", "Weak Armor", location, 10);
+		Armor armor2 = new Armor("Steel Armor", "Strong Armor", location, 40);
 		player.equipArmor(armor1);
 		assertTrue(player.getArmor() == null); // No such item in inventory
 		
@@ -155,8 +157,8 @@ public class PlayerTest
 	@Test
 	public void testEquipWeapon() 
 	{
-		Item weapon1 = new Item("Wood Sword", "Weak Sword", location, null);
-		Item weapon2 = new Item("Steel Sword", "Strong Sword", location, null);
+		Weapon weapon1 = new Weapon("Wood Sword", "Weak Sword", location, 10);
+		Weapon weapon2 = new Weapon("Steel Sword", "Strong Sword", location, 50);
 		player.equipWeapon(weapon1);
 		assertTrue(player.getWeapon() == null); // No such item in inventory
 		

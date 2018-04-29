@@ -103,7 +103,7 @@ public class FakeDatabase implements IDatabase
 
 	@Override
 	public Boolean insertItemIntoDatabase(Integer player_id, Integer inventoryItem, String name,
-			String description, Integer uses, Integer amount, Integer x, Integer y, Integer z) {
+			String description, Integer uses, Integer amount, Integer x, Integer y, Integer z, Integer damage) {
 		// TODO Auto-generated method stub
 		return null;
 	}

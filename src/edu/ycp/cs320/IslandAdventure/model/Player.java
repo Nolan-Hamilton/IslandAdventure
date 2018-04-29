@@ -9,11 +9,11 @@ public class Player
 	private Inventory inventory;
 	private Location location;
 	private Skills skills;
-	private Item armor;
-	private Item weapon;
+	private Armor armor;
+	private Weapon weapon;
 	
 	public Player(int score, int health, int stamina, int time, Inventory inventory, 
-			Location location, Skills skills, Item armor, Item weapon)
+			Location location, Skills skills, Armor armor, Weapon weapon)
 	{
 		this.score = score;
 		this.health = health;
@@ -132,7 +132,7 @@ public class Player
 		return skills;
 	}
 	
-	public void equipArmor(Item armor) 
+	public void equipArmor(Armor armor) 
 	{
 	    if (this.armor == null) 
 	    {
@@ -165,12 +165,12 @@ public class Player
 	{
 		return this.armor;
 	}
-	public void setArmor(Item armor)
+	public void setArmor(Armor armor)
 	{
 		this.armor = armor;
 	}
 	
-	public void equipWeapon(Item weapon) 
+	public void equipWeapon(Weapon weapon) 
 	{
 	    if (this.weapon == null) 
 	    {
@@ -204,7 +204,7 @@ public class Player
 	{
 		return this.weapon;
 	}
-	public void setWeapon(Item weapon)
+	public void setWeapon(Weapon weapon)
 	{
 		this.weapon = weapon;
 	}

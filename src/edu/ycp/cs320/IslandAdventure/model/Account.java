@@ -49,7 +49,7 @@ public class Account
 			}
 		}
 		Location location = new Location(10,10,0);
-		Item knife = new Item("Knife", "A small kife with a dull single sided blade.", location, 10);
+		Weapon knife = new Weapon("Knife", "A small kife with a dull single sided blade.", location, 5);
 		itemList.add(knife);
 		Location location2 = new Location(10,9,0);
 		Item hammer = new Item("Hammer", "A rock tied to a stick.", location2, 10);

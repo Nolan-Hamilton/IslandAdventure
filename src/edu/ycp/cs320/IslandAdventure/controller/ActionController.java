@@ -305,18 +305,22 @@ public class ActionController
 			{
 				if (action.contains("sword"))
 				{
-					response += craftItem(player, "wood sword", "Wood", 5, 0, 5); // Need 5 wood and 0 XP to craft wood sword
+					response += craftItem(player, "wood sword", "Wood", 5, 0, 5, 10); // Need 5 wood and 0 XP to craft wood sword
 				}
 				if (action.contains("axe"))
 				{
-					response += craftItem(player, "wood axe", "Wood", 5, 0, 5); // Need 5 wood and 0 XP to craft wood axe
+					response += craftItem(player, "wood axe", "Wood", 5, 0, 5, 0); // Need 5 wood and 0 XP to craft wood axe
 				}
 				if (action.contains("rod"))
 				{
-					response += craftItem(player, "wood fishing rod", "Wood", 5, 0, 5); // Need 5 wood and 0 XP to craft wood rod
+					response += craftItem(player, "wood fishing rod", "Wood", 5, 0, 5, 0); // Need 5 wood and 0 XP to craft wood rod
 				}
 				if (action.contains("torch")){
-					response += craftItem(player, "wood torch", "Wood", 5, 10, 5); // Need 5 wood and 10 XP to craft a wood torch
+					response += craftItem(player, "wood torch", "Wood", 5, 10, 5, 0); // Need 5 wood and 10 XP to craft a wood torch
+				}
+				if (action.contains("armor"))
+				{
+					response += craftItem(player, "wood armor", "Wood", 5, 0, 5, -10); // Need 5 wood and 0 XP to craft wood armor
 				}
 			}
 			else
@@ -333,9 +337,18 @@ public class ActionController
 			while(iterator.hasNext())
 			{
 				Item item = (Item) iterator.next();
-				if (action.contains(item.getName()))
+				if (action.contains(item.getName()) && (item instanceof Weapon || item instanceof Armor))
 				{
-					player.equipWeapon(item);
+					if (item instanceof Weapon)
+					{
+						Weapon weapon = (Weapon) item;
+						player.equipWeapon(weapon);
+					}
+					else
+					{
+						Armor armor = (Armor) item;
+						player.equipArmor(armor);						
+					}
 					response += "You equipped a " + item.getName() + "!";
 				}
 			}
@@ -350,7 +363,7 @@ public class ActionController
 	}
 	
 	public String craftItem(Player player, String itemName, String itemRequired, 
-			Integer amountRequired, Integer craftingXPRequired, Integer craftingXPGained)
+			Integer amountRequired, Integer craftingXPRequired, Integer craftingXPGained, Integer damage)
 	{
 		String response = "";
 		int count = player.getInventory().getItemCountFromString(itemRequired);
@@ -362,7 +375,7 @@ public class ActionController
 			Item item = new Item(itemName, itemName, player.getLocation(), craftingXP);
 			inventory.addItem(item, 1);
 			int account_id = gameEngine.getAccountID(account.getUsername());
-			gameEngine.insertNewItemIntoDatabase(account, account_id, item, 1);
+			gameEngine.insertNewItemIntoDatabase(account, account_id, item, 1, damage);
 			player.getSkills().addCraftingXP(craftingXPGained);
 			// Below removes items used for crafting from inventory;
 			Item itemToRemove = null;

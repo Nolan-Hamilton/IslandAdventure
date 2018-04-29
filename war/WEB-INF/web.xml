@@ -28,8 +28,13 @@
   </servlet>
   
   <servlet>
-    <servlet-name>NewItemServlet</servlet-name><!-- New Item Servlet -->
-    <servlet-class>edu.ycp.cs320.IslandAdventure.servlet.NewItemServlet</servlet-class>
+    <servlet-name>NewArmorServlet</servlet-name><!-- New Armor Servlet -->
+    <servlet-class>edu.ycp.cs320.IslandAdventure.servlet.NewArmorServlet</servlet-class>
+  </servlet>
+  
+    <servlet>
+    <servlet-name>NewWeaponServlet</servlet-name><!-- New Weapon Servlet -->
+    <servlet-class>edu.ycp.cs320.IslandAdventure.servlet.NewWeaponServlet</servlet-class>
   </servlet>
 
   <servlet>
@@ -62,8 +67,13 @@
 
  
   <servlet-mapping>
-    <servlet-name>NewItemServlet</servlet-name><!-- New Item Page -->
-    <url-pattern>/newItem</url-pattern>
+    <servlet-name>NewArmorServlet</servlet-name><!-- New Armor Page -->
+    <url-pattern>/newArmor</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>NewWeaponServlet</servlet-name><!-- New Weapon Page -->
+    <url-pattern>/newWeapon</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

@@ -38,10 +38,15 @@ public class ExpandabilityMenuServlet extends HttpServlet {
 			System.out.println("newEnemy has been clicked!");
 			resp.sendRedirect(req.getContextPath() + "/newEnemy");
 		}
-		else if (req.getParameter("newItem") != null)
+		else if (req.getParameter("newArmor") != null)
 		{
-			System.out.println("newItem has been clicked");
-			resp.sendRedirect(req.getContextPath() + "/newItem");
+			System.out.println("newArmor has been clicked");
+			resp.sendRedirect(req.getContextPath() + "/newArmor");
+		}
+		else if (req.getParameter("newWeapon") != null)
+		{
+			System.out.println("newWeapon has been clicked");
+			resp.sendRedirect(req.getContextPath() + "/newWeapon");
 		}
 		else if (req.getParameter("return") != null)
 		{

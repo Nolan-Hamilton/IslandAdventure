@@ -22,7 +22,8 @@
 		<div id= "inputBox">
 			<form action="${pageContext.servletContext.contextPath}/expandabilityMenu" method="post">
 				<input type="Submit" name="newEnemy" value="Create New Enemy">	
-				<input type="Submit" name="newItem" value="Create New Item">
+				<input type="Submit" name="newArmor" value="Create New Armor">
+				<input type="Submit" name="newWeapon" value="Create New Weapon">
 				<input type="Submit" name="return" value="Return to Game">
 			</form>
 		</div>	

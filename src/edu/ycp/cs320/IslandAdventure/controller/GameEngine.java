@@ -108,7 +108,7 @@ public class GameEngine
 		return db.loadMapFromDatabase(account_id);
 	}
 	
-	public Boolean insertNewItemIntoDatabase(Account account, int account_id, Item item, Integer amount) 
+	public Boolean insertNewItemIntoDatabase(Account account, int account_id, Item item, Integer amount, Integer damage) 
 	{
 		Location location = item.getLocation();
 		Integer inventoryItem = 0;
@@ -123,7 +123,8 @@ public class GameEngine
 		Integer y = location.getY();
 		Integer z = location.getZ();
 
-		Boolean added = db.insertItemIntoDatabase(account_id, inventoryItem, name, description, uses, amount, x, y, z);
+		Boolean added = db.insertItemIntoDatabase(account_id, inventoryItem, name, description, 
+				uses, amount, x, y, z, damage);
 		return added;
 	}
 	
