@@ -9,6 +9,7 @@ import edu.ycp.cs320.IslandAdventure.controller.InventoryController;
 import edu.ycp.cs320.IslandAdventure.controller.LocationController;
 import edu.ycp.cs320.IslandAdventure.controller.PlayerController;
 import edu.ycp.cs320.IslandAdventure.controller.SkillsController;
+import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Item;
 import edu.ycp.cs320.IslandAdventure.model.Location;
@@ -21,6 +22,7 @@ public class PlayerControllerTest
 	LocationController locationController = new LocationController(null);
 	SkillsController skillsController = new SkillsController();
 	
+	private Account account;
 	private Player player;
 	private PlayerController playerController = new PlayerController();
 	
@@ -31,6 +33,7 @@ public class PlayerControllerTest
 		Location location = locationController.setStartingLocation();
 		Skills skills = skillsController.createNewSkills();
 		player = new Player(0, 100, 100, 6, inventory, location, skills, null, null);
+		account = new Account("user", "pass", player);
 	}
 	
 	@Test
@@ -42,12 +45,12 @@ public class PlayerControllerTest
 	@Test
 	public void testCheckPlayerState() 
 	{
-		Item item = new Item("Item", "Item", player.getLocation(), 0);
-		player.getInventory().addItem(item, 10);
-		assertTrue(player.getInventory().getItemCount(item) == 10);
+		Item wood = new Item("Wood", "Wood", player.getLocation(), 0);
+		player.getInventory().addItem(wood, 10);
+		assertTrue(player.getInventory().getItemCount(wood) == 10);
 		player.setHealth(-10);
-		playerController.checkPlayerState(player);
-		assertTrue(player.getInventory().getItemCount(item) == 0);
+		playerController.checkPlayerState(account);
+		assertTrue(player.getInventory().getItemCount(wood) == 0);
 	}
 
 }
