@@ -1179,6 +1179,10 @@ public class DerbyDatabase implements IDatabase {
 			if (inventoryItem > 0)
 			{
 				inventory.addItem(weapon, amount);
+				if (inventoryItem == 2)
+				{
+					account.getPlayer().setWeapon(weapon);
+				}
 			}
 			else
 			{
@@ -1191,6 +1195,10 @@ public class DerbyDatabase implements IDatabase {
 			if (inventoryItem > 0)
 			{
 				inventory.addItem(armor, amount);
+				if (inventoryItem == 2)
+				{
+					account.getPlayer().setArmor(armor);
+				}
 			}
 			else
 			{

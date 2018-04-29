@@ -337,17 +337,20 @@ public class ActionController
 			while(iterator.hasNext())
 			{
 				Item item = (Item) iterator.next();
+				int account_id = gameEngine.getAccountID(account.getUsername());
 				if (action.contains(item.getName()) && (item instanceof Weapon || item instanceof Armor))
 				{
 					if (item instanceof Weapon)
 					{
 						Weapon weapon = (Weapon) item;
 						player.equipWeapon(weapon);
+						gameEngine.moveItemInventory(account_id, 2, weapon.getName());
 					}
 					else
 					{
 						Armor armor = (Armor) item;
-						player.equipArmor(armor);						
+						player.equipArmor(armor);
+						gameEngine.moveItemInventory(account_id, 2, armor.getName());
 					}
 					response += "You equipped a " + item.getName() + "!";
 				}
