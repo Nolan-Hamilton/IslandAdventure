@@ -25,7 +25,7 @@ public class EventController
 		if (n > 0)
 		{
 			Enemy spider = new Enemy("Giant Spider", "A Deadly Spider as Large as a Human", 
-					100, player.getLocation(), 20);
+					50, player.getLocation(), 15);
 			return spider;
 		}
 		else

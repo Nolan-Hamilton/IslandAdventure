@@ -161,7 +161,7 @@ public class Player
 	{
 		this.armor = null;
 	}
-	public Item getArmor()
+	public Armor getArmor()
 	{
 		return this.armor;
 	}
@@ -200,7 +200,7 @@ public class Player
 	{
 		this.weapon = null;
 	}
-	public Item getWeapon()
+	public Weapon getWeapon()
 	{
 		return this.weapon;
 	}
