@@ -343,16 +343,31 @@ public class ActionController
 					if (item instanceof Weapon)
 					{
 						Weapon weapon = (Weapon) item;
-						player.equipWeapon(weapon);
-						gameEngine.moveItemInventory(account_id, 2, weapon.getName());
+						if ((weapon.getDamage() <= 20) || (player.getSkills().getCombatXP() > (weapon.getDamage()*10)))
+						{
+							player.equipWeapon(weapon);
+							response += "You equipped a " + item.getName() + "!";
+							gameEngine.moveItemInventory(account_id, 2, weapon.getName());
+						}
+						else
+						{
+							response += "You need more combat experience to equip that!";
+						}
 					}
 					else
 					{
 						Armor armor = (Armor) item;
-						player.equipArmor(armor);
-						gameEngine.moveItemInventory(account_id, 2, armor.getName());
+						if ((armor.getArmorAmount() <= 20) || (player.getSkills().getCombatXP() > (armor.getArmorAmount()*10)))
+						{
+							player.equipArmor(armor);
+							response += "You equipped a " + item.getName() + "!";
+							gameEngine.moveItemInventory(account_id, 2, armor.getName());
+						}
+						else
+						{
+							response += "You need more combat experience to equip that!";
+						}
 					}
-					response += "You equipped a " + item.getName() + "!";
 				}
 			}
 		}else{
