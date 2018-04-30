@@ -50,7 +50,7 @@ public class IndexServlet extends HttpServlet {
 			playerController = new PlayerController();
 			player = playerController.createNewPlayer();
 			account.setPlayer(player);
-			account.initialize();
+			//account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 			controller = new ActionController(player, account);
 			engine = new GameEngine();
@@ -117,6 +117,7 @@ public class IndexServlet extends HttpServlet {
 			
 			engine.updateItemList(account, account_id);	// Loads items to account
 			engine.updateEnemiesList(account_id, account); // Loads enemies to account
+			account.setRoomsList(engine.loadMap(account_id));
 			
 			inventoryController = new InventoryController(player.getInventory(), account, account_id);
 			locationController = new LocationController(player.getLocation());
@@ -147,7 +148,7 @@ public class IndexServlet extends HttpServlet {
 			player = playerController.createNewPlayer();
 			Location[][][] map = new Location[25][25][25];
 			account.setPlayer(player);
-			account.initialize();
+			//account.initialize();
 			fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 			controller = new ActionController(player, account);
 			
@@ -242,13 +243,13 @@ public class IndexServlet extends HttpServlet {
 		if (req.getSession().getAttribute("username") != null) {
 			engine.updatePlayerInDatabase(account_id, player);
 			engine.updateMapInDatabase(account_id, account);
-			
+			/*
 			if (action.toLowerCase().contains("take") || action.toLowerCase().contains("chop") || action.toLowerCase().contains("fish") || 
 					action.toLowerCase().contains("drop") || action.toLowerCase().contains("craft")){
 				player.getInventory().getInventoryMap().clear();
 				engine.updateItemList(account, account_id);	// This reloads items to account to keep inventory from stacking (wood = 2, wood = 1).
 			}
-			
+			*/
 		}
 		req.setAttribute("action", ""); // Empty the input box for next command
 		

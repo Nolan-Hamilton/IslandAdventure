@@ -1387,19 +1387,23 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				//List<Player> playerList;
 				List<Room> roomList;
-				
+				List<Item> itemList;
+				List<Enemy> enemyList;
 				try {
 					//playerList = InitialData.getAuthors();
 					roomList = InitialData.getRooms();
+					itemList = InitialData.getItems();
+					enemyList = InitialData.getEnemies();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
 				PreparedStatement insertRoom = null;
-				PreparedStatement insertBook   = null;
+				PreparedStatement insertItem = null;
+				PreparedStatement insertEnemy = null;
 
 				try {
-					// populate authors table (do authors first, since author_id is foreign key in books table)
+					// populate rooms table
 					insertRoom = conn.prepareStatement("insert into rooms (account_id, username, x, y, z, longDescript, visible,"
 							+ " go_north, go_east, go_south, go_west, go_up, go_down, shortDescript)"
 							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -1418,28 +1422,54 @@ public class DerbyDatabase implements IDatabase {
 						insertRoom.setInt(11, room.getGoWest() ? 1 : 0);
 						insertRoom.setInt(12, room.getGoUp() ? 1 : 0);
 						insertRoom.setInt(13, room.getGoDown() ? 1 : 0);
+						insertRoom.setString(14, room.getShortDescription());
 						insertRoom.addBatch();
 					}
 					insertRoom.executeBatch();
 					
-					// populate books table (do this after authors table,
-					// since author_id must exist in authors table before inserting book)
-					/*
-					insertBook = conn.prepareStatement("insert into books (author_id, title, isbn, published) values (?, ?, ?, ?)");
-					for (Book book : bookList) {
+					// populate items table
+					
+					insertItem = conn.prepareStatement("insert into items (account_id, inventoryItem, name, description, uses, amount, x, y, z, damage)"
+							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					for (Item item : itemList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
-						insertBook.setInt(1, book.getAuthorId());
-						insertBook.setString(2, book.getTitle());
-						insertBook.setString(3, book.getIsbn());
-						insertBook.setInt(4,  book.getPublished());
-						insertBook.addBatch();
+						insertItem.setInt(1, account_id);
+						insertItem.setInt(2, 0);
+						insertItem.setString(3, item.getName());
+						insertItem.setString(4, item.getDescription());
+						insertItem.setInt(5, item.getUses());
+						insertItem.setInt(6, 1);
+						insertItem.setInt(7, item.getLocation().getX());
+						insertItem.setInt(8, item.getLocation().getY());
+						insertItem.setInt(9, item.getLocation().getZ());
+						insertItem.setInt(10, 0); // There will be no weapons initially in game, they will be created.
+						insertItem.addBatch();
 					}
-					insertBook.executeBatch();
-					*/
+					insertItem.executeBatch();
+					
+					// populate enemies table
+					
+					insertEnemy = conn.prepareStatement("insert into enemies (account_id, name, description, health, damage, x, y, z)"
+							+ " values (?, ?, ?, ?, ?, ?, ?, ?)");
+					for (Enemy enemy : enemyList) {
+//						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
+						insertEnemy.setInt(1, account_id);
+						insertEnemy.setString(2, enemy.getName());
+						insertEnemy.setString(3, enemy.getDescription());
+						insertEnemy.setInt(4, enemy.getHealth());
+						insertEnemy.setInt(5, enemy.getDamage());
+						insertEnemy.setInt(6, enemy.getLocation().getX());
+						insertEnemy.setInt(7, enemy.getLocation().getY());
+						insertEnemy.setInt(8, enemy.getLocation().getZ());
+						insertEnemy.addBatch();
+					}
+					insertItem.executeBatch();
+					
 					return true;
 				} finally {
-					DBUtil.closeQuietly(insertBook);
+					DBUtil.closeQuietly(insertItem);
 					DBUtil.closeQuietly(insertRoom);
+					DBUtil.closeQuietly(insertEnemy);
 				}
 			}
 		});

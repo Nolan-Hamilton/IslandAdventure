@@ -1,1 +1,12 @@
-10|10|0|This is the starting point from which to begin.|0|0|0|0|0|0|0|This is the starting point.
+10|10|0|This is the starting point from which to begin.|0|1|1|0|0|0|0|This is the starting point.
+11|10|0|You are now just east of the starting piont|0|1|1|0|1|0|0|East of the starting point.
+12|10|0|You are further east of the starting point.|0|1|0|0|1|0|0|You are further east.
+10|11|0|You are now north of the starting position. |0|1|1|1|0|0|0|North of starting point.
+11|11|0|You are at the entrence to a cave that goes down into darkness.|0|1|1|1|1|0|1|You are at the cave entrance.
+12|11|0|You are near a very large boulder.|0|1|0|1|1|0|0|You are near a large boulder.
+10|12|0|You are now further north of the starting point.|0|0|1|1|0|0|0|Farther North of starting point.
+11|12|0|You are in a small field of pretty flowers.|0|0|1|1|1|0|0|Field of flowers.
+12|12|0|You are further northeast of the starting point.|0|0|0|1|1|0|0|Farther Norheast of starting point.
+11|11|1|You are now inside the cave. The exit is above you.|0|0|0|0|1|1|0|You are right belove the cave exit.
+10|11|1|You are now west of the cave exit.|0|0|1|1|0|0|0|You are west of cave exit.
+10|10|1|You are now at the foot of a shrine.|0|1|0|0|0|0|0|You are at the foot of a shrine.

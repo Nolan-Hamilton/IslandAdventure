@@ -39,36 +39,68 @@ public class InitialData {
 				room.setGoUp(Integer.parseInt(i.next()) == 1 ? true : false);
 				room.setGoDown(Integer.parseInt(i.next()) == 1 ? true : false);
 				room.setShortDescription(i.next());
+				roomList.add(room);// Add the Room!
 			}
 			return roomList;
 		} finally {
 			readRooms.close();
 		}
 	}
-	/*
-	public static List<Book> getBooks() throws IOException {
-		List<Book> bookList = new ArrayList<Book>();
-		ReadCSV readBooks = new ReadCSV("books.csv");
+	
+	public static List<Item> getItems() throws IOException {
+		List<Item> itemList = new ArrayList<Item>();
+		ReadCSV readItems = new ReadCSV("items.csv");
 		try {
 			// auto-generated primary key for books table
-			Integer bookId = 1;
 			while (true) {
-				List<String> tuple = readBooks.next();
+				List<String> tuple = readItems.next();
 				if (tuple == null) {
 					break;
 				}
 				Iterator<String> i = tuple.iterator();
-				Book book = new Book();
-				book.setBookId(bookId++);
-				book.setAuthorId(Integer.parseInt(i.next()));
-				book.setTitle(i.next());
-				book.setIsbn(i.next());
-				book.setPublished(Integer.parseInt(i.next()));
-				bookList.add(book);
+				Item item = new Item(null, null, null, 1);
+				item.setName(i.next());
+				item.setDescript(i.next());
+				item.setUses(Integer.parseInt(i.next()));
+				Location location = new Location(0,0,0);
+				location.setX(Integer.parseInt(i.next()));
+				location.setY(Integer.parseInt(i.next()));
+				location.setZ(Integer.parseInt(i.next()));
+				item.setLocation(location);
+				itemList.add(item);
 			}
-			return bookList;
+			return itemList;
 		} finally {
-			readBooks.close();
+			readItems.close();
 		}
-	}*/
+	}
+	
+	public static List<Enemy> getEnemies() throws IOException {
+		List<Enemy> enemyList = new ArrayList<Enemy>();
+		ReadCSV readEnemies = new ReadCSV("enemies.csv");
+		try {
+			// auto-generated primary key for books table
+			while (true) {
+				List<String> tuple = readEnemies.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Enemy enemy = new Enemy(null, null, null, null, null);
+				enemy.setName(i.next());
+				enemy.setDescript(i.next());
+				enemy.setHealth(Integer.parseInt(i.next()));
+				enemy.setDamage(Integer.parseInt(i.next()));
+				Location location = new Location(0,0,0);
+				location.setX(Integer.parseInt(i.next()));
+				location.setY(Integer.parseInt(i.next()));
+				location.setZ(Integer.parseInt(i.next()));
+				enemy.setLocation(location);
+				enemyList.add(enemy);
+			}
+			return enemyList;
+		} finally {
+			readEnemies.close();
+		}
+	}
 }

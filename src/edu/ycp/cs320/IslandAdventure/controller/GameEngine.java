@@ -51,7 +51,8 @@ public class GameEngine
 			
 			System.out.println("New Player added, Player_id: <" + player_id + ">");
 			// Create Rooms using accountID
-			db.insertRoomsIntoDatabase(account_id, account.getUsername(), account.getRooms());
+			//db.insertRoomsIntoDatabase(account_id, account.getUsername(), account.getRooms());
+			db.loadInitialData(account_id, account.getUsername());
 			// Create Objects using account_id
 			return true;
 		}

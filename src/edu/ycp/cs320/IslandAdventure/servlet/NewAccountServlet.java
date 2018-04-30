@@ -63,12 +63,12 @@ public class NewAccountServlet extends HttpServlet {
 				Location playerLocation = new Location(10,10,10);
 				player.changeLocation(playerLocation);
 				account.setPlayer(player);
-				account.initialize();
+				//account.initialize();
 				
 				fakeData.getAccountList().add(account); //Add account to arraylist of Accounts
 				
 				Boolean newAcc = engine.insertNewAccountIntoDatabase(account); // account data is added to database
-				//int account_id = 1;//engine.getAccountID(account.getUsername());
+				//int account_id = engine.getAccountID(account.getUsername());
 				//engine.loadInitialData(account_id, account);
 				if (newAcc == true){
 					req.setAttribute("accountsList", fakeData); //Set attribute for fakeAccount
