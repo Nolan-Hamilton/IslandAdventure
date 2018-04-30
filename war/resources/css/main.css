@@ -39,6 +39,8 @@ body
 	width: 50%;
 	background-color: #A9CADB;
 	overflow: auto;
+	font-weight: bold;
+	font-size: 15px;
 }
 
 #variablesBox {

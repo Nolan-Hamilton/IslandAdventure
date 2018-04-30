@@ -23,7 +23,7 @@
 		</div>
 		
 		
-		<div id= "outputBox" style='overflow: auto;'>
+		<div id= "outputBox" style='overflow: auto; font-weight: bold; font-size: 20px;'>
 			Welcome to Island Adventure!
 			<br />
 			
