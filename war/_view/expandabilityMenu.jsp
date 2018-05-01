@@ -19,7 +19,7 @@
 			Expandability Menu
 		</div>
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/expandabilityMenu" method="post">
 				<input type="Submit" name="newEnemy" value="Create New Enemy">	
 				<input type="Submit" name="newArmor" value="Create New Armor">

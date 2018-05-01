@@ -18,7 +18,7 @@
 			Login Page
 		</div>
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			
 			<form action="${pageContext.servletContext.contextPath}/login" method="post">
 				Username:<input type="text" name="user" size="20" value="${user}" />
@@ -35,7 +35,7 @@
 		
 		
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/login" method="post">
 				<input type="Submit" name="newAcc" value="Create New Account">	
 				<input type="Submit" name="justPlay" value="Just Start Playing">

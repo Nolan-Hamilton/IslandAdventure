@@ -18,7 +18,7 @@
 			New Enemy
 		</div>
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			
 			<form action="${pageContext.servletContext.contextPath}/newEnemy" method="post">
 				Enemy Name:<input type="text" name="name" size="30" value="${name}" />
@@ -45,7 +45,7 @@
 		
 		
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/newEnemy" method="post">
 				<input type="Submit" name="return" value="Back to Game">	
 			</form>

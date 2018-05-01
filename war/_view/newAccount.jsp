@@ -18,7 +18,7 @@
 			New Account
 		</div>
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			
 			<form action="${pageContext.servletContext.contextPath}/newAccount" method="post">
 				Username:<input type="text" name="user" size="20" value="${user}" />
@@ -37,7 +37,7 @@
 		
 
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/newAccount" method="post">
 				<input type="Submit" name="back2Login" value="Back to Login">	
 			</form>

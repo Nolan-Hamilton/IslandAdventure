@@ -18,7 +18,7 @@
 			New Armor
 		</div>
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			
 			<form action="${pageContext.servletContext.contextPath}/newArmor" method="post">
 				Armor Name:<input type="text" name="name" size="30" value="${name}" />
@@ -43,7 +43,7 @@
 		
 		
 		
-		<div id= "inputBox">
+		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/newArmor" method="post">
 				<input type="Submit" name="return" value="Return to Game">	
 			</form>
