@@ -390,10 +390,24 @@ public class ActionController
 		if (count >= amountRequired && craftingXP >= craftingXPRequired)
 		{
 			response += "You crafted a " + itemName + "! <br>";
-			Item item = new Item(itemName, itemName, player.getLocation(), craftingXP);
-			inventory.addItem(item, 1);
+			if (damage > 0)
+			{
+				Weapon weapon = new Weapon(itemName, itemName, player.getLocation(), damage);
+				inventory.addItem(weapon, 1);
+			}
+			else if (damage < 0)
+			{
+				Armor armor = new Armor(itemName, itemName, player.getLocation(), -damage);
+				inventory.addItem(armor, 1);
+			}
+			else
+			{
+				Item item = new Item(itemName, itemName, player.getLocation(), 0);
+				inventory.addItem(item, 1);
+			}
+			Item itemForDatabase = new Item(itemName, itemName, player.getLocation(), 0);
 			int account_id = gameEngine.getAccountID(account.getUsername());
-			gameEngine.insertNewItemIntoDatabase(account, account_id, item, 1, damage);
+			gameEngine.insertNewItemIntoDatabase(account, account_id, itemForDatabase, 1, damage);
 			player.getSkills().addCraftingXP(craftingXPGained);
 			// Below removes items used for crafting from inventory;
 			Item itemToRemove = null;
