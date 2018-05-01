@@ -222,10 +222,12 @@ public class IndexServlet extends HttpServlet {
 		if (player.getArmor() != null)
 		{
 			req.setAttribute("armor", player.getArmor().getName());
+			req.setAttribute("armorAmount", player.getArmor().getArmorAmount());
 		}
 		if (player.getWeapon() != null)
 		{
 			req.setAttribute("weapon", player.getWeapon().getName());
+			req.setAttribute("weaponDamage", player.getWeapon().getDamage());
 		}
 		
 		

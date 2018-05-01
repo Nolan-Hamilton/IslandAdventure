@@ -43,8 +43,8 @@
         			<li> ${itemName.key.name} = ${itemName.value}</li>
     			</c:forEach>
 			</ul>
-			Armor: ${armor} <br />
-			Weapon: ${weapon} <br />
+			Armor: ${armor}  (${armorAmount})<br />
+			Weapon: ${weapon} (${weaponDamage})<br />
 			<br /> 
 			WoodCutting XP: ${woodCuttingXP} <br />
 			Fishing XP: ${fishingXP} <br />
