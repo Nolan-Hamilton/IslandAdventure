@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.IslandAdventure.controller.GameEngine;
-import edu.ycp.cs320.IslandAdventure.model.Account;
-import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
 
 public class ExpandabilityMenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

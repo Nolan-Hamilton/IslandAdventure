@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.IslandAdventure.controller.*;
 import edu.ycp.cs320.IslandAdventure.model.*;
-import edu.ycp.cs320.IslandAdventure.persist.*;
 
 
 public class NewArmorServlet extends HttpServlet {

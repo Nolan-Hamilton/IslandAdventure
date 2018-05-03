@@ -2,7 +2,6 @@ package edu.ycp.cs320.IslandAdventure.controller;
 
 import edu.ycp.cs320.IslandAdventure.persist.DatabaseProvider;
 import edu.ycp.cs320.IslandAdventure.persist.DerbyDatabase;
-import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
 import edu.ycp.cs320.IslandAdventure.persist.IDatabase;
 
 import java.util.ArrayList;
