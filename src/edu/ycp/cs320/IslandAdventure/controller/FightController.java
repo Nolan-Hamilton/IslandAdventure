@@ -20,6 +20,7 @@ public class FightController
 		int combatXPGained = 0;
 		int armor = 0;
 		int damage = 0;
+		int enemyOriginalHealth = enemy.getHealth();
 
 		while (player.getHealth() > 0 && enemy.getHealth() > 0 )
 		{
@@ -34,7 +35,7 @@ public class FightController
 			enemy.changeHealth(-((player.getSkills().getCombatXP()/100)+damage+10));
 			
 			playerHealthLost += (enemy.getDamage() - ((player.getSkills().getCombatXP()/100)+armor));
-			if (playerHealthLost >= 0)
+			if (playerHealthLost <= 0)	//Player always loses at least one health point
 			{
 				playerHealthLost -= (enemy.getDamage() - ((player.getSkills().getCombatXP()/100)+armor));
 				playerHealthLost += 1;
@@ -43,7 +44,11 @@ public class FightController
 		}
 		if (player.getHealth() > 0)	// Player won
 		{
-			combatXPGained += (enemy.getHealth()*enemy.getDamage()) / 100; // Stronger enemies give more xp
+			combatXPGained += (enemyOriginalHealth*enemy.getDamage())/100; // Stronger enemies give more xp
+			if (combatXPGained < 1)	// Player still gets some xp even for fighting weak enemies
+			{
+				combatXPGained = 1;
+			}
 			player.getSkills().addCombatXP(combatXPGained);
 			battleDescription = "You fought a " + enemy.getName() + " and defeated it! You took " + 
 					playerHealthLost + " damage and gained " + combatXPGained + " combat XP!";

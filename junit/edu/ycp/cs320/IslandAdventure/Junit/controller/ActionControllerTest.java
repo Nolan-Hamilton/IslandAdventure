@@ -48,5 +48,4 @@ public class ActionControllerTest
 		actionController.interpretAction("Eat FIsh");
 		assertTrue(player.getHealth() == 100);	// Player should be healed but health doesn't exceed 100
 	}
-
 }
