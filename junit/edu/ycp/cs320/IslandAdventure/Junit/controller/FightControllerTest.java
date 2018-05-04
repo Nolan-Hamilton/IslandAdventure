@@ -1,4 +1,4 @@
-package edu.ycp.cs320.IslandAdventure.Junit.model;
+package edu.ycp.cs320.IslandAdventure.Junit.controller;
 
 import static org.junit.Assert.*;
 
