@@ -1,7 +1,6 @@
 package edu.ycp.cs320.IslandAdventure.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import edu.ycp.cs320.IslandAdventure.model.Account;

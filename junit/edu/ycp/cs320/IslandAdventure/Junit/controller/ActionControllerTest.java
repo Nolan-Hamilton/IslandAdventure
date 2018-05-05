@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ycp.cs320.IslandAdventure.controller.ActionController;
-import edu.ycp.cs320.IslandAdventure.controller.InventoryController;
 import edu.ycp.cs320.IslandAdventure.controller.PlayerController;
 import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Item;
@@ -48,5 +47,4 @@ public class ActionControllerTest
 		actionController.interpretAction("Eat FIsh");
 		assertTrue(player.getHealth() == 100);	// Player should be healed but health doesn't exceed 100
 	}
-
 }

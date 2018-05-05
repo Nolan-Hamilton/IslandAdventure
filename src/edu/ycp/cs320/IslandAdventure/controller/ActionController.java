@@ -1,9 +1,5 @@
 package edu.ycp.cs320.IslandAdventure.controller;
 
-import edu.ycp.cs320.IslandAdventure.persist.DatabaseProvider;
-import edu.ycp.cs320.IslandAdventure.persist.DerbyDatabase;
-import edu.ycp.cs320.IslandAdventure.persist.FakeDatabase;
-import edu.ycp.cs320.IslandAdventure.persist.IDatabase;
 import edu.ycp.cs320.IslandAdventure.MapView.*;
 
 import java.util.ArrayList;
@@ -23,23 +19,16 @@ public class ActionController
 	
 	private EventController eventController = new EventController();
 	
-	private FightController fightController = new FightController();
-	
 	private PlayerController playerController = new PlayerController();
 	
 	private GameEngine gameEngine = new GameEngine();
 	
-	// Database implementation is borrowed from Library Example Project By Prof. Hake
-	private IDatabase db    = null;
 	
 	public ActionController(Player player, Account account) 
 	{
 		this.player = player;
 		this.account = account;
 		inventoryController = new InventoryController(player.getInventory(), account, gameEngine.getAccountID(account.getUsername()));
-		// creating DB instance here
-		//DatabaseProvider.setInstance(new DerbyDatabase());
-		//db = DatabaseProvider.getInstance();
 	}
 	
 	public String interpretAction(String action)
@@ -50,8 +39,7 @@ public class ActionController
 			return response += ""; // Do nothing if action command is empty
 		}
 		response += ">> " + action + "<br><br>"; // Add action command to response
-		action = action.toLowerCase();
-		
+		action = action.toLowerCase();	// turns action to lower-case so commands aren't case sensitive
 		
 		
 		if (action.contains("move"))
@@ -146,8 +134,9 @@ public class ActionController
 			int axeMultiplier = 1;
 			if (player.getInventory().getItemCountFromString("wood axe") > 0)
 			{
-				axeMultiplier = 2;
+				axeMultiplier = 2; // Player gets bonus for having a wood axe
 			}
+			// Below is formula for calculating wood gathered using skills and axe
 			int amountChopped = axeMultiplier * ((player.getSkills().getWoodCuttingXP()/100) + 1);
 			inventoryController.changeWoodAmount(amountChopped);
 			player.changeTime(1);	// Takes 1 hour to chop wood
@@ -163,13 +152,12 @@ public class ActionController
 					fishingRod = true;
 					System.out.println("ActionConroller >> FishingRod = " + fishingRod);
 				}
-			} // If player does not possess light source, cannot move underground
+			}
 			if (fishingRod == false){
 				response += "You cannot fish without a fishing rod. Craft one. <br><br>";
 				return response;
 			}
-			if ((player.getLocation().getX() == 0 || player.getLocation().getX() == 14 || player.getLocation().getY() == 0 || player.getLocation().getY() == 14
-					|| player.getLocation().getX() == 12) && player.getLocation().getZ() == 0){ //Fishing at 12 is just for demo
+			if ((player.getLocation().getX() == 0 || player.getLocation().getX() == 14 || player.getLocation().getY() == 0 || player.getLocation().getY() == 14) && player.getLocation().getZ() == 0){
 				int amountFished = (player.getSkills().getFishingXP()/100 + 3);
 				inventoryController.changeFishAmount(amountFished);
 				player.changeTime(1);	// Takes 1 hour to chop wood
@@ -189,7 +177,7 @@ public class ActionController
 			{
 				n = rand.nextInt(20) + 1;	//random # from 1-20
 			}
-			else
+			else	// Higher random numbers cause higher chance of bad effects from sleeping
 			{
 				n = rand.nextInt(50) + 1;	//random # from 1-50
 			}
@@ -344,6 +332,7 @@ public class ActionController
 					if (item instanceof Weapon)
 					{
 						Weapon weapon = (Weapon) item;
+						// Player must have enough combat xp to equip powerful items
 						if ((weapon.getDamage() <= 20) || (player.getSkills().getCombatXP() > (weapon.getDamage()*10)))
 						{
 							player.equipWeapon(weapon);

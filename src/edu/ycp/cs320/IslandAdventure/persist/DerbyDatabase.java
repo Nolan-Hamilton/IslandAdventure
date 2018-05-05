@@ -20,7 +20,8 @@ import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Room;
 import edu.ycp.cs320.IslandAdventure.model.Skills;
 import edu.ycp.cs320.IslandAdventure.model.Weapon;
-// This code is heacily based off of DerbyDatabase.java from CS320_Lab06 by Prof. Hake.
+
+// This code is heavily based off of DerbyDatabase.java from CS320_Lab06 by Prof. Hake.
 public class DerbyDatabase implements IDatabase {
 	static {
 		try {
