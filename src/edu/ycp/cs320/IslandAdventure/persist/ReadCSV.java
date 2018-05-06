@@ -1,5 +1,5 @@
 package edu.ycp.cs320.IslandAdventure.persist;
-
+// This file is taken directly from the Lab06 by Professor Hake.
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;

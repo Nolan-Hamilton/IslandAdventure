@@ -60,7 +60,7 @@ public class NewAccountServlet extends HttpServlet {
 				account.setPassword(pass);
 				Skills skills = new Skills(0, 0, 0, 0);
 				Player player = new Player(0, 0, 0, 0, null, null, skills, null, null);
-				Location playerLocation = new Location(10,10,10);
+				Location playerLocation = new Location(2,2,0);
 				player.changeLocation(playerLocation);
 				account.setPlayer(player);
 				//account.initialize();

@@ -1,12 +1,65 @@
-10|10|0|This is the starting point from which to begin.|0|1|1|0|0|0|0|This is the starting point.
-11|10|0|You are now just east of the starting point|0|1|1|0|1|0|0|East of the starting point.
-12|10|0|You are further east of the starting point.|0|1|0|0|1|0|0|You are further east.
-10|11|0|You are now north of the starting position. |0|1|1|1|0|0|0|North of starting point.
-11|11|0|You are at the entrence to a cave that goes down into darkness.|0|1|1|1|1|0|1|You are at the cave entrance.
-12|11|0|You are near a very large boulder.|0|1|0|1|1|0|0|You are near a large boulder.
-10|12|0|You are now further north of the starting point.|0|0|1|1|0|0|0|Farther North of starting point.
-11|12|0|You are in a small field of pretty flowers.|0|0|1|1|1|0|0|Field of flowers.
-12|12|0|You are further northeast of the starting point.|0|0|0|1|1|0|0|Farther Norheast of starting point.
-11|11|1|You are now inside the cave. The exit is above you.|0|0|0|0|1|1|0|You are right belove the cave exit.
-10|11|1|You are now west of the cave exit.|0|0|1|1|0|0|0|You are west of cave exit.
-10|10|1|You are now at the foot of a shrine.|0|1|0|0|0|0|0|You are at the foot of a shrine.
+2|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|0|0|0|0|You are standing along the southern beach of the island.
+3|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|0|1|0|0|You are standing along the southern beach of the island.
+4|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|0|1|0|0|You are standing along the southern beach of the island.
+5|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|0|1|0|0|You are standing along the southern beach of the island.
+6|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|0|1|0|0|You are standing along the southern beach of the island.
+7|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|0|1|0|0|You are standing along the southern beach of the island.
+8|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|0|1|0|0|You are standing along the southern beach of the island.
+9|2|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|0|0|1|0|0|You are standing along the southern beach of the island.
+2|3|0|You are standing along the western beach of the island. The ocean fades off into the horizon to the west.|0|1|1|1|0|0|0|You are standing along the western beach of the island.
+3|3|0|You are standing in the southern jungle of the island. There is heavy vegetation in all directions.|0|1|1|1|1|0|0|You are standing in the southern jungle of the island.
+4|3|0|You are standing in the southern jungle of the island. There is heavy vegetation in all directions.|0|1|1|1|1|0|0|You are standing in the southern jungle of the island.
+5|3|0|You are standing in the southern forest of the island. This would be a great place to gather wood.|0|1|1|1|1|0|0|You are standing in the southern forest of the island.
+6|3|0|You are standing in the southern forest of the island. This would be a great place to gather wood.|0|1|1|1|1|0|0|You are standing in the southern forest of the island.
+7|3|0|You are standing in the southern forest of the island. This would be a great place to gather wood.|0|1|1|1|1|0|0|You are standing in the southern forest of the island.
+8|3|0|You are standing in the southern forest of the island. This would be a great place to gather wood.|0|1|1|1|1|0|0|You are standing in the southern forest of the island.
+9|3|0|You are standing along the eastern beach of the island. The ocean fades off into the horizon to the east.|0|1|0|1|1|0|0|You are standing along the eastern beach of the island.
+2|4|0|You are standing along the western beach of the island. The ocean fades off into the horizon to the west.|0|1|1|1|0|0|0|You are standing along the western beach of the island.
+3|4|0|You are standing in the southern jungle of the island. There is heavy vegetation in all directions.|0|1|1|1|1|0|0|You are standing in the southern jungle of the island.
+4|4|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+5|4|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+6|4|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+7|4|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+8|4|0|You are standing in the southern forest of the island. This would be a great place to gather wood.|0|1|1|1|1|0|0|You are standing in the southern forest of the island.
+9|4|0|You are standing along the eastern beach of the island. The ocean fades off into the horizon to the east.|0|1|0|1|1|0|0|You are standing along the eastern beach of the island.
+2|5|0|You are standing along the western beach of the island. The ocean fades off into the horizon to the west.|0|1|1|1|0|0|0|You are standing along the western beach of the island.
+3|5|0|You are standing in the southern jungle of the island. There is heavy vegetation in all directions.|0|1|1|1|1|0|0|You are standing in the southern jungle of the island.
+4|5|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+5|5|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+6|5|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+7|5|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+8|5|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+9|5|0|You are standing along the eastern beach of the island. The ocean fades off into the horizon to the east.|0|1|0|1|1|0|0|You are standing along the eastern beach of the island.
+2|6|0|You are standing along the western beach of the island. The ocean fades off into the horizon to the west.|0|1|1|1|0|0|0|You are standing along the western beach of the island.
+3|6|0|You are standing in the southern jungle of the island. There is heavy vegetation in all directions.|0|1|1|1|1|0|0|You are standing in the southern jungle of the island.
+4|6|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+5|6|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+6|6|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+7|6|0|You are standing along the southern beach of the island. The ocean fades off into the horizon to the south.|0|1|1|1|1|0|0|You are standing along the southern beach of the island.
+8|6|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+9|6|0|You are standing along the eastern beach of the island. The ocean fades off into the horizon to the east.|0|1|0|1|1|0|0|You are standing along the eastern beach of the island.
+2|7|0|You are standing along the western beach of the island. The ocean fades off into the horizon to the west.|0|1|1|1|0|0|0|You are standing along the western beach of the island.
+3|7|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+4|7|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+5|7|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+6|7|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+7|7|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+8|7|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+9|7|0|You are standing along the eastern beach of the island. The ocean fades off into the horizon to the east.|0|1|0|1|1|0|0|You are standing along the eastern beach of the island.
+2|8|0|You are standing along the western beach of the island. The ocean fades off into the horizon to the west.|0|1|1|1|0|0|0|You are standing along the western beach of the island.
+3|8|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+4|8|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+5|8|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+6|8|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+7|8|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+8|8|0|You are standing in the northern flower fields of the island. There area beautiful flowers in all directions.|0|1|1|1|1|0|0|You are standing in the northern flower fields of the island.
+9|8|0|You are standing along the eastern beach of the island. The ocean fades off into the horizon to the east.|0|1|0|1|1|0|0|You are standing along the eastern beach of the island.
+2|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|1|1|0|0|0|You are standing along the northern beach of the island.
+3|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|1|1|1|0|0|You are standing along the northern beach of the island.
+4|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|1|1|1|0|0|You are standing along the northern beach of the island.
+5|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|1|1|1|0|0|You are standing along the northern beach of the island.
+6|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|1|1|1|0|0|You are standing along the northern beach of the island.
+7|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|1|1|1|0|0|You are standing along the northern beach of the island.
+8|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|1|1|1|0|0|You are standing along the northern beach of the island.
+9|9|0|You are standing along the northern beach of the island. The ocean fades off into the horizon to the north.|0|0|0|1|1|0|0|You are standing along the northern beach of the island.
+11|11|0|This is just to center the map view.|0|0|0|0|0|0|0|This is room is inaccessible.
