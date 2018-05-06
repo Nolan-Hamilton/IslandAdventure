@@ -65,7 +65,26 @@ public class EventController
 		Player player = account.getPlayer();
 		Location location = player.getLocation();
 		ArrayList<Enemy> enemyList = account.getEnemiesByXYZ(location.getX(), location.getY(), location.getZ());
-		if (!enemyList.isEmpty())
+		Location riddle1 = new Location(7,6,1);
+		Location riddle2 = new Location(5,8,1);
+		if (player.getLocation().equals(riddle1))
+		{
+			moveEvent += "You enter a room and a mystical darkness keeps you from moving further. "
+					+ "You need an even stronger light source. There is an ominious riddle written "
+					+ "on the stone in front of you. It says, "
+					+ "\"My life is measured in hours. I serve by being devoured. "
+					+ "Thin I am quick, Fat I am slow. Wind is my foe. What am I?\" ";
+			return moveEvent;
+		}
+		else if (player.getLocation().equals(riddle2))
+		{
+			moveEvent += "The cave tunnels branch into dozens of paths. You suddenly feel completely lost. "
+					+ "Panic sets in and you realize you can't progress farther without knowing the way."
+					+ " You realize there is another riddle written just behind you. It says, "
+					+ "\"I Have Cities, But no Houses. I Have Mountains, But no Trees. "
+					+ "I Have Water, But no Fish. What Am I?\" ";
+		}
+		else if (!enemyList.isEmpty())
 		{
 			Enemy enemy = enemyList.get(0);	// Get first enemy if enemyList isn't empty
 			moveEvent += fightController.Fight(account, enemy);

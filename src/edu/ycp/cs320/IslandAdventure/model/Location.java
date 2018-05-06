@@ -72,53 +72,6 @@ public class Location
 	}
 }
 	
-	/*
-	 * put this in a move class for player
-	 * 
-	private boolean visible;
-	private boolean possibleMove;
-	 * 
-	 * 	possibleMove = true; //move these to a move class 
-		visible = false;
-		
-		
-			public void setPossibleMove(boolean pos)
-	{
-		this.possibleMove = pos;
-	}
-	
-	public boolean getPossibleMove()
-	{
-		return possibleMove;
-	}
-	
-	public void setVisable(boolean vis)
-	{
-		this.visible = vis;
-	}
-
-	public boolean getVisable()
-	{
-		return visible;
-	}
-	
-		public void testPossibleMoves()
-	{
-		assertTrue(loc.getPossibleMove());
-		loc.setPossibleMove(false);
-		assertFalse(loc.getPossibleMove());
-	}
-
-	public void testVisable()
-	{
-		assertFalse(loc.getVisable());
-		loc.setVisible(true);
-		assertTrue(loc.getVisible());
-	}
-
-		
-	 */
-	
 	
 	
 
