@@ -12,7 +12,7 @@ public class LocationController
 	
 	public Location setStartingLocation()
 	{
-		Location location = new Location(10, 10, 0);
+		Location location = new Location(2, 2, 0);
 		return location;
 	}
 	

@@ -237,6 +237,7 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("user", account.getUsername());
 		
 		// Set visible to true for current room since player is here
+		System.out.println("IndexServlet >> Player location is : " + player.getLocation().getX() + "," + player.getLocation().getY());
 		account.getRoomByXYZ(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()).setVisible(true);
 		
 		// Update the Database with changes (This does not occur if 'Just Play!' is clicked)
