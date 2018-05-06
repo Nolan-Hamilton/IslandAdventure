@@ -35,7 +35,7 @@
 				<br><br>
 				Enemy Location(z):<input type="text" name="z" size="3" value="${locationZ}" />
 				<br><br>
-				<input type="Submit" name="submit" value="Create Enemy!">
+				<input class = "button" input type="Submit" name="submit" value="Create Enemy!">
 			</form>
 			
 			<c:if test="${! empty errorMessage}">
@@ -47,7 +47,7 @@
 		
 		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/newEnemy" method="post">
-				<input type="Submit" name="return" value="Back to Game">	
+				<input class = "button" input type="Submit" name="return" value="Back to Game">	
 			</form>
 		</div>
 		

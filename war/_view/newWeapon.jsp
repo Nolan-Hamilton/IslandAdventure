@@ -33,7 +33,7 @@
 				<br><br>
 				Weapon Damage:<input type="text" name="damage" size="5" value="${damage}" />
 				<br><br>
-				<input type="Submit" name="submit" value="Create Weapon!">
+				<input class = "button" input type="Submit" name="submit" value="Create Weapon!">
 			</form>
 			
 			<c:if test="${! empty errorMessage}">
@@ -45,7 +45,7 @@
 		
 		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/newWeapon" method="post">
-				<input type="Submit" name="return" value="Return to Game">	
+				<input class = "button" input type="Submit" name="return" value="Return to Game">	
 			</form>
 		</div>
 		

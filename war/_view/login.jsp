@@ -25,7 +25,7 @@
 				<br><br>
 				Password:<input type="password" name="pass" size="20" value="${pass}" />
 				<br><br>
-				<input type="Submit" name="submit" value="Login!">
+				<input class = "button" input type="Submit" name="submit" value="Login!">
 			</form>
 			
 			<c:if test="${! empty errorMessage}">
@@ -37,8 +37,8 @@
 		
 		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/login" method="post">
-				<input type="Submit" name="newAcc" value="Create New Account">	
-				<input type="Submit" name="justPlay" value="Just Start Playing">
+				<input class = "button" input type="Submit" name="newAcc" value="Create New Account">	
+				<input class = "button" input type="Submit" name="justPlay" value="Just Start Playing">
 			</form>
 			<p>Warning:
 			You will not be able to save if you do not login with an account!</p>

@@ -52,7 +52,7 @@
 			Crafting XP: ${craftingXP} <br />
 			<br /> <br />
 			<form action="${pageContext.servletContext.contextPath}/index" method="post">
-				<input type="Submit" name="expandabilityMenu" value="Open Expandability Menu">
+				<input class = "button" input type="Submit" name="expandabilityMenu" value="Open Expandability Menu">
 			</form>
 		</div>
 		
@@ -66,10 +66,10 @@
 		<!-- This is the stuff for the direction commands -->
 		<div id="inputBox">
 			<form action="${pageContext.servletContext.contextPath}/index" method="post" style="text-align: center;">
-					<input type="Submit" name="north" value="North"><br>
-					<input type="Submit" name="west" value="West">
-					<input type="Submit" name="east" value="East"><br>
-					<input type="Submit" name="south" value="South">
+					<input class = "button" input type="Submit" name="north" value="North"><br>
+					<input class = "button" input type="Submit" name="west" value="West">
+					<input class = "button" input type="Submit" name="east" value="East"><br>
+					<input class = "button" input type="Submit" name="south" value="South">
 				</form>
 		</div>
 		<script>
