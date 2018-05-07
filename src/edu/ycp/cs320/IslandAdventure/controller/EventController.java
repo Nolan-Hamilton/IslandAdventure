@@ -75,20 +75,25 @@ public class EventController
 		Location riddle2 = new Location(8,5,1);
 		if (player.getLocation().equals(riddle1))
 		{
-			moveEvent += "You enter a room and a mystical darkness keeps you from moving further. "
-					+ "You need an even stronger light source. There is an ominious riddle written "
-					+ "on the stone in front of you. It says, "
-					+ "\"My life is measured in hours. I serve by being devoured. "
-					+ "Thin I am quick, Fat I am slow. Wind is my foe. What am I?\" ";
+			if (account.getRoomByXYZ(6, 7, 1).getGoEast() == false) {
+				moveEvent += "You enter a room and a mystical darkness keeps you from moving further. "
+						+ "You need an even stronger light source. There is an ominious riddle written "
+						+ "on the stone in front of you. It says, "
+						+ "\"My life is measured in hours. I serve by being devoured. "
+						+ "Thin I am quick, Fat I am slow. Wind is my foe. What am I?\" ";
+			}
 			return moveEvent;
 		}
 		else if (player.getLocation().equals(riddle2))
 		{
-			moveEvent += "The cave tunnels branch into dozens of paths. You suddenly feel completely lost. "
-					+ "Panic sets in and you realize you can't progress farther without knowing the way."
-					+ " You realize there is another riddle written just behind you. It says, "
-					+ "\"I Have Cities, But no Houses. I Have Mountains, But no Trees. "
-					+ "I Have Water, But no Fish. What Am I?\" ";
+			if (account.getRoomByXYZ(8, 5, 1).getGoEast() == false) {
+				moveEvent += "The cave tunnels branch into dozens of paths. You suddenly feel completely lost. "
+						+ "Panic sets in and you realize you can't progress farther without knowing the way."
+						+ " You realize there is another riddle written just behind you. It says, "
+						+ "\"I Have Cities, But no Houses. I Have Mountains, But no Trees. "
+						+ "I Have Water, But no Fish. What Am I?\" ";
+			}
+			return moveEvent;
 		}
 		else if (!enemyList.isEmpty())
 		{
