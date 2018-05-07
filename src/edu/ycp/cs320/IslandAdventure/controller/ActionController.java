@@ -181,7 +181,7 @@ public class ActionController
 				response += "You cannot fish without a fishing rod. Craft one. <br><br>";
 				return response;
 			}
-			if ((player.getLocation().getX() == 0 || player.getLocation().getX() == 14 || player.getLocation().getY() == 0 || player.getLocation().getY() == 14) && player.getLocation().getZ() == 0){
+			if ((player.getLocation().getX() == 2 || player.getLocation().getX() == 9 || player.getLocation().getY() == 2 || player.getLocation().getY() == 9) && player.getLocation().getZ() == 0){
 				int amountFished = (player.getSkills().getFishingXP()/100 + 3);
 				inventoryController.changeFishAmount(amountFished);
 				player.changeTime(1);	// Takes 1 hour to chop wood
