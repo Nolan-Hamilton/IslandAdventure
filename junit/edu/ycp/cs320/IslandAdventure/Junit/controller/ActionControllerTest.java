@@ -35,7 +35,7 @@ public class ActionControllerTest
 		assertTrue(player.getInventory().getItemCountFromString("Wood") == 2);
 		
 		actionController.interpretAction("Move North");
-		assertTrue(player.getLocation().getY() == 2);
+		assertTrue(player.getLocation().getY() == 11);
 		
 		player.setHealth(90);
 		actionController.interpretAction("Eat FIsh");

@@ -27,7 +27,7 @@
 				<br><br>
 				Confirm Password:<input type="password" name="pass2" size="20" value="${pass2}" />
 				<br><br>
-				<input type="Submit" name="submit" value="Create Account!">
+				<input class = "button" input type="Submit" name="submit" value="Create Account!">
 			</form>
 			
 			<c:if test="${! empty errorMessage}">
@@ -39,7 +39,7 @@
 		
 		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/newAccount" method="post">
-				<input type="Submit" name="back2Login" value="Back to Login">	
+				<input class = "button" input type="Submit" name="back2Login" value="Back to Login">	
 			</form>
 		</div>
 		

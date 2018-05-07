@@ -33,7 +33,7 @@
 				<br><br>
 				Armor Protection Value:<input type="text" name="armor" size="5" value="${armor}" />
 				<br><br>
-				<input type="Submit" name="submit" value="Create Armor!">
+				<input class = "button" input type="Submit" name="submit" value="Create Armor!">
 			</form>
 			
 			<c:if test="${! empty errorMessage}">
@@ -45,7 +45,7 @@
 		
 		<div id= "loginBox">
 			<form action="${pageContext.servletContext.contextPath}/newArmor" method="post">
-				<input type="Submit" name="return" value="Return to Game">	
+				<input class = "button" input type="Submit" name="return" value="Return to Game">	
 			</form>
 		</div>
 		

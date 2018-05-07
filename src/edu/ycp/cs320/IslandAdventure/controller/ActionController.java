@@ -41,7 +41,6 @@ public class ActionController
 		response += ">> " + action + "<br><br>"; // Add action command to response
 		action = action.toLowerCase();	// turns action to lower-case so commands aren't case sensitive
 		
-
 		Location riddle1 = new Location(7,6,1);
 		Location riddle2 = new Location(5,8,1);
 		
@@ -173,7 +172,7 @@ public class ActionController
 				response += "You cannot fish without a fishing rod. Craft one. <br><br>";
 				return response;
 			}
-			if ((player.getLocation().getX() == 2 || player.getLocation().getX() == 9 || player.getLocation().getY() == 2 || player.getLocation().getY() == 9) && player.getLocation().getZ() == 0){
+			if ((player.getLocation().getX() == 0 || player.getLocation().getX() == 14 || player.getLocation().getY() == 0 || player.getLocation().getY() == 14) && player.getLocation().getZ() == 0){
 				int amountFished = (player.getSkills().getFishingXP()/100 + 3);
 				inventoryController.changeFishAmount(amountFished);
 				player.changeTime(1);	// Takes 1 hour to chop wood
@@ -189,7 +188,7 @@ public class ActionController
 		{
 			Random rand = new Random();
 			int  n;
-			if (player.getLocation().getX() == 2 && player.getLocation().getY() == 2) //Player is home
+			if (player.getLocation().getX() == 10 && player.getLocation().getY() == 10) //Player is home
 			{
 				n = rand.nextInt(20) + 1;	//random # from 1-20
 			}

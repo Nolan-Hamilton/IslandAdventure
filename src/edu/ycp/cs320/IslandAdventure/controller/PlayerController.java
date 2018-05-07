@@ -44,8 +44,8 @@ public class PlayerController
 			gameEngine.updateItemAmount(gameEngine.getAccountID(account.getUsername()), "Fish", 0);
 			status += "You fell unconscious and lost your materials. <br>";
 			player.setHealth(50);
-			player.getLocation().setX(2); // Set player location to original location
-			player.getLocation().setY(2);
+			player.getLocation().setX(10); // Set player location to original location
+			player.getLocation().setY(10);
 			player.getLocation().setZ(0);
 		}
 		return status;
