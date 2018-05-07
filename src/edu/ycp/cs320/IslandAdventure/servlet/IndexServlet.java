@@ -122,7 +122,7 @@ public class IndexServlet extends HttpServlet {
 			System.out.println(account.getUsername() + "'s account is now created");
 			req.setAttribute("user", account.getUsername());
 		}
-		response = "Lets go on an adventure!<br><br>";
+		response = "Lets go on an adventure to find treasure!<br><br>";
 		doPost(req, resp);	// displays initial data so not blank on startup
 		//req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 		

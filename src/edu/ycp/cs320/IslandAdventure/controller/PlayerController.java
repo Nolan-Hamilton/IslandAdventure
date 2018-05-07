@@ -5,6 +5,7 @@ import edu.ycp.cs320.IslandAdventure.model.Inventory;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
 import edu.ycp.cs320.IslandAdventure.model.Skills;
+import edu.ycp.cs320.IslandAdventure.model.*;
 
 public class PlayerController 
 {
@@ -47,6 +48,16 @@ public class PlayerController
 			player.getLocation().setX(2); // Set player location to original location
 			player.getLocation().setY(2);
 			player.getLocation().setZ(0);
+		}
+		Location shrine = new Location(6,7,2);
+		for (Item item : player.getInventory().getInventoryMap().keySet()) {
+			if (item.getName().equals("Island Treasure") && player.getLocation().equals(shrine)) {
+				status += "You found the Treasure! You win!<br>";
+				player.addScore(500);
+				player.getLocation().setX(2); // Set player location to original location
+				player.getLocation().setY(2);
+				player.getLocation().setZ(0);
+			}
 		}
 		return status;
 	}
