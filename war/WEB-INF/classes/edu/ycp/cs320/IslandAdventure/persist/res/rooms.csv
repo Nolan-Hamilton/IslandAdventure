@@ -67,11 +67,11 @@
 5|6|1|You are standing in a small cavern that continues north. There is a hallway at the far end.|0|1|0|1|0|0|0|You are in a small cavern with a tunnel to the north.
 5|7|1|You are standing at the far end of the cavern. There is a tunnel to the east and a stone table to the north.|0|1|1|1|0|0|0|You are in the cavern with a tunnel to the east and a stone table to the north.
 5|8|1|You are standing before a stone table at the north end of the cavern. No where to go but back.|0|0|0|1|0|0|0|You are standing before the stone table in the cavern.
-6|7|1|You are inside the tunnel. A door ahead has a riddle that says "Riddle". |0|0|1|0|1|0|0|You are in the tunnel standing at near a door that says "Riddle".
+6|7|1|You are inside the underground tunnel.|0|0|0|0|1|0|0|You are in the underground tunnel.
 7|7|1|You are standing in the tunnel that continues to the south and west. Continue to see where it goes.|0|0|0|1|1|0|0|You are in a tunnel that goes south and west.
 7|6|1|You are still in the tunnel. Continue on to see where it leads.|0|1|0|1|0|0|0|You are still in the tunnel. Continue on to see where it leads.
 7|5|1|You are in the tunnel that continues north and east.|0|1|1|0|0|0|0|You are in the tunnel that continues north and east.
-8|5|1|You are standing near a door that reads "Riddle".|0|0|1|0|1|0|0|You are standing near a door that reads "Riddle".
+8|5|1|You are standing in the underground tunnel.|0|0|0|0|1|0|0|You are standing in the underground tunnel.
 9|5|1|You are standing in a room with a wood box at the far end.|0|1|1|0|1|0|0|You are standing in a room. There is a wood box at one end.
 10|5|1|You are standing before an old wood box located in the corner of the room.|0|1|0|0|1|0|0|You are standing before an old wooden box.
 10|6|1|You are standing in the corner of the room with the hallway to the east and the box to the south.|0|0|0|1|1|0|0|You are standing in the corner to the room north of the box.

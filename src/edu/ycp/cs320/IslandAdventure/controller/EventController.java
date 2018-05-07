@@ -71,8 +71,8 @@ public class EventController
 		Player player = account.getPlayer();
 		Location location = player.getLocation();
 		ArrayList<Enemy> enemyList = account.getEnemiesByXYZ(location.getX(), location.getY(), location.getZ());
-		Location riddle1 = new Location(7,6,1);
-		Location riddle2 = new Location(5,8,1);
+		Location riddle1 = new Location(6,7,1);
+		Location riddle2 = new Location(8,5,1);
 		if (player.getLocation().equals(riddle1))
 		{
 			moveEvent += "You enter a room and a mystical darkness keeps you from moving further. "
