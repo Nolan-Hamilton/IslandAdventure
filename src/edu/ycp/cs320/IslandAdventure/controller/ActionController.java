@@ -197,7 +197,7 @@ public class ActionController
 		{
 			Random rand = new Random();
 			int  n;
-			if (player.getLocation().getX() == 10 && player.getLocation().getY() == 10) //Player is home
+			if (player.getLocation().getX() == 2 && player.getLocation().getY() == 2) //Player is home
 			{
 				n = rand.nextInt(20) + 1;	//random # from 1-20
 			}
