@@ -21,11 +21,17 @@ public class EventController
 	{	
 		int  n = rand.nextInt(50) + 1;	//random # from 1-50
 		
-		if (n > 0)
+		if (n < 30)
 		{
 			Enemy spider = new Enemy("Giant Spider", "A Deadly Spider as Large as a Human", 
 					50, player.getLocation(), 15);
 			return spider;
+		}
+		else if (n >= 30) 
+		{
+			Enemy crocodile = new Enemy("Crocodile", "An angry and hungry crocodile", 
+					80, player.getLocation(), 10);
+			return crocodile;
 		}
 		else
 		{

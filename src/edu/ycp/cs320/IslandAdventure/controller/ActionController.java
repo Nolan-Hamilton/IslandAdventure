@@ -48,13 +48,15 @@ public class ActionController
 		{
 			response += "A blinding light appears in front of you. It appears to be a mystical candle. "
 					+ "You can now see enough to move farther in the cave!<br><br>";
+			account.getRoomByXYZ(7,6,1).setGoEast(true);	//Allows player to progress through cave
 			return response;
 		}
 		
-		if ((action.equals("a map") || action.equals("map")) && player.getLocation().equals(riddle2))
+		else if ((action.equals("a map") || action.equals("map")) && player.getLocation().equals(riddle2))
 		{
 			response += "The cave trembles as you turn around to find a map. The map shows the "
 					+ "path forward!<br><br>";
+			account.getRoomByXYZ(5,8,1).setGoEast(true);	//Allows player to progress through cave
 			return response;
 		}
 		if (action.contains("move"))
