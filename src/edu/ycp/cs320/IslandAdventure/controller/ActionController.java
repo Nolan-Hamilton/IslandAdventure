@@ -59,6 +59,13 @@ public class ActionController
 			account.getRoomByXYZ(5,8,1).setGoEast(true);	//Allows player to progress through cave
 			return response;
 		}
+		
+		if ((action.equals("a map") || action.equals("map")) && player.getLocation().equals(riddle2))
+		{
+			response += "The cave trembles as you turn around to find a map. The map shows the "
+					+ "path forward!<br><br>";
+			return response;
+		}
 		if (action.contains("move"))
 		{
 			if (player.getLocation().getZ() != 0 && !(action.contains("up")) && !(action.contains("down"))){

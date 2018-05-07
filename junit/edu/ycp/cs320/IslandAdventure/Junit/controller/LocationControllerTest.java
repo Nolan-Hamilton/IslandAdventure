@@ -16,7 +16,7 @@ public class LocationControllerTest
 	@Before
 	public void setUp()
 	{
-		location = new Location(10,10,0);
+		location = new Location(2,2,0);
 		locationController = new LocationController(location);
 	}
 	
