@@ -41,7 +41,23 @@ public class ActionController
 		response += ">> " + action + "<br><br>"; // Add action command to response
 		action = action.toLowerCase();	// turns action to lower-case so commands aren't case sensitive
 		
+
+		Location riddle1 = new Location(7,6,1);
+		Location riddle2 = new Location(5,8,1);
 		
+		if ((action.equals("a candle") || action.equals("candle")) && player.getLocation().equals(riddle1))
+		{
+			response += "A blinding light appears in front of you. It appears to be a mystical candle. "
+					+ "You can now see enough to move farther in the cave!<br><br>";
+			return response;
+		}
+		
+		if ((action.equals("a map") || action.equals("map")) && player.getLocation().equals(riddle2))
+		{
+			response += "The cave trembles as you turn around to find a map. The map shows the "
+					+ "path forward!<br><br>";
+			return response;
+		}
 		if (action.contains("move"))
 		{
 			if (player.getLocation().getZ() != 0 && !(action.contains("up")) && !(action.contains("down"))){
