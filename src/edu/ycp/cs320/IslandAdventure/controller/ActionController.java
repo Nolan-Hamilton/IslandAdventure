@@ -23,12 +23,14 @@ public class ActionController
 	
 	private GameEngine gameEngine = new GameEngine();
 	
+	private int account_id;
 	
 	public ActionController(Player player, Account account) 
 	{
 		this.player = player;
 		this.account = account;
-		inventoryController = new InventoryController(player.getInventory(), account, gameEngine.getAccountID(account.getUsername()));
+		account_id = gameEngine.getAccountID(account.getUsername());
+		inventoryController = new InventoryController(player.getInventory(), account, account_id);
 	}
 	
 	public String interpretAction(String action)
@@ -264,7 +266,6 @@ public class ActionController
 					Item item = new Item(key.getName(), key.getDescription(), new Location(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()), key.getUses());
 					account.getItemList().add(item);
 					player.getInventory().addItem(key, -1);
-					int account_id = gameEngine.getAccountID(account.getUsername());
 					gameEngine.moveItemInventory(account_id, 0, item.getName());
 					//Set Item location in inventory
 					gameEngine.updateItemLocation(account_id, item.getName(), item.getX(), item.getY(), item.getZ());
@@ -294,7 +295,6 @@ public class ActionController
 						response += "You acquired the following item: <br>" + item.getName() + "<br>";
 						
 						player.getInventory().addItem(item, 1);
-						int account_id = gameEngine.getAccountID(account.getUsername());
 						gameEngine.moveItemInventory(account_id, 1, item.getName());
 						//Remove the Item from the objectList //////////////////////////////////////////
 						int index = account.getObjectIndexByNameAndXYZ(item.getName(), item.getX(), item.getY(), item.getZ()); //This finds index of item in ObjectList
@@ -341,7 +341,21 @@ public class ActionController
 				response += "Hint: type craft, material to use, and object. ex. (craft wood sword)";
 			}
 		}
-	
+		else if (action.contains("unequip"))
+		{
+			if (action.contains("weapon") && (player.getWeapon() != null))
+			{
+				player.unequipWeapon();
+				gameEngine.moveItemInventory(account_id, 1, player.getWeapon().getName());
+				response += "You unequipped a " + player.getWeapon().getName() + "!";
+			}
+			if (action.contains("armor") && (player.getWeapon() != null))
+			{
+				player.unequipArmor();
+				gameEngine.moveItemInventory(account_id, 1, player.getArmor().getName());
+				response += "You unequipped a " + player.getArmor().getName() + "!";
+			}
+		}
 		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
@@ -350,7 +364,6 @@ public class ActionController
 			while(iterator.hasNext())
 			{
 				Item item = (Item) iterator.next();
-				int account_id = gameEngine.getAccountID(account.getUsername());
 				if (action.contains(item.getName()) && (item instanceof Weapon || item instanceof Armor))
 				{
 					if (item instanceof Weapon)
@@ -359,9 +372,16 @@ public class ActionController
 						// Player must have enough combat xp to equip powerful items
 						if ((weapon.getDamage() <= 20) || (player.getSkills().getCombatXP() > (weapon.getDamage()*10)))
 						{
-							player.equipWeapon(weapon);
-							response += "You equipped a " + item.getName() + "!";
-							gameEngine.moveItemInventory(account_id, 2, weapon.getName());
+							if (player.getWeapon() == null)
+							{
+								player.equipWeapon(weapon);
+								response += "You equipped a " + item.getName() + "!";
+								gameEngine.moveItemInventory(account_id, 2, weapon.getName());
+							}
+							else
+							{
+								response += "You need to unequip your current weapon to equip another!";
+							}
 						}
 						else
 						{
@@ -373,9 +393,16 @@ public class ActionController
 						Armor armor = (Armor) item;
 						if ((armor.getArmorAmount() <= 20) || (player.getSkills().getCombatXP() > (armor.getArmorAmount()*10)))
 						{
-							player.equipArmor(armor);
-							response += "You equipped a " + item.getName() + "!";
-							gameEngine.moveItemInventory(account_id, 2, armor.getName());
+							if (player.getArmor() == null)
+							{
+								player.equipArmor(armor);
+								response += "You equipped a " + item.getName() + "!";
+								gameEngine.moveItemInventory(account_id, 2, armor.getName());
+							}
+							else
+							{
+								response += "You need to unequip your current armor to equip another!";
+							}
 						}
 						else
 						{
@@ -383,7 +410,7 @@ public class ActionController
 						}
 					}
 				}else {
-					//response += "This Weapon or Armor is not in your inventory!<br>";
+					response += "This Weapon or Armor is not in your inventory!<br>";
 				}
 			}
 		}else{
@@ -422,7 +449,6 @@ public class ActionController
 				inventory.addItem(item, 1);
 			}
 			Item itemForDatabase = new Item(itemName, itemName, player.getLocation(), 0);
-			int account_id = gameEngine.getAccountID(account.getUsername());
 			gameEngine.insertNewItemIntoDatabase(account, account_id, itemForDatabase, 1, damage);
 			player.getSkills().addCraftingXP(craftingXPGained);
 			// Below removes items used for crafting from inventory;
