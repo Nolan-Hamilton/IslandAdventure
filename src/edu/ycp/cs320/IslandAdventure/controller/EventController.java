@@ -7,6 +7,7 @@ import edu.ycp.cs320.IslandAdventure.model.Account;
 import edu.ycp.cs320.IslandAdventure.model.Enemy;
 import edu.ycp.cs320.IslandAdventure.model.Location;
 import edu.ycp.cs320.IslandAdventure.model.Player;
+import edu.ycp.cs320.IslandAdventure.model.*;
 
 public class EventController 
 {
@@ -71,6 +72,7 @@ public class EventController
 		Player player = account.getPlayer();
 		Location location = player.getLocation();
 		ArrayList<Enemy> enemyList = account.getEnemiesByXYZ(location.getX(), location.getY(), location.getZ());
+		Location swordRoom = new Location(10,6,1);
 		Location riddle1 = new Location(6,7,1);
 		Location riddle2 = new Location(8,5,1);
 		if (player.getLocation().equals(riddle1))
@@ -94,6 +96,22 @@ public class EventController
 						+ "I Have Water, But no Fish. What Am I?\" ";
 			}
 			return moveEvent;
+		}
+		/*
+		else if (player.getLocation().equals(swordRoom)) {
+			for (Item item : player.getInventory().getInventoryMap().keySet()) {
+				if (item.getName().toLowerCase().equals("ancient sword")) {
+					Weapon sword = new Weapon(item.getName(), item.getDescription(), swordRoom, 500);
+					player.getInventory().getInventoryMap().repla
+				}
+			}
+		}*/
+		else if (player.getLocation().equals(new Location(9,9,1))) {
+			for (Item item : player.getInventory().getInventoryMap().keySet()) {
+				if (item.getName().toLowerCase().equals("dungeon key")) {
+					account.getRoomByXYZ(9, 9, 1).setGoDown(true);
+				}
+			}
 		}
 		else if (!enemyList.isEmpty())
 		{

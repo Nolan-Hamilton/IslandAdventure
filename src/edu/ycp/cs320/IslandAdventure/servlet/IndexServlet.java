@@ -110,6 +110,7 @@ public class IndexServlet extends HttpServlet {
 					engine.insertEnemyIntoDatabase(account, account_id, enemy);
 				}
 				account.getEnemyList().clear(); // Clears initial items after added to database so there aren't duplicates
+				
 				System.out.println("IndexServlet >> existingPlayer == false");
 			}
 			

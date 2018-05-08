@@ -96,6 +96,7 @@ public class InitialData {
 				location.setY(Integer.parseInt(i.next()));
 				location.setZ(Integer.parseInt(i.next()));
 				enemy.setLocation(location);
+				System.out.println("InitialData >> Enemy Location: " + location.getX() + "," + location.getY()+","+ location.getZ());
 				enemyList.add(enemy);
 			}
 			return enemyList;

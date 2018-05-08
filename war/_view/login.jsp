@@ -40,8 +40,8 @@
 				<input class = "button" input type="Submit" name="newAcc" value="Create New Account">	
 				<!--  <input class = "button" input type="Submit" name="justPlay" value="Just Start Playing">-->
 			</form>
-			<p>Warning:
-			You will not be able to save if you do not login with an account!</p>
+			<!--  <p>Warning:
+			You will not be able to save if you do not login with an account!</p>-->
 		</div>
 		
 		

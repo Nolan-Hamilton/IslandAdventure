@@ -78,7 +78,7 @@
 9|6|1|You are standing in a corner of the room near a hallway to the north.|0|1|1|1|0|0|0|You are standing near a hallway to the north.
 9|7|1|You are in a hallway that goes north and south. Continue on to see where it goes.|0|1|0|1|0|0|0|You are standing in a hallway that goes north and south.
 9|8|1|You are in a hallway that goes north and south. Continue on to see where it goes.|0|1|0|1|0|0|0|You are standing in a hallway that goes north and south.
-9|9|1|You are standing over a trap door in the floor that leads down deeper into the ground.|0|0|0|1|0|0|1|You are standing over a trap door that goes down.
+9|9|1|You are standing over a trap door in the floor that leads down deeper into the ground. It stays locked at all time but you can enter if you have the key.|0|0|0|1|0|0|0|You are standing over a trap door that goes down. You can only enter with the key.
 9|9|2|You are standing at the end of a corridor that heads south.|0|0|0|1|0|1|0|You are standing in a corridor that goes south.
 9|8|2|You are still in the corridor. A message on the wall reads "BEWARE THE KING".|0|1|0|1|0|0|0|You are in a corridor with "BEWARE THE KING" written on the wall.
 9|7|2|You are still in the corridor which now continues to the north and to the west.|0|1|0|0|1|0|0|You are in a corridor that continues to the north and to the west.

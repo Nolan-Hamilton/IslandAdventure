@@ -1443,7 +1443,11 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setInt(7, item.getLocation().getX());
 						insertItem.setInt(8, item.getLocation().getY());
 						insertItem.setInt(9, item.getLocation().getZ());
-						insertItem.setInt(10, 0); // There will be no weapons initially in game, they will be created.
+						if (item.getName().toLowerCase().contains("sword")) {
+							insertItem.setInt(10, 500);
+						}else {
+							insertItem.setInt(10, 0); // Not a weapon.
+						}
 						insertItem.addBatch();
 					}
 					insertItem.executeBatch();
