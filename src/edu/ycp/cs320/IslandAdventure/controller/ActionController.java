@@ -270,6 +270,20 @@ public class ActionController
 					//Set Item location in inventory
 					gameEngine.updateItemLocation(account_id, item.getName(), item.getX(), item.getY(), item.getZ());
 					found = true;
+					if (player.getArmor() != null)
+					{
+						if (player.getArmor().getName().equals(item.getName()))
+						{
+							player.unequipArmor();
+						}
+					}
+					if (player.getWeapon() != null)
+					{
+						if (player.getWeapon().getName().equals(item.getName()))
+						{
+							player.unequipWeapon();
+						}
+					}
 					response += itemName + " has been removed from your inventory. <br>";
 					if (player.getInventory().getInventoryMap().get(key) == 0){
 						player.getInventory().getInventoryMap().remove(key); // Remove from list otherwise Hammer = 0, Hammer = 1
@@ -345,27 +359,29 @@ public class ActionController
 		{
 			if (action.contains("weapon") && (player.getWeapon() != null))
 			{
-				player.unequipWeapon();
 				gameEngine.moveItemInventory(account_id, 1, player.getWeapon().getName());
 				response += "You unequipped a " + player.getWeapon().getName() + "!";
+				player.unequipWeapon();
 			}
 			if (action.contains("armor") && (player.getWeapon() != null))
 			{
-				player.unequipArmor();
 				gameEngine.moveItemInventory(account_id, 1, player.getArmor().getName());
 				response += "You unequipped a " + player.getArmor().getName() + "!";
+				player.unequipArmor();
 			}
 		}
+		
 		else if (action.contains("equip"))
 		{
 			Set<Item> keyset = player.getInventory().getInventoryMap().keySet();
 			Iterator<Item> iterator = keyset.iterator();
-			
+			boolean found = false;
 			while(iterator.hasNext())
 			{
 				Item item = (Item) iterator.next();
 				if (action.contains(item.getName()) && (item instanceof Weapon || item instanceof Armor))
 				{
+					found = true;
 					if (item instanceof Weapon)
 					{
 						Weapon weapon = (Weapon) item;
@@ -409,9 +425,11 @@ public class ActionController
 							response += "You need more combat experience to equip that!";
 						}
 					}
-				}else {
-					response += "This Weapon or Armor is not in your inventory!<br>";
 				}
+			}
+			if (found = false) 
+			{
+				response += "This Weapon or Armor is not in your inventory!<br>";
 			}
 		}else{
 			// If the command is not understandable
