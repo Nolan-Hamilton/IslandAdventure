@@ -382,6 +382,8 @@ public class ActionController
 							response += "You need more combat experience to equip that!";
 						}
 					}
+				}else {
+					//response += "This Weapon or Armor is not in your inventory!<br>";
 				}
 			}
 		}else{

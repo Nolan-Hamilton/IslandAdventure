@@ -1444,8 +1444,15 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setInt(8, item.getLocation().getY());
 						insertItem.setInt(9, item.getLocation().getZ());
 						if (item.getName().toLowerCase().contains("sword")) {
-							insertItem.setInt(10, 500);
-						}else {
+							insertItem.setInt(10, 25);
+						}
+						else if (item.getName().toLowerCase().contains("knife")) {
+							insertItem.setInt(10, 20);
+						}
+						else if (item.getName().toLowerCase().contains("armor")) {
+							insertItem.setInt(10, -20);
+						}
+						else {
 							insertItem.setInt(10, 0); // Not a weapon.
 						}
 						insertItem.addBatch();
@@ -1466,6 +1473,7 @@ public class DerbyDatabase implements IDatabase {
 						insertEnemy.setInt(6, enemy.getLocation().getX());
 						insertEnemy.setInt(7, enemy.getLocation().getY());
 						insertEnemy.setInt(8, enemy.getLocation().getZ());
+						System.out.println("DerbyDatabase >> Enemy location: " + enemy.getLocation().getX() + "," + enemy.getLocation().getY());
 						insertEnemy.addBatch();
 					}
 					insertItem.executeBatch();

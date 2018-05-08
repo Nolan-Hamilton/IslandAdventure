@@ -31,7 +31,7 @@
 			<div id="bottom"></div>
 		</div>
 		
-		<div id= "variablesBox">
+		<div id= "variablesBox" style='overflow: auto;'>
 			Score: ${score} <br />
 			Health: ${health} <br />
 			Stamina: ${stamina} <br />

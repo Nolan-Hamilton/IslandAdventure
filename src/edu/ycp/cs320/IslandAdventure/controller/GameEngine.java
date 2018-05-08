@@ -168,7 +168,8 @@ public class GameEngine
 	
 	public Account updateEnemiesList(int account_id, Account account)
 	{
-		return db.updateEnemyList(account_id, account);
+		account =  db.updateEnemyList(account_id, account);
+		return account;
 	}
 	public Boolean removeEnemy(int account_id, Enemy enemy) //Changes amount of item
 	{
