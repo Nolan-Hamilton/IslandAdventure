@@ -84,6 +84,13 @@ public class IndexServlet extends HttpServlet {
 				//System.out.println(account.getRoomByXYZ(11, 11, 0).getVisible());
 				//System.out.println(account.getRooms().get(350).getVisible());
 			}else{
+				Enemy king = new Enemy("Island King", "King of the Island and Final Boss", 80, new Location(7,7,2), 15);
+				account.getEnemyList().add(king);
+				//Armor pirateArmor = new Armor("Pirate Armor", "Strong armor that belonged to a pirate.", new Location(5,8,1), 400);
+				//account.getItemList().add(pirateArmor);
+				//Weapon spear = new Weapon("Spear", "Wood stick with sharpened end.", new Location(3,3,0), 20);
+				//account.getItemList().add(spear);
+				
 				Iterator<Item> iterator = account.getItemList().iterator();
 				while(iterator.hasNext())	// Puts initial items into database
 				{
@@ -91,9 +98,11 @@ public class IndexServlet extends HttpServlet {
 
 					if (item instanceof Weapon) {
 						engine.insertNewItemIntoDatabase(account, account_id, item, 1, ((Weapon) item).getDamage());
+						System.out.println("IndexServlet >> (Weapon) " + item.getName() + " inserted into database");
 					}
 					else if (item instanceof Armor){
 						engine.insertNewItemIntoDatabase(account, account_id, item, 1, -((Armor) item).getArmorAmount());
+						System.out.println("IndexServlet >> (Armor) " + item.getName() + " inserted into database");
 					}
 					else
 					{

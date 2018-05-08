@@ -50,6 +50,7 @@ public class FightController
 				combatXPGained = 1;
 			}
 			player.getSkills().addCombatXP(combatXPGained);
+			player.addScore(combatXPGained * 2);
 			battleDescription = "You fought a " + enemy.getName() + " and defeated it! You took " + 
 					playerHealthLost + " damage and gained " + combatXPGained + " combat XP!";
 			gameEngine.removeEnemy(gameEngine.getAccountID(account.getUsername()), enemy);
