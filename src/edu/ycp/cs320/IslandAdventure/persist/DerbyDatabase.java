@@ -1466,6 +1466,7 @@ public class DerbyDatabase implements IDatabase {
 						insertEnemy.setInt(6, enemy.getLocation().getX());
 						insertEnemy.setInt(7, enemy.getLocation().getY());
 						insertEnemy.setInt(8, enemy.getLocation().getZ());
+						System.out.println("DerbyDatabase >> Enemy location: " + enemy.getLocation().getX() + "," + enemy.getLocation().getY());
 						insertEnemy.addBatch();
 					}
 					insertItem.executeBatch();
