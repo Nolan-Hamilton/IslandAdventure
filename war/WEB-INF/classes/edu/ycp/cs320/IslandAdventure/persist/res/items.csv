@@ -1,6 +1,6 @@
-knife|Sharp edge carved from whale bone.|1|2|3|0
-rock|Large egg shaped rock that could be used to make a hammer.|1|7|4|0
-Island Treasure|Treasure needed to win the game.|1|6|7|2
-Ancient Sword|Sword needed to defeat king.|1|10|6|1
-Dungeon Key|Key needed to go down the trap door.|1|10|5|1
-Pirate Armor|Light armor that belonged to a pirate.|1|5|8|1
+20|knife|Sharp edge carved from whale bone.|1|2|3|0
+0|rock|Large egg shaped rock that could be used to make a hammer.|1|7|4|0
+0|Island Treasure|Treasure needed to win the game.|1|6|7|2
+20|long sword|Sword needed to defeat king.|1|10|6|1
+0|Dungeon Key|Key needed to go down the trap door.|1|10|5|1
+-20|pirate armor|Light armor that belonged to a pirate.|1|5|8|1

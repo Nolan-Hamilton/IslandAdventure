@@ -58,16 +58,46 @@ public class InitialData {
 					break;
 				}
 				Iterator<String> i = tuple.iterator();
-				Item item = new Item(null, null, null, 1);
-				item.setName(i.next());
-				item.setDescript(i.next());
-				item.setUses(Integer.parseInt(i.next()));
-				Location location = new Location(0,0,0);
-				location.setX(Integer.parseInt(i.next()));
-				location.setY(Integer.parseInt(i.next()));
-				location.setZ(Integer.parseInt(i.next()));
-				item.setLocation(location);
-				itemList.add(item);
+				int type = Integer.parseInt(i.next());
+				if (type > 0) {
+					Weapon weapon = new Weapon(null, null, null, type);
+					weapon.setName(i.next());
+					weapon.setDescript(i.next());
+					weapon.setUses(Integer.parseInt(i.next()));
+					weapon.setDamage(type);
+					Location location = new Location(0,0,0);
+					location.setX(Integer.parseInt(i.next()));
+					location.setY(Integer.parseInt(i.next()));
+					location.setZ(Integer.parseInt(i.next()));
+					weapon.setLocation(location);
+					itemList.add(weapon);
+				}
+				else if (type < 0) {
+					Armor armor = new Armor(null, null, null, type);
+					armor.setName(i.next());
+					armor.setDescript(i.next());
+					armor.setUses(Integer.parseInt(i.next()));
+					armor.setArmorAmount(type);
+					Location location = new Location(0,0,0);
+					location.setX(Integer.parseInt(i.next()));
+					location.setY(Integer.parseInt(i.next()));
+					location.setZ(Integer.parseInt(i.next()));
+					armor.setLocation(location);
+					itemList.add(armor);
+				}
+				else {
+					Item item = new Item(null, null, null, 1);
+					item.setName(i.next());
+					item.setDescript(i.next());
+					item.setUses(Integer.parseInt(i.next()));
+					Location location = new Location(0,0,0);
+					location.setX(Integer.parseInt(i.next()));
+					location.setY(Integer.parseInt(i.next()));
+					location.setZ(Integer.parseInt(i.next()));
+					item.setLocation(location);
+					itemList.add(item);
+				}
+				
 			}
 			return itemList;
 		} finally {

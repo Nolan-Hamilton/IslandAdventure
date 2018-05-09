@@ -1443,17 +1443,14 @@ public class DerbyDatabase implements IDatabase {
 						insertItem.setInt(7, item.getLocation().getX());
 						insertItem.setInt(8, item.getLocation().getY());
 						insertItem.setInt(9, item.getLocation().getZ());
-						if (item.getName().toLowerCase().contains("sword")) {
-							insertItem.setInt(10, 25);
+						if (item instanceof Weapon) {
+							insertItem.setInt(10, ((Weapon) item).getDamage());
 						}
-						else if (item.getName().toLowerCase().contains("knife")) {
-							insertItem.setInt(10, 20);
-						}
-						else if (item.getName().toLowerCase().contains("armor")) {
-							insertItem.setInt(10, -20);
+						else if (item instanceof Armor) {
+							insertItem.setInt(10, ((Armor) item).getArmorAmount());
 						}
 						else {
-							insertItem.setInt(10, 0); // Not a weapon.
+							insertItem.setInt(10, 0);
 						}
 						insertItem.addBatch();
 					}
