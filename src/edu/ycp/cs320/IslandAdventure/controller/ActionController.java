@@ -61,13 +61,6 @@ public class ActionController
 			account.getRoomByXYZ(8,5,1).setGoEast(true);	//Allows player to progress through cave
 			return response;
 		}
-		/*// Not sure why this is here...
-		if ((action.equals("a map") || action.equals("map")) && player.getLocation().equals(riddle2))
-		{
-			response += "The cave trembles as you turn around to find a map. The map shows the "
-					+ "path forward!<br><br>";
-			return response;
-		}*/
 		if (action.contains("move"))
 		{
 			if (player.getLocation().getZ() != 0 && !(action.contains("up")) && !(action.contains("down"))){
@@ -379,14 +372,14 @@ public class ActionController
 			while(iterator.hasNext())
 			{
 				Item item = (Item) iterator.next();
-				if (action.contains(item.getName()) && (item instanceof Weapon || item instanceof Armor))
+				if (action.contains(item.getName().toLowerCase()) && (item instanceof Weapon || item instanceof Armor))
 				{
 					found = true;
 					if (item instanceof Weapon)
 					{
 						Weapon weapon = (Weapon) item;
 						// Player must have enough combat xp to equip powerful items
-						if ((weapon.getDamage() <= 20) || (player.getSkills().getCombatXP() > (weapon.getDamage()*10)))
+						if ((weapon.getDamage() <= 20) || (player.getSkills().getCombatXP() > (weapon.getDamage()*5)))
 						{
 							if (player.getWeapon() == null)
 							{
@@ -407,7 +400,7 @@ public class ActionController
 					else
 					{
 						Armor armor = (Armor) item;
-						if ((armor.getArmorAmount() <= 20) || (player.getSkills().getCombatXP() > (armor.getArmorAmount()*10)))
+						if ((armor.getArmorAmount() <= 20) || (player.getSkills().getCombatXP() > (armor.getArmorAmount()*5)))
 						{
 							if (player.getArmor() == null)
 							{
@@ -427,7 +420,7 @@ public class ActionController
 					}
 				}
 			}
-			if (found = false) 
+			if (found == false) 
 			{
 				response += "This Weapon or Armor is not in your inventory!<br>";
 			}
